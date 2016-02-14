@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,12 +51,18 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
     private static final int REQUEST_PHOTO = 6;
     private static int PANEL_PENDING_PHOTO = 0;
 
+    private static String uniqueTriptikID = (String.valueOf(UUID.randomUUID()));  //  generate triptikID number
+
     ImageButton ib_1, ib_2, ib_3;
     ImageView iv_1, iv_2, iv_3;
     Button btnTriptikSave;
-    ImageButton save;
+    ImageButton save, imageCamera_button_1, imageCamera_button_2, imageCamera_button_3;
     EditText etTriptikName;
-    File mTempSavedPhoto, triptik_panel_1, triptik_panel_2, triptik_panel_3;
+    File mTempSavedPhoto, triptik_panel_2, triptik_panel_3;
+    TextView t_panel_01_indicator, t_panel_02_indicator, t_panel_03_indicator;
+    LinearLayout menubar;
+
+
 
     private SQLiteHandler db;
     private SessionManager session;
@@ -92,6 +100,14 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.port_panel_01);
 
+        menubar = (LinearLayout) findViewById(R.id.menubar);
+        t_panel_01_indicator = (TextView) findViewById(R.id.t_panel_01_indicator);
+        t_panel_02_indicator = (TextView) findViewById(R.id.t_panel_02_indicator);
+        t_panel_03_indicator = (TextView) findViewById(R.id.t_panel_03_indicator);
+        imageCamera_button_1 = (ImageButton) findViewById(R.id.imageCamera_button_1);
+        imageCamera_button_2 = (ImageButton) findViewById(R.id.imageCamera_button_2);
+        imageCamera_button_3 = (ImageButton) findViewById(R.id.imageCamera_button_3);
+
         // list files to upload
         mToUpload = new ArrayList<>();
 
@@ -125,14 +141,12 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
         progressMessage.setTypeface(RalewayLight);
 
 
-
-
         ib_1 = (ImageButton) findViewById(R.id.imageCamera_button_1);
         ib_2 = (ImageButton) findViewById(R.id.imageCamera_button_2);
         ib_3 = (ImageButton) findViewById(R.id.imageCamera_button_3);
 
         save = (ImageButton) findViewById(R.id.btnSave);
-        save.setAlpha(1f);
+        checkPanalStatus();
 
         btnTriptikSave = (Button) findViewById(R.id.btnTriptikSave);
         btnTriptikSave.setTypeface(RalewayMedium);
@@ -151,7 +165,6 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
         findViewById(R.id.imageView_2).setOnTouchListener(new MultiTouchListener());
         findViewById(R.id.imageView_3).setOnTouchListener(new MultiTouchListener());
 
-
         save.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 mToUpload.clear(); //make sure no leftover files
@@ -159,11 +172,13 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
                 File panel_1_imageFile = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_1.webp");
                 File panel_2_imageFile = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_2.webp");
                 File panel_3_imageFile = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_3.webp");
+                File gallery_image = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/" + uniqueTriptikID + ".webp");
 
                 // list of files to upload
                 mToUpload.add(panel_1_imageFile);
                 mToUpload.add(panel_2_imageFile);
                 mToUpload.add(panel_3_imageFile);
+                mToUpload.add(gallery_image);
 
                 boolean hasAllPanels = panel_1_imageFile.exists() && panel_2_imageFile.exists() && panel_3_imageFile.exists();
 
@@ -177,6 +192,7 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
         });
     }
 
+
     /**
      * @param userID
      */
@@ -184,6 +200,14 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
 
         final RelativeLayout saveTriptikFileName = (RelativeLayout) findViewById(R.id.triptik_save_name_dialog_layout);
         saveTriptikFileName.setVisibility(View.VISIBLE);
+
+        menubar.setVisibility(View.GONE);
+        t_panel_01_indicator.setVisibility(View.GONE);
+        t_panel_02_indicator.setVisibility(View.GONE);
+        t_panel_03_indicator.setVisibility(View.GONE);
+        imageCamera_button_1.setVisibility(View.GONE);
+        imageCamera_button_2.setVisibility(View.GONE);
+        imageCamera_button_3.setVisibility(View.GONE);
 
         btnTriptikSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -206,12 +230,48 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
     private void uploadFiles(String userID, String saveName) {
         RelativeLayout progressSaving = (RelativeLayout) findViewById(R.id.progressloader_container);
         progressSaving.setVisibility(View.VISIBLE);
-        String uniqueTriptikID = (String.valueOf(UUID.randomUUID()));  //  generate triptikID number
+        takeScreenshot(uniqueTriptikID);
 
         for (File fileToUpload : mToUpload) {
             saveTriptik(fileToUpload, userID, saveName, uniqueTriptikID);
         }
     }
+
+
+    /**
+     * @param uniqueTriptikID
+     */
+    private void takeScreenshot(String uniqueTriptikID) {
+        // image naming and path  to include sd card  appending name you choose for file
+        String mPath = "storage/emulated/0/Android/data/com.triptik.dev.triptik/files/" + uniqueTriptikID + ".webp";
+
+        View v1 = getWindow().getDecorView().getRootView();
+        v1.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+        v1.setDrawingCacheEnabled(false);
+
+        File imageFile = new File(mPath);
+        try {
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            int quality = 93;
+            bitmap.compress(Bitmap.CompressFormat.WEBP, quality, outputStream);
+            outputStream.flush();
+            outputStream.close();
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+
+        t_panel_01_indicator.setVisibility(View.VISIBLE);
+        t_panel_02_indicator.setVisibility(View.VISIBLE);
+        t_panel_03_indicator.setVisibility(View.VISIBLE);
+        imageCamera_button_1.setVisibility(View.VISIBLE);
+        imageCamera_button_2.setVisibility(View.VISIBLE);
+        imageCamera_button_3.setVisibility(View.VISIBLE);
+        menubar.setVisibility(View.VISIBLE);
+
+
+    }
+
 
 
     /**
@@ -275,14 +335,10 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
         final String triptikID = uniqueTriptikID;
         final String uploadWho = userID;
         final String uploadTo = "users/" + userID + "/gallery/" + triptikID + "/";
-        final String panelInstance = panelNumber.getPath().substring(34, 35);
+        final String panelInstance = panelNumber.getPath().substring(68, 69);
+        //final String panelInstance = panelNumber.getPath();
         final String triptikTitle = saveName;
         final UploadTriptik uploadTriptik = new UploadTriptik();
-
-
-
-
-
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(new Runnable() {
@@ -300,8 +356,22 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
     }
 
 
+    private void checkPanalStatus(){
+        File panel_1_imageFile = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_1.webp");
+        File panel_2_imageFile = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_2.webp");
+        File panel_3_imageFile = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_3.webp");
+        boolean hasAllPanels = panel_1_imageFile.exists() && panel_2_imageFile.exists() && panel_3_imageFile.exists();
+        if (hasAllPanels) {
+            save.setVisibility(View.VISIBLE);
+            return;
+        }
+    };
+    
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        checkPanalStatus();
 
         if (requestCode == REQUEST_PHOTO) {
             if (resultCode == RESULT_OK) {
@@ -312,12 +382,21 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
                 Bitmap bitmap = BitmapFactory.decodeFile(mTempSavedPhoto.toString(), options);
 
                 ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.WEBP, 90, bytesOut);
+                bitmap.compress(Bitmap.CompressFormat.WEBP, 93, bytesOut);
 
                 saveBitmapToFile(bytesOut, "storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_" + PANEL_PENDING_PHOTO + ".webp");
                 saveBitmapToPanel(bitmap, PANEL_PENDING_PHOTO);
-
             }
+
+            File tempPanel_1 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "panel_1.webp");
+            File tempPanel_2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "panel_2.webp");
+            File tempPanel_3 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "panel_3.webp");
+            tempPanel_1.delete();
+            Log.i("Removing TempContent", "Panel_1");
+            tempPanel_2.delete();
+            Log.i("Removing TempContent", "Panel_2");
+            tempPanel_3.delete();
+            Log.i("Removing TempContent", "Panel_3");
         }
     }
 
@@ -438,30 +517,15 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        checkPanalStatus();
+    }
 
-    /**
-     * @param uniqueTriptikID
-     */
-    private void takeScreenshot(String uniqueTriptikID) {
-
-        // image naming and path  to include sd card  appending name you choose for file
-        String mPath = "storage/emulated/0/Android/data/com.triptik.dev.triptik/files/" + uniqueTriptikID + ".webp";
-
-        // create bitmap screen capture
-        View v1 = getWindow().getDecorView().getRootView();
-        v1.setDrawingCacheEnabled(true);
-        Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
-        v1.setDrawingCacheEnabled(false);
-
-        File imageFile = new File(mPath);
-        try {
-            FileOutputStream outputStream = new FileOutputStream(imageFile);
-            int quality = 80;
-            bitmap.compress(Bitmap.CompressFormat.WEBP, quality, outputStream);
-            outputStream.flush();
-            outputStream.close();
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
+    @Override
+    public void onPause() {
+        super.onPause();
+        checkPanalStatus();
     }
 }

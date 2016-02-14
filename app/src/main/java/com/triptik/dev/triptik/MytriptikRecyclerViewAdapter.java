@@ -28,8 +28,7 @@ public class MytriptikRecyclerViewAdapter extends RecyclerView.Adapter<Mytriptik
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_triptik, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_triptik, parent, false);
         return new ViewHolder(view);
     }
 
