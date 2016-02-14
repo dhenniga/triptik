@@ -30,6 +30,7 @@
 
 
             <ImageButton
+                android:id="@+id/btnPublish"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:src="@mipmap/publish_icon"
@@ -40,6 +41,18 @@
                 />
 
             <ImageButton
+                android:id="@+id/btnPublishOK"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@mipmap/publish_icon_ok"
+                android:background="@null"
+                android:scaleType="fitXY"
+                android:layout_marginLeft="15dp"
+                android:visibility="gone"
+                />
+
+            <ImageButton
+                android:id="@+id/btnUpdate"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:src="@mipmap/update_icon"
@@ -50,6 +63,18 @@
                 />
 
             <ImageButton
+                android:id="@+id/btnUpdateOK"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@mipmap/update_icon_ok"
+                android:background="@null"
+                android:scaleType="fitXY"
+                android:layout_marginLeft="15dp"
+                android:visibility="gone"
+                />
+
+
+            <ImageButton
                 android:id="@+id/btnSave"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
@@ -58,6 +83,17 @@
                 android:scaleType="fitXY"
                 android:layout_marginLeft="15dp"
                 android:visibility="visible"
+                />
+
+            <ImageButton
+                android:id="@+id/btnSaveOK"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@mipmap/save_icon_ok"
+                android:background="@null"
+                android:scaleType="fitXY"
+                android:layout_marginLeft="15dp"
+                android:visibility="gone"
                 />
 
             <ImageButton
