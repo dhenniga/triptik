@@ -58,7 +58,7 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
     Button btnTriptikSave;
     ImageButton save, imageCamera_button_1, imageCamera_button_2, imageCamera_button_3;
     EditText etTriptikName;
-    File mTempSavedPhoto, triptik_panel_2, triptik_panel_3;
+    File mTempSavedPhoto;
     TextView t_panel_01_indicator, t_panel_02_indicator, t_panel_03_indicator;
     LinearLayout menubar;
 
@@ -194,12 +194,14 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
 
 
     /**
+     * Get the Triptik Save Name from the Edittext.
+     * For the sake of speed, I've also included
+     * removing the iconography from the screen
+     * to get a clean screenshot.
+     *
      * @param userID
      */
     private void getTriptikSaveName(final String userID) {
-
-        final RelativeLayout saveTriptikFileName = (RelativeLayout) findViewById(R.id.triptik_save_name_dialog_layout);
-        saveTriptikFileName.setVisibility(View.VISIBLE);
 
         menubar.setVisibility(View.GONE);
         t_panel_01_indicator.setVisibility(View.GONE);
@@ -208,6 +210,10 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
         imageCamera_button_1.setVisibility(View.GONE);
         imageCamera_button_2.setVisibility(View.GONE);
         imageCamera_button_3.setVisibility(View.GONE);
+        takeScreenshot(uniqueTriptikID);
+
+        final RelativeLayout saveTriptikFileName = (RelativeLayout) findViewById(R.id.triptik_save_name_dialog_layout);
+        saveTriptikFileName.setVisibility(View.VISIBLE);
 
         btnTriptikSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -215,6 +221,8 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
                 if (!triptikName.isEmpty()) {
                     saveTriptikFileName.setVisibility(View.GONE);
                     etTriptikName.getText();
+                    RelativeLayout progressSaving = (RelativeLayout) findViewById(R.id.progressloader_container);
+                    progressSaving.setVisibility(View.VISIBLE);
                     uploadFiles(userID, triptikName);
                 } else {
                     ToastView("Please enter a Triptik save name to continue...");
@@ -228,9 +236,6 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
      * @param saveName
      */
     private void uploadFiles(String userID, String saveName) {
-        RelativeLayout progressSaving = (RelativeLayout) findViewById(R.id.progressloader_container);
-        progressSaving.setVisibility(View.VISIBLE);
-        takeScreenshot(uniqueTriptikID);
 
         for (File fileToUpload : mToUpload) {
             saveTriptik(fileToUpload, userID, saveName, uniqueTriptikID);
@@ -268,8 +273,6 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
         imageCamera_button_2.setVisibility(View.VISIBLE);
         imageCamera_button_3.setVisibility(View.VISIBLE);
         menubar.setVisibility(View.VISIBLE);
-
-
     }
 
 
