@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">Triptik</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="title_activity_main">Sign-in</string>
+
+    <string name="introScreen_text" contentDescription="Triptik Logo" translatable="false">Welcome to Triptik.  This is one of the first iteration of Triptik and is missing many of the features we are developing right now.  Goto Settings - update to get the latest version.</string>
+
+    <string name="sign_in_header_text" contentDescription="Sign in Header text" translatable="false">Sign into Triptik</string>
+
+    <string name="signin_buttonText" contentDescription="Sign into Triptik on Intro screen" translatable="false">Sign-In</string>
+    <string name="register_buttonText" contentDescription="Register for Triptik on Intro screen" translatable="false">Register</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_username">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <string name="request_permission">request</string>
+    <string name="camera_error">camera error</string>
+    <string name="intro_message">Intro Message</string>
+
+    <string name="action_camera">Camera</string>
+
+
+    <string name="title_activity_panel_layout_01">Panel_layout_01</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_panel_layout_02">Panel_layout_02</string>
+    <string name="title_activity_image_tutorial">image_tutorial</string>
+
+    <string name="login_screen_email_input_hint">EMAIL ADDRESS</string>
+    <string name="login_screen_password_input_hint">PASSWORD</string>
+    <string name="login_screen_login_button">Login</string>
+    <string name="login_screen_register_link_button">Click to Register!</string>
+    <string name="login_screen_footer_text">Triptik was Created and Developed by David Hennigan as part of his final project for his Postgraduate in Computer Science (ICT) - © 2016</string>
+
+    <string name="register_screen_name_input_hint">FULL NAME</string>
+    <string name="register_screen_email_input_hint">EMAIL ADDRESS</string>
+    <string name="register_screen_password_input_hint">PASSWORD</string>
+    <string name="register_screen_register_button">REGISTER</string>
+    <string name="register_screen_login_link_button">Click to Login!</string>
+    <string name="register_screen_footer_text">Join the billions of people sharing Triptik every day, all over the world.  Registration is completely free so why not get involved today!</string>
+
+
+
+</resources>
