@@ -366,7 +366,7 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
             return;
         }
     };
-    
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
