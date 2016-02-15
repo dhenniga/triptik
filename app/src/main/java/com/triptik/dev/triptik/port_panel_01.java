@@ -29,6 +29,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.triptik.dev.triptik.app.AppConfig;
 import com.triptik.dev.triptik.helper.SQLiteHandler;
 import com.triptik.dev.triptik.helper.SessionManager;
 
@@ -110,7 +111,6 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
         //clearFile_2.delete();
         //clearFile_3.delete();
 
-
         menubar = (LinearLayout) findViewById(R.id.menubar);
         t_panel_01_indicator = (TextView) findViewById(R.id.t_panel_01_indicator);
         t_panel_02_indicator = (TextView) findViewById(R.id.t_panel_02_indicator);
@@ -184,7 +184,7 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
                 File panel_1_imageFile = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_1.webp");
                 File panel_2_imageFile = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_2.webp");
                 File panel_3_imageFile = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_3.webp");
-                File gallery_image = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/" + uniqueTriptikID + ".webp");
+                File gallery_image = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_4.webp");
 
                 // list of files to upload
                 mToUpload.add(panel_1_imageFile);
@@ -260,7 +260,7 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
      */
     private void takeScreenshot(String uniqueTriptikID) {
         // image naming and path  to include sd card  appending name you choose for file
-        String mPath = "storage/emulated/0/Android/data/com.triptik.dev.triptik/files/" + uniqueTriptikID + ".webp";
+        String mPath = "storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_4.webp";
 
         View v1 = getWindow().getDecorView().getRootView();
         v1.setDrawingCacheEnabled(true);
@@ -346,12 +346,11 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
     void saveTriptik(File panelNumber, String userID, String saveName, String uniqueTriptikID) {
 
         final String uploadThis = panelNumber.toString();
-        final String uploadWith = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/triptikSave.php";
+        final String uploadWith = AppConfig.URL_NEW_TRIPTIK;
         final String triptikID = uniqueTriptikID;
         final String uploadWho = userID;
         final String uploadTo = "users/" + userID + "/gallery/" + triptikID + "/";
         final String panelInstance = panelNumber.getPath().substring(68, 69);
-        //final String panelInstance = panelNumber.getPath();
         final String triptikTitle = saveName;
         final UploadTriptik uploadTriptik = new UploadTriptik();
 
@@ -407,7 +406,7 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
             File tempPanel_1 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "panel_1.webp");
             File tempPanel_2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "panel_2.webp");
             File tempPanel_3 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "panel_3.webp");
-            File tempPanel_4 = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/" + uniqueTriptikID + ".webp");
+            File tempPanel_4 = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/Panel_4.webp");
             tempPanel_1.delete();
             Log.i("Removing TempContent", "Panel_1");
             tempPanel_2.delete();

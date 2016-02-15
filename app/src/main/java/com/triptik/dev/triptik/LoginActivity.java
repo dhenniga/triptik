@@ -238,7 +238,6 @@ public class LoginActivity extends Activity implements FragmentCompat.OnRequestP
                 params.put("password", password);
                 return params;
             }
-
         };
 
         // Adding request to request queue
