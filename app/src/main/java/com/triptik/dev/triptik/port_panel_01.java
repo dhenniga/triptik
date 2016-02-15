@@ -62,8 +62,9 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
     ImageButton save, saveok, imageCamera_button_1, imageCamera_button_2, imageCamera_button_3;
     EditText etTriptikName;
     File mTempSavedPhoto;
-    TextView t_panel_01_indicator, t_panel_02_indicator, t_panel_03_indicator;
-    LinearLayout menubar;
+    TextView t_panel_01_indicator, t_panel_02_indicator, t_panel_03_indicator, menubar_triptik_name, screenshot_header_text;
+    LinearLayout menubar, screenshot_header_container;
+
 
 
 
@@ -151,6 +152,12 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
         TextView progressMessage = (TextView) findViewById(R.id.progressMessage);
         progressMessage.setTypeface(RalewayLight);
 
+        TextView menubar_triptik_name = (TextView) findViewById(R.id.menubar_triptik_name);
+        menubar_triptik_name.setTypeface(RalewayLight);
+
+        TextView screenshot_header_text = (TextView) findViewById(R.id.screenshot_header_text);
+        screenshot_header_text.setTypeface(RalewayLight);
+
 
         ib_1 = (ImageButton) findViewById(R.id.imageCamera_button_1);
         ib_2 = (ImageButton) findViewById(R.id.imageCamera_button_2);
@@ -163,6 +170,8 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
 
         btnTriptikSave = (Button) findViewById(R.id.btnTriptikSave);
         btnTriptikSave.setTypeface(RalewayMedium);
+
+        screenshot_header_container = (LinearLayout) findViewById(R.id.screenshot_header_container);
 
         etTriptikName = (EditText) findViewById(R.id.etTriptikName);
 
@@ -215,6 +224,10 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
      */
     private void getTriptikSaveName(final String userID) {
 
+        final RelativeLayout saveTriptikFileName = (RelativeLayout) findViewById(R.id.triptik_save_name_dialog_layout);
+        saveTriptikFileName.setVisibility(View.VISIBLE);
+
+        screenshot_header_container.setVisibility(View.VISIBLE);
         menubar.setVisibility(View.GONE);
         t_panel_01_indicator.setVisibility(View.GONE);
         t_panel_02_indicator.setVisibility(View.GONE);
@@ -222,16 +235,20 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
         imageCamera_button_1.setVisibility(View.GONE);
         imageCamera_button_2.setVisibility(View.GONE);
         imageCamera_button_3.setVisibility(View.GONE);
-        takeScreenshot(uniqueTriptikID);
 
-        final RelativeLayout saveTriptikFileName = (RelativeLayout) findViewById(R.id.triptik_save_name_dialog_layout);
-        saveTriptikFileName.setVisibility(View.VISIBLE);
 
         btnTriptikSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
                 String triptikName = etTriptikName.getText().toString().trim();
+
                 if (!triptikName.isEmpty()) {
+
                     saveTriptikFileName.setVisibility(View.GONE);
+                    screenshot_header_text = (TextView) findViewById(R.id.screenshot_header_text);
+                    screenshot_header_text.setText(triptikName);
+                    takeScreenshot(uniqueTriptikID);
+
                     etTriptikName.getText();
                     RelativeLayout progressSaving = (RelativeLayout) findViewById(R.id.progressloader_container);
                     progressSaving.setVisibility(View.VISIBLE);
@@ -242,6 +259,7 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
             }
         });
     }
+
 
     /**
      * @param userID
@@ -285,6 +303,7 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
         imageCamera_button_2.setVisibility(View.VISIBLE);
         imageCamera_button_3.setVisibility(View.VISIBLE);
         menubar.setVisibility(View.VISIBLE);
+        screenshot_header_container.setVisibility(View.GONE);
     }
 
 
@@ -530,6 +549,8 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
                     save.setVisibility(View.GONE);
                     saveok.setVisibility(View.VISIBLE);
                     ToastView("Triptik Saved\n" + etTriptikName.getText().toString().trim());
+                    menubar_triptik_name = (TextView) findViewById(R.id.menubar_triptik_name);
+                    menubar_triptik_name.setText(etTriptikName.getText().toString().trim());
                 }
             });
         }
