@@ -102,6 +102,15 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.port_panel_01);
 
+        //Clear away the files in the directory
+        //File clearFile_1 = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_1.webp");
+        //File clearFile_2 = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_2.webp");
+        //File clearFile_3 = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_3.webp");
+        //clearFile_1.delete();
+        //clearFile_2.delete();
+        //clearFile_3.delete();
+
+
         menubar = (LinearLayout) findViewById(R.id.menubar);
         t_panel_01_indicator = (TextView) findViewById(R.id.t_panel_01_indicator);
         t_panel_02_indicator = (TextView) findViewById(R.id.t_panel_02_indicator);
@@ -172,7 +181,6 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
         save.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 mToUpload.clear(); //make sure no leftover files
-
                 File panel_1_imageFile = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_1.webp");
                 File panel_2_imageFile = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_2.webp");
                 File panel_3_imageFile = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_3.webp");
@@ -363,16 +371,17 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
     }
 
 
-    private void checkPanalStatus(){
+    private void checkPanalStatus() {
+
         File panel_1_imageFile = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_1.webp");
         File panel_2_imageFile = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_2.webp");
         File panel_3_imageFile = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/panel_3.webp");
         boolean hasAllPanels = panel_1_imageFile.exists() && panel_2_imageFile.exists() && panel_3_imageFile.exists();
-        if (hasAllPanels) {
+        if (hasAllPanels && saveok.getVisibility() != View.VISIBLE) {
             save.setVisibility(View.VISIBLE);
             return;
-        }
-    };
+        };
+    }
 
 
     @Override
@@ -398,12 +407,15 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
             File tempPanel_1 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "panel_1.webp");
             File tempPanel_2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "panel_2.webp");
             File tempPanel_3 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "panel_3.webp");
+            File tempPanel_4 = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/" + uniqueTriptikID + ".webp");
             tempPanel_1.delete();
             Log.i("Removing TempContent", "Panel_1");
             tempPanel_2.delete();
             Log.i("Removing TempContent", "Panel_2");
             tempPanel_3.delete();
             Log.i("Removing TempContent", "Panel_3");
+            tempPanel_4.delete();
+            Log.i("Removing TempContent", "Screenshot");
         }
     }
 
