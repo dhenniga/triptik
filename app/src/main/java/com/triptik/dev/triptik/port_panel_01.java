@@ -39,6 +39,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -56,7 +58,7 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
     ImageButton ib_1, ib_2, ib_3;
     ImageView iv_1, iv_2, iv_3;
     Button btnTriptikSave;
-    ImageButton save, imageCamera_button_1, imageCamera_button_2, imageCamera_button_3;
+    ImageButton save, saveok, imageCamera_button_1, imageCamera_button_2, imageCamera_button_3;
     EditText etTriptikName;
     File mTempSavedPhoto;
     TextView t_panel_01_indicator, t_panel_02_indicator, t_panel_03_indicator;
@@ -145,6 +147,8 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
         ib_2 = (ImageButton) findViewById(R.id.imageCamera_button_2);
         ib_3 = (ImageButton) findViewById(R.id.imageCamera_button_3);
 
+
+        saveok = (ImageButton) findViewById(R.id.btnSaveOK);
         save = (ImageButton) findViewById(R.id.btnSave);
         checkPanalStatus();
 
@@ -512,23 +516,17 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
                 public void run() {
                     RelativeLayout progressSaving = (RelativeLayout) findViewById(R.id.progressloader_container);
                     progressSaving.setVisibility(View.GONE);
-                    //redisplayControOverlay();
+                    save.setVisibility(View.GONE);
+                    saveok.setVisibility(View.VISIBLE);
                     ToastView("Triptik Saved\n" + etTriptikName.getText().toString().trim());
                 }
             });
-
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        checkPanalStatus();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
         checkPanalStatus();
     }
 }
