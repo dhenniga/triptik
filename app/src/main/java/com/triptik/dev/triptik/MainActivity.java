@@ -27,9 +27,7 @@ import java.util.HashMap;
 
 public class MainActivity extends Activity {
 
-    private TextView txtName;
-    private TextView txtEmail;
-    private TextView txtUserID;
+    private TextView txtName, txtEmail, txtUserID,menubar_triptik_name;
     private Button btnLogout;
     private Button btnGetStarted;
     private SQLiteHandler db;
@@ -41,6 +39,9 @@ public class MainActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
+        menubar_triptik_name = (TextView) findViewById(R.id.menubar_triptik_name);
+        menubar_triptik_name.setText("Welcome to Triptik");
 
         txtName = (TextView) findViewById(R.id.name);
         txtEmail = (TextView) findViewById(R.id.email);
