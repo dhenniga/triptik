@@ -110,7 +110,7 @@ public class MainActivity extends Activity {
     /**
      * Logging out the user. Will set isLoggedIn flag to false in shared
      * preferences Clears the user data from sqlite users table
-     */ 
+     */
     private void logoutUser() {
         session.setLogin(false);
         db.deleteUsers();
