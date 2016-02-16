@@ -121,6 +121,18 @@
                 />
 
             <ImageButton
+                android:id="@+id/btnNewTriptik"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@mipmap/new_triptik_icon"
+                android:background="@null"
+                android:scaleType="fitXY"
+                android:layout_marginLeft="15dp"
+                android:visibility="gone"
+                android:layout_alignParentRight="true"
+                />
+
+            <ImageButton
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:src="@mipmap/menu_icon"

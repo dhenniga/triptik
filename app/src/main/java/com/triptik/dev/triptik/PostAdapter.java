@@ -22,19 +22,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private List<PostValue> postList;
     private LayoutInflater inflater;
 
-    private Picasso mPicasso;
+//    private Picasso mPicasso;
 
     public PostAdapter(Context context, List<PostValue> postList) {
         this.postList = postList;
         this.inflater = LayoutInflater.from(context);
         this.mContext = context;
 
-        Picasso.Builder picassoBuilder = new Picasso.Builder(mContext);
-
-        picassoBuilder.indicatorsEnabled(true);
-        picassoBuilder.memoryCache(new LruCache(1024 * 4)); // 4mb ?
-
-        mPicasso = picassoBuilder.build();
+//        Picasso.Builder picassoBuilder = new Picasso.Builder(mContext);
+//        picassoBuilder.indicatorsEnabled(true);
+//        picassoBuilder.memoryCache(new LruCache(1024 * 4)); // 4mb ?
+//        mPicasso = picassoBuilder.build();
     }
 
     @Override
@@ -49,13 +47,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.tvTitle.setText(currentPost.getTriptikTitle());
         holder.tvCreationDate.setText(currentPost.getCreationDate());
         holder.tvCreationTime.setText(currentPost.getCreationTime());
+        holder.tvUserName.setText(currentPost.getUserName());
 
         String photo_url_str = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentPost.getUserID() + "/gallery/" + currentPost.getTriptikID()+ "/panel_1.webp";
         String profile_image = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentPost.getUserID() + "/pic.jpg";
 
-
-        mPicasso.with(mContext).load(photo_url_str).into(holder.ivTriptikPreview);
-        mPicasso.with(mContext).load(profile_image).into(holder.ivProfileImage);
+        Picasso.with(mContext).load(photo_url_str).into(holder.ivTriptikPreview);
+        Picasso.with(mContext).load(profile_image).into(holder.ivProfileImage);
     }
 
     @Override
@@ -65,7 +63,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvTitle, tvCreationDate, tvCreationTime;
+        TextView tvTitle, tvCreationDate, tvCreationTime, tvUserName;
         ImageView ivTriptikPreview, ivProfileImage;
 
         public ViewHolder(View itemView) {
@@ -73,9 +71,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvTitle = (TextView) itemView.findViewById(R.id.fragment_title_header);
             tvCreationDate = (TextView) itemView.findViewById(R.id.triptik_date_created);
             tvCreationTime = (TextView) itemView.findViewById(R.id.triptik_time_created);
+            tvUserName = (TextView) itemView.findViewById(R.id.triptik_username_creator);
             ivTriptikPreview = (ImageView) itemView.findViewById(R.id.fragment_background_image);
             ivProfileImage = (ImageView) itemView.findViewById(R.id.profile_image);
-
         }
     }
 }

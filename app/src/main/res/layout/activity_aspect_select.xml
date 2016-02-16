@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.triptik.dev.triptik.aspect_select"
+    tools:context=".AspectSelect"
     android:background="@drawable/background_gradient">
 
     <include layout="@layout/menubar"/>

@@ -84,7 +84,7 @@ public class MainActivity extends Activity {
         txtName.setText(name);
         txtEmail.setText(email);
 
-        String photo_url_str = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + userID + "/pic.jpg";
+        String photo_url_str = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + userID + "/pic.webp";
         ImageView imageView = (ImageView) findViewById(R.id.profile_image_welcome);
         Picasso.with(this).load(photo_url_str).into(imageView);
 
@@ -110,7 +110,7 @@ public class MainActivity extends Activity {
     /**
      * Logging out the user. Will set isLoggedIn flag to false in shared
      * preferences Clears the user data from sqlite users table
-     */
+     */ 
     private void logoutUser() {
         session.setLogin(false);
         db.deleteUsers();

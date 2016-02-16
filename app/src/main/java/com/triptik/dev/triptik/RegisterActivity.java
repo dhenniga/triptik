@@ -3,6 +3,8 @@ package com.triptik.dev.triptik;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,7 +30,10 @@ import com.triptik.dev.triptik.helper.SessionManager;
 import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,7 +53,7 @@ public class RegisterActivity extends Activity implements Upload.UploadCallback 
     private ProgressDialog pDialog;
     private SessionManager session;
     private SQLiteHandler db;
-    private File mFile;
+    private File mFile, profilePic;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,7 +103,9 @@ public class RegisterActivity extends Activity implements Upload.UploadCallback 
          * Delete Profile Image file
          */
         mFile = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/pic.jpg");
+        profilePic = new File ("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/pic.webp");
         mFile.delete();
+        profilePic.delete();
 
 
         // Progress dialog
@@ -184,12 +191,29 @@ public class RegisterActivity extends Activity implements Upload.UploadCallback 
 
                         mFile = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/pic.jpg");
 
+                        Bitmap photo = BitmapFactory.decodeFile(mFile.toString());
+                        photo = Bitmap.createScaledBitmap(photo, 500, 667, false);
+                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                        photo.compress(Bitmap.CompressFormat.WEBP, 60, bytes);
+
+                        profilePic = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/pic.webp");
+                        try {
+                            profilePic.createNewFile();
+                            FileOutputStream fo = new FileOutputStream(profilePic);
+                            fo.write(bytes.toByteArray());
+                            fo.close();
+                        } catch (Exception e) {
+
+                        }
+
+
+
                         final Upload upload = new Upload();
                         try {
 
-                            if (mFile.exists()) {
+                            if (profilePic.exists()) {
 
-                                final String uploadThis = mFile.toString();
+                                final String uploadThis = profilePic.toString();
                                 final String uploadWith = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/uploadProfilePicture.php";
                                 final String uploadTo = "users/" + uid + "/";
                                 final String uploadWho = uid;

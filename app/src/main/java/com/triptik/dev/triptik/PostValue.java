@@ -1,8 +1,18 @@
 package com.triptik.dev.triptik;
 
-import java.lang.String;public class PostValue {
+import java.lang.String;
 
-    private String triptikTitle, triptikID, creation_date, creation_time, userID;
+public class PostValue {
+
+    private String username, triptikTitle, triptikID, creation_date, creation_time, userID;
+
+    public String getUserName() {
+        return username;
+    }
+
+    public void setUserName(String username) {
+        this.username = username;
+    }
 
     public String getTriptikTitle() {
         return triptikTitle;

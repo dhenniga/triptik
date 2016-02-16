@@ -2,24 +2,17 @@ package com.triptik.dev.triptik;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.json.JSONObject;
 import java.util.List;
-import com.triptik.dev.triptik.listener.RecyclerClickListener;
-import com.triptik.dev.triptik.listener.RecyclerTouchListener;
 
 
 public class RecyclerActivity extends AppCompatActivity {
@@ -28,6 +21,7 @@ public class RecyclerActivity extends AppCompatActivity {
     AppCompatActivity activity = RecyclerActivity.this;
     List<PostValue> postList;
     TextView fragment_title_header;
+    ImageButton btnNewTriptik;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +39,22 @@ public class RecyclerActivity extends AppCompatActivity {
 
         //Typeface RalewayBold = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Bold.ttf");
         //Typeface RalewayMedium = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Medium.ttf");
-        Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.ttf");
+        //Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.ttf");
 
         //fragment_title_header = (TextView) findViewById(R.id.fragment_title_header);
         //fragment_title_header.setTypeface(RalewayLight);
+
+        btnNewTriptik = (ImageButton) findViewById(R.id.btnNewTriptik);
+        btnNewTriptik.setVisibility(View.VISIBLE);
+
+        btnNewTriptik.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecyclerActivity.this, AspectSelect.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
     }
@@ -57,17 +63,17 @@ public class RecyclerActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(activity, recyclerView, new RecyclerClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                if (postList != null) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(postList.get(position).getCreationTime()));
-                    startActivity(intent);
-                }
-            }
-        }));
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(activity, recyclerView, new RecyclerClickListener() {
+//            @Override
+//            public void onClick(View view, int position) {
+//                if (postList != null) {
+//                    Intent intent = new Intent(Intent.ACTION_VIEW);
+//                    intent.setData(Uri.parse(postList.get(position).getTriptikID()));
+//                    startActivity(intent);
+//                }
+//            }
+//        }));
     }
 
     class JSONAsync extends AsyncTask<Void, Void, Void> {

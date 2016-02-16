@@ -26,12 +26,14 @@ public class JSONParser {
                 String creationDate = post.getString("creation_date");
                 String creationTime = post.getString("creation_time");
                 String userID = post.getString("userID");
+                String username = post.getString("username");
 
                 postValue.setTriptikTitle(triptikTitle);
                 postValue.setTriptikID(triptikID);
                 postValue.setCreationDate(creationDate);
                 postValue.setCreationTime(creationTime);
                 postValue.setUserID(userID);
+                postValue.setUserName(username);
                 postList.add(postValue);
             }
         } catch (JSONException e) {
