@@ -28,10 +28,9 @@ import java.util.HashMap;
 
 public class MainActivity extends Activity {
 
-    private TextView txtName, txtEmail, txtUserID,menubar_triptik_name;
+    private TextView txtName, txtEmail, txtUserID,menubar_triptik_name, triptik_welcome_info_1, triptik_welcome_info_2;
     private Button btnLogout;
     private ImageButton btnNewTriptik, btnGallery;
-    private Button btnGetStarted;
     private SQLiteHandler db;
     private SessionManager session;
 
@@ -49,8 +48,11 @@ public class MainActivity extends Activity {
         txtEmail = (TextView) findViewById(R.id.email);
         txtUserID = (TextView) findViewById(R.id.userID);
         btnLogout = (Button) findViewById(R.id.btnLogout);
-        btnGetStarted = (Button) findViewById(R.id.btnGetStarted);
+        triptik_welcome_info_1 = (TextView) findViewById(R.id.triptik_welcome_info_1);
+        triptik_welcome_info_2 = (TextView) findViewById(R.id.triptik_welcome_info_2);
 
+
+        Typeface RalewayBold = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Bold.ttf");
         Typeface RalewayMedium = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Medium.ttf");
         Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.ttf");
 
@@ -59,12 +61,16 @@ public class MainActivity extends Activity {
         txtEmail.setTypeface(RalewayLight);
         txtUserID.setTypeface(RalewayLight);
         btnLogout.setTypeface(RalewayMedium);
+        triptik_welcome_info_1.setTypeface(RalewayBold);
+        triptik_welcome_info_2.setTypeface(RalewayBold);
 
         btnNewTriptik = (ImageButton) findViewById(R.id.btnNewTriptik);
         btnNewTriptik.setVisibility(View.VISIBLE);
 
         btnGallery = (ImageButton) findViewById(R.id.btnGallery);
         btnGallery.setVisibility(View.VISIBLE);
+
+
 
 
         btnNewTriptik.setOnClickListener(new View.OnClickListener() {
@@ -112,15 +118,6 @@ public class MainActivity extends Activity {
         String photo_url_str = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + userID + "/pic.webp";
         ImageView imageView = (ImageView) findViewById(R.id.profile_image_welcome);
         Picasso.with(this).load(photo_url_str).into(imageView);
-
-        // Get Started button click event
-        btnGetStarted.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, RecyclerActivity.class));
-            }
-        });
 
         // Logout button click event
         btnLogout.setOnClickListener(new View.OnClickListener() {

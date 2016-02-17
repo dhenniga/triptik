@@ -13,67 +13,112 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
         android:layout_marginRight="20dp"
         android:gravity="center_horizontal|center_vertical"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="3">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.1"
+            android:gravity="center">
 
         <FrameLayout
             android:id="@+id/control"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             >
 
         <ImageView
             android:id="@+id/profile_image_welcome"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="@null"
             android:scaleType="centerCrop"/>
 
             <ImageView
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:src="@mipmap/register_profile_circle_mask"
                 />
 
         </FrameLayout>
 
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.1"
+        android:orientation="vertical"
+        android:gravity="center">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Welcome"
+            android:layout_marginTop="10dp"
             android:textColor="#000000"
             android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/userID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:textSize="13dp" />
 
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textColor="#000000"
+            android:textColor="#ffffff"
+            android:text="David Hennigan"
             android:textSize="24dp" />
+
+        <TextView
+            android:id="@+id/triptik_welcome_info_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#77000000"
+            android:layout_marginTop="20dp"
+            android:text="Triptik Identification Number"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/userID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:text="3452345-3452345-543523-4523"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/triptik_welcome_info_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#77000000"
+            android:layout_marginTop="20dp"
+            android:text="Contact Email Address"
+            android:textSize="12dp" />
 
         <TextView
             android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
-            android:textSize="13dp" />
+            android:textColor="#ffffff"
+            android:text="dhenniga@gmail.com"
+            android:textSize="18dp" />
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:gravity="center">
 
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginTop="40dp"
             android:background="@drawable/rounded_black_button"
             android:text="Logout"
             android:paddingLeft="40dp"
@@ -81,15 +126,7 @@
             android:textColor="#FFFFFF"
             android:textSize="15dp" />
 
-        <Button
-            android:id="@+id/btnGetStarted"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:background="#8C8080"
-            android:text="Get Started!!!"
-
-            android:textColor="#ccffffff" />
+        </LinearLayout>
 
     </LinearLayout>
 
