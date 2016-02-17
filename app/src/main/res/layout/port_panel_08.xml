@@ -66,7 +66,8 @@
                     android:id="@+id/imageView_1"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:scaleType="fitCenter" />
+                    android:layout_margin="-1dp"
+                    android:scaleType="centerCrop"  />
 
                 <TextView
                     android:id="@+id/t_panel_01_indicator"
@@ -106,7 +107,8 @@
                     android:id="@+id/imageView_2"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:scaleType="fitCenter" />
+                    android:layout_margin="-1dp"
+                    android:scaleType="centerCrop"  />
 
                 <TextView
                     android:id="@+id/t_panel_02_indicator"
@@ -152,7 +154,8 @@
                     android:id="@+id/imageView_3"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:scaleType="fitCenter" />
+                    android:layout_margin="-1dp"
+                    android:scaleType="centerCrop"  />
 
                 <TextView
                     android:id="@+id/t_panel_03_indicator"
