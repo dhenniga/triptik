@@ -7,40 +7,43 @@
     android:background="#ffffff"
     tools:context="com.triptik.dev.triptik.port_panel_05">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:background="#000000"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="73dp"
-            android:layout_height="15dp"
-            android:src="@mipmap/triptik_logo_header"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true"
-            />
-
-        <ImageButton
-            android:id="@+id/menu_toggle_button"
-            android:layout_width="25dp"
-            android:layout_height="17dp"
-            android:src="@mipmap/menu_toggle_icon"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:scaleType="fitXY"
-            android:background="@null"
-            android:padding="0dp"
-            android:layout_centerVertical="true"
-            />
-
-    </RelativeLayout>
-
     <LinearLayout
         android:id="@+id/main_panel_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/menubar"/>
+
+        <LinearLayout
+            android:id="@+id/screenshot_header_container"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#eeeeee"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/triptik_login_logo"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                />
+
+            <TextView
+                android:id="@+id/screenshot_header_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/black"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"/>
+
+        </LinearLayout>
 
         <FrameLayout
             android:id="@+id/t_panel_01"
@@ -61,14 +64,14 @@
 
             <TextView
                 android:id="@+id/t_panel_01_indicator"
-                android:layout_margin="10dp"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
+                android:layout_margin="10dp"
                 android:background="@drawable/circle_panel_number_indicator"
+                android:gravity="center"
                 android:text="1"
                 android:textColor="#ffffff"
-                android:gravity="center"
-                android:textSize="14sp" />
+                android:textSize="11sp" />
 
             <ImageButton
                 android:id="@+id/imageCamera_button_1"
@@ -102,14 +105,14 @@
 
             <TextView
                 android:id="@+id/t_panel_02_indicator"
-                android:layout_margin="10dp"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
+                android:layout_margin="10dp"
                 android:background="@drawable/circle_panel_number_indicator"
+                android:gravity="center"
                 android:text="2"
                 android:textColor="#ffffff"
-                android:gravity="center"
-                android:textSize="14sp" />
+                android:textSize="11sp" />
 
             <ImageButton
                 android:id="@+id/imageCamera_button_2"
@@ -142,14 +145,14 @@
 
             <TextView
                 android:id="@+id/t_panel_03_indicator"
-                android:layout_margin="10dp"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
+                android:layout_margin="10dp"
                 android:background="@drawable/circle_panel_number_indicator"
+                android:gravity="center"
                 android:text="3"
                 android:textColor="#ffffff"
-                android:gravity="center"
-                android:textSize="14sp" />
+                android:textSize="11sp" />
 
             <ImageButton
                 android:id="@+id/imageCamera_button_3"
@@ -164,5 +167,8 @@
         </FrameLayout>
 
     </LinearLayout>
+
+    <include layout="@layout/enter_savename_overlay"/>
+    <include layout="@layout/saving_triptik_overlay"/>
 
 </LinearLayout>

@@ -2,16 +2,21 @@ package com.triptik.dev.triptik;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.json.JSONObject;
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 
@@ -31,16 +36,24 @@ public class RecyclerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recycler);
         getSupportActionBar().hide();
 
-
-        initViews();
-        new JSONAsync().execute();
-
         //Typeface RalewayBold = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Bold.ttf");
         //Typeface RalewayMedium = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Medium.ttf");
-        //Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.ttf");
+        Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.ttf");
 
-        //fragment_title_header = (TextView) findViewById(R.id.fragment_title_header);
+
+
+        initViews();
+
+
+        fragment_title_header = (TextView) findViewById(R.id.fragment_title_header);
         //fragment_title_header.setTypeface(RalewayLight);
+
+
+
+
+
+
+        new JSONAsync().execute();
 
         btnNewTriptik = (ImageButton) findViewById(R.id.btnNewTriptik);
         btnNewTriptik.setVisibility(View.VISIBLE);
@@ -61,6 +74,7 @@ public class RecyclerActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
         recyclerView.setLayoutManager(layoutManager);
+
 //        recyclerView.setItemAnimator(new DefaultItemAnimator());
 //        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(activity, recyclerView, new RecyclerClickListener() {
 //            @Override

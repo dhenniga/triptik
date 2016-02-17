@@ -14,8 +14,8 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="25dp"
+            android:layout_width="25dp"
+            android:layout_height="30dp"
             android:src="@mipmap/header_icons_triptik_logo"
             android:layout_marginLeft="15dp"
             android:layout_gravity="center_vertical"
@@ -37,7 +37,7 @@
             android:layout_weight="1.5"/>
 
         <LinearLayout
-            android:layout_width="102dp"
+            android:layout_width="117dp"
             android:layout_height="50dp"
             android:orientation="horizontal"
             android:gravity="center_vertical|end"
@@ -47,12 +47,12 @@
 
             <ImageButton
                 android:id="@+id/btnPublish"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:src="@mipmap/publish_icon"
                 android:background="@null"
                 android:scaleType="fitXY"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="10dp"
                 android:visibility="gone"
                 android:layout_alignParentRight="true"
                 />
@@ -60,36 +60,36 @@
 
             <ImageButton
                 android:id="@+id/btnPublishOK"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:src="@mipmap/publish_icon_ok"
                 android:background="@null"
                 android:scaleType="fitXY"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="10dp"
                 android:visibility="gone"
                 android:layout_alignParentRight="true"
                 />
 
             <ImageButton
                 android:id="@+id/btnUpdate"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:src="@mipmap/update_icon"
                 android:background="@null"
                 android:scaleType="fitXY"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="10dp"
                 android:visibility="gone"
                 android:layout_alignParentRight="true"
                 />
 
             <ImageButton
                 android:id="@+id/btnUpdateOK"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:src="@mipmap/update_icon_ok"
                 android:background="@null"
                 android:scaleType="fitXY"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="10dp"
                 android:visibility="gone"
                 android:layout_alignParentRight="true"
                 />
@@ -97,24 +97,24 @@
 
             <ImageButton
                 android:id="@+id/btnSave"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:src="@mipmap/save_icon"
                 android:background="@null"
                 android:scaleType="fitXY"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="10dp"
                 android:visibility="gone"
                 android:layout_alignParentRight="true"
                 />
 
             <ImageButton
                 android:id="@+id/btnSaveOK"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:src="@mipmap/save_icon_ok"
                 android:background="@null"
                 android:scaleType="fitXY"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="10dp"
                 android:visibility="gone"
                 android:layout_alignParentRight="true"
 
@@ -122,36 +122,35 @@
 
             <ImageButton
                 android:id="@+id/btnGallery"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:src="@mipmap/gallery_icon"
                 android:background="@null"
                 android:scaleType="fitXY"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="10dp"
                 android:visibility="gone"
                 android:layout_alignParentRight="true"
                 />
 
             <ImageButton
                 android:id="@+id/btnNewTriptik"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:src="@mipmap/new_triptik_icon"
                 android:background="@null"
                 android:scaleType="fitXY"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="10dp"
                 android:visibility="gone"
                 android:layout_alignParentRight="true"
                 />
 
             <ImageButton
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:src="@mipmap/menu_icon"
                 android:background="@null"
                 android:scaleType="fitXY"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
                 android:visibility="gone"
                 android:layout_alignParentRight="true"/>
 
