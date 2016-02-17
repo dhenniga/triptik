@@ -56,7 +56,7 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
 
     private static String uniqueTriptikID = (String.valueOf(UUID.randomUUID()));  //  generate triptikID number
 
-    ImageButton ib_1, ib_2, ib_3;
+    ImageButton ib_1, ib_2, ib_3, btnGallery;
     ImageView iv_1, iv_2, iv_3;
     Button btnTriptikSave;
     ImageButton save, saveok, imageCamera_button_1, imageCamera_button_2, imageCamera_button_3;
@@ -168,6 +168,8 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
         save = (ImageButton) findViewById(R.id.btnSave);
         checkPanalStatus();
 
+        btnGallery = (ImageButton) findViewById(R.id.btnGallery);
+
         btnTriptikSave = (Button) findViewById(R.id.btnTriptikSave);
         btnTriptikSave.setTypeface(RalewayMedium);
 
@@ -211,7 +213,17 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
                 }
             }
         });
+
+        btnGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(port_panel_01.this, RecyclerActivity.class);
+                startActivity(intent);
+            }
+        });
     }
+
+
 
 
     /**
@@ -548,6 +560,7 @@ public class port_panel_01 extends Activity implements UploadTriptik.UploadCallb
                     progressSaving.setVisibility(View.GONE);
                     save.setVisibility(View.GONE);
                     saveok.setVisibility(View.VISIBLE);
+                    btnGallery.setVisibility(View.VISIBLE);
                     ToastView("Triptik Saved\n" + etTriptikName.getText().toString().trim());
                     menubar_triptik_name = (TextView) findViewById(R.id.menubar_triptik_name);
                     menubar_triptik_name.setText(etTriptikName.getText().toString().trim());

@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ public class MainActivity extends Activity {
 
     private TextView txtName, txtEmail, txtUserID,menubar_triptik_name;
     private Button btnLogout;
+    private ImageButton btnNewTriptik, btnGallery;
     private Button btnGetStarted;
     private SQLiteHandler db;
     private SessionManager session;
@@ -57,6 +59,29 @@ public class MainActivity extends Activity {
         txtEmail.setTypeface(RalewayLight);
         txtUserID.setTypeface(RalewayLight);
         btnLogout.setTypeface(RalewayMedium);
+
+        btnNewTriptik = (ImageButton) findViewById(R.id.btnNewTriptik);
+        btnNewTriptik.setVisibility(View.VISIBLE);
+
+        btnGallery = (ImageButton) findViewById(R.id.btnGallery);
+        btnGallery.setVisibility(View.VISIBLE);
+
+
+        btnNewTriptik.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AspectSelect.class);
+                startActivity(intent);
+            }
+        });
+
+        btnGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RecyclerActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 

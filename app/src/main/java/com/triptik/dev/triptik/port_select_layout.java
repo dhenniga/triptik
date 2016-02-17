@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import java.io.File;
 
 public class port_select_layout extends Activity {
 
@@ -28,6 +31,17 @@ public class port_select_layout extends Activity {
 
         TextView header_4 = (TextView) findViewById(R.id.select_a_template_text);
         header_4.setTypeface(face);
+
+        File dir = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/");
+        if (dir.isDirectory())
+        {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++)
+            {
+                new File(dir, children[i]).delete();
+            }
+        }
+
     }
 
 
@@ -60,5 +74,6 @@ public class port_select_layout extends Activity {
         Intent intent = new Intent(v.getContext(), port_panel_08.class);
         startActivityForResult(intent, 0);
     }
+
 
 }
