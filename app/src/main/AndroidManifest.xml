@@ -46,31 +46,11 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".port_select_layout"
+            android:name=".PortSelectLayout"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".port_panel_01"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".port_panel_02"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".port_panel_03"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".port_panel_05"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".port_panel_07"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".port_panel_08"
+            android:name=".PanelsActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
 

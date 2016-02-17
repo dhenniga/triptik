@@ -9,6 +9,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import java.io.File;
+
 public class AspectSelect extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +35,20 @@ public class AspectSelect extends Activity {
         section_description.setTypeface(RalewayMedium);
         aspect_header_text.setTypeface(face);
         select_a_template_text.setTypeface(face);
+
+        File dir = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/");
+        if (dir.isDirectory())
+        {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++)
+            {
+                new File(dir, children[i]).delete();
+            }
+        }
     }
 
     public void portrait_button_OnClick(View v) {
-        Intent intent = new Intent(v.getContext(), port_select_layout.class);
+        Intent intent = new Intent(v.getContext(), PortSelectLayout.class);
         startActivityForResult(intent, 0);
     }
 }

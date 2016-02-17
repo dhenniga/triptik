@@ -6,7 +6,7 @@
     android:background="#ffffff"
     android:orientation="vertical"
     android:splitMotionEvents="true"
-    tools:context="com.triptik.dev.triptik.port_panel_01">
+    tools:context=".PanelsActivity">
 
 
 

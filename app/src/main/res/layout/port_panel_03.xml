@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
     android:background="#ffffff"
-    tools:context="com.triptik.dev.triptik.port_panel_03">
+    android:orientation="vertical"
+    android:splitMotionEvents="true"
+    tools:context=".PanelsActivity">
 
     <LinearLayout
         android:id="@+id/main_panel_container"
@@ -183,4 +184,4 @@
     <include layout="@layout/enter_savename_overlay"/>
     <include layout="@layout/saving_triptik_overlay"/>
 
-</LinearLayout>
+</RelativeLayout>

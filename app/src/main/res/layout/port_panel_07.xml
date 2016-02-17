@@ -1,48 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
     android:background="#ffffff"
-    tools:context="com.triptik.dev.triptik.port_panel_7">
+    android:orientation="vertical"
+    android:splitMotionEvents="true"
+    tools:context=".PanelsActivity">
 
-    <include layout="@layout/menubar"/>
-
-    <LinearLayout
-        android:id="@+id/screenshot_header_container"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#eeeeee"
-        android:visibility="gone">
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/triptik_login_logo"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            />
-
-        <TextView
-            android:id="@+id/screenshot_header_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:scrollHorizontally="true"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/black"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"/>
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="vertical">
+
+        <include layout="@layout/menubar"/>
+
+        <LinearLayout
+            android:id="@+id/screenshot_header_container"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#eeeeee"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/triptik_login_logo"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                />
+
+            <TextView
+                android:id="@+id/screenshot_header_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/black"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"/>
+
+        </LinearLayout>
 
 
         <LinearLayout
@@ -189,4 +191,4 @@
     <include layout="@layout/enter_savename_overlay"/>
     <include layout="@layout/saving_triptik_overlay"/>
 
-</LinearLayout>
+</RelativeLayout>

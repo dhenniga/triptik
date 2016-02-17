@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 
 import java.io.File;
 
-public class port_select_layout extends Activity {
+public class PortSelectLayout extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,36 +43,37 @@ public class port_select_layout extends Activity {
 
     }
 
+    /**
+     *
+     * @param panel
+     */
+    public void selectPanel(View panel) {
+        Intent intent = new Intent(panel.getContext(), PanelsActivity.class);
 
-    public void port_panel_01_OnClick(View v) {
-        Intent intent = new Intent(v.getContext(), port_panel_01.class);
+        int layoutId = R.layout.port_panel_01;
+        switch (panel.getId()) {
+            case R.id.port_panel_01:
+                layoutId = R.layout.port_panel_01;
+                break;
+            case R.id.port_panel_02:
+                layoutId = R.layout.port_panel_02;
+                break;
+            case R.id.port_panel_03:
+                layoutId = R.layout.port_panel_03;
+                break;
+            case R.id.port_panel_05:
+                layoutId = R.layout.port_panel_05;
+                break;
+            case R.id.port_panel_07:
+                layoutId = R.layout.port_panel_07;
+                break;
+            case R.id.port_panel_08:
+                layoutId = R.layout.port_panel_08;
+                break;
+        }
+        //add to arguments to be read on the resulting Activity
+        intent.putExtra(PanelsActivity.PANEL_ID_KEY, layoutId);
+
         startActivityForResult(intent, 0);
     }
-
-    public void port_panel_02_OnClick(View v) {
-        Intent intent = new Intent(v.getContext(), port_panel_02.class);
-        startActivityForResult(intent, 0);
-    }
-
-    public void port_panel_03_OnClick(View v) {
-        Intent intent = new Intent(v.getContext(), port_panel_03.class);
-        startActivityForResult(intent, 0);
-    }
-
-    public void port_panel_05_OnClick(View v) {
-        Intent intent = new Intent(v.getContext(), port_panel_05.class);
-        startActivityForResult(intent, 0);
-    }
-
-    public void port_panel_07_OnClick(View v) {
-        Intent intent = new Intent(v.getContext(), port_panel_07.class);
-        startActivityForResult(intent, 0);
-    }
-
-    public void port_panel_08_OnClick(View v) {
-        Intent intent = new Intent(v.getContext(), port_panel_08.class);
-        startActivityForResult(intent, 0);
-    }
-
-
 }
