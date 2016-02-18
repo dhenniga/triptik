@@ -41,8 +41,13 @@ public class MainActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
+        Typeface RalewayBold = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Bold.ttf");
+        Typeface RalewayMedium = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Medium.ttf");
+        Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-ExtraLight.ttf");
+
         menubar_triptik_name = (TextView) findViewById(R.id.menubar_triptik_name);
         menubar_triptik_name.setText("Welcome to Triptik");
+        menubar_triptik_name.setTypeface(RalewayLight);
 
         txtName = (TextView) findViewById(R.id.name);
         txtEmail = (TextView) findViewById(R.id.email);
@@ -52,17 +57,14 @@ public class MainActivity extends Activity {
         triptik_welcome_info_2 = (TextView) findViewById(R.id.triptik_welcome_info_2);
 
 
-        Typeface RalewayBold = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Bold.ttf");
-        Typeface RalewayMedium = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Medium.ttf");
-        Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.ttf");
-
-
         txtName.setTypeface(RalewayLight);
         txtEmail.setTypeface(RalewayLight);
         txtUserID.setTypeface(RalewayLight);
         btnLogout.setTypeface(RalewayMedium);
         triptik_welcome_info_1.setTypeface(RalewayBold);
         triptik_welcome_info_2.setTypeface(RalewayBold);
+
+
 
         btnNewTriptik = (ImageButton) findViewById(R.id.btnNewTriptik);
         btnNewTriptik.setVisibility(View.VISIBLE);

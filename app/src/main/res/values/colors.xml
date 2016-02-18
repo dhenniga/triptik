@@ -9,4 +9,5 @@
     <color name="black_overlay">#66000000</color>
 
     <color name="main">#E0363A</color>
+    <color name="main_alpha_80">#ddE0363A</color>
 </resources>

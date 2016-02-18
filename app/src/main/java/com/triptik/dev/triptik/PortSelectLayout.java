@@ -20,17 +20,8 @@ public class PortSelectLayout extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.port_select_layout);
 
-        Typeface face = Typeface.createFromAsset(getAssets(), "fonts/Laffayette_Comic_Pro.ttf");
 
-        TextView header_1 = (TextView) findViewById(R.id.section_description);
-        header_1.setTypeface(face);
-
-        TextView header_3 = (TextView) findViewById(R.id.aspect_header_text);
-        header_3.setTypeface(face);
-
-        TextView header_4 = (TextView) findViewById(R.id.select_a_template_text);
-        header_4.setTypeface(face);
-
+        //  Delete all the files in the working directory
         File dir = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/");
         if (dir.isDirectory())
         {

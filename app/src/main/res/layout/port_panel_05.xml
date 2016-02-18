@@ -8,13 +8,16 @@
     android:splitMotionEvents="true"
     tools:context=".PanelsActivity">
 
+    <include layout="@layout/menubar"/>
+
     <LinearLayout
         android:id="@+id/main_panel_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp">
 
-        <include layout="@layout/menubar"/>
+
 
         <LinearLayout
             android:id="@+id/screenshot_header_container"

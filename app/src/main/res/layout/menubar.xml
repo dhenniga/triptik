@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/menubar"
@@ -31,7 +30,7 @@
             android:ellipsize="marquee"
             android:maxLines="1"
             android:layout_marginRight="10dp"
-            android:textColor="@color/white"
+            android:textColor="#bbffffff"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_weight="1.5"/>

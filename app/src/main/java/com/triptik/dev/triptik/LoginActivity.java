@@ -6,6 +6,7 @@
 package com.triptik.dev.triptik;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -57,6 +58,7 @@ public class LoginActivity extends Activity implements FragmentCompat.OnRequestP
     private ProgressDialog pDialog;
     private SessionManager session;
     private SQLiteHandler db;
+    private Camera2BasicFragment getCam2Frag;
 
     private static final int REQUEST_CAMERA_PERMISSION = 1;
     private static final int REQUEST_STORAGE_PERMISSION = 1;
@@ -74,8 +76,7 @@ public class LoginActivity extends Activity implements FragmentCompat.OnRequestP
         inputPassword = (EditText) findViewById(R.id.password);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnLinkToRegister = (Button) findViewById(R.id.btnLinkToRegisterScreen);
-
-
+        
 
         Typeface RalewayBold = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Bold.ttf");
         Typeface RalewayMedium = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Medium.ttf");
@@ -153,6 +154,7 @@ public class LoginActivity extends Activity implements FragmentCompat.OnRequestP
                 finish();
             }
         });
+
     }
 
 
@@ -244,6 +246,7 @@ public class LoginActivity extends Activity implements FragmentCompat.OnRequestP
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
     }
+
 
     private void showDialog() {
         if (!pDialog.isShowing())
