@@ -4,7 +4,6 @@
     android:orientation="vertical">
 
     <include layout="@layout/menubar"/>
-    <include layout="@layout/triptik_viewer"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"

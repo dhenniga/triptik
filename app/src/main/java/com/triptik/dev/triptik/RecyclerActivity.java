@@ -1,42 +1,33 @@
 package com.triptik.dev.triptik;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
-import com.squareup.picasso.Picasso;
 import com.triptik.dev.triptik.listener.RecyclerClickListener;
 import com.triptik.dev.triptik.listener.RecyclerTouchListener;
-
 import org.json.JSONObject;
 import java.util.List;
-import java.util.zip.Inflater;
 
 
 public class RecyclerActivity extends AppCompatActivity {
 
+    public static final String EXTRA_USER_ID = "EXTRA_USER_ID";
+    public static final String EXTRA_TRIPTIK_ID = "EXTRA_TRIPTIK_ID";
 
     RecyclerView recyclerView;
     AppCompatActivity activity = RecyclerActivity.this;
     List<PostValue> postList;
-    ImageButton btnNewTriptik;
+    ImageButton btnNewTriptik, btnUpdate;
     ImageView ivTriptikViewer;
     RelativeLayout triptikContainer;
 
@@ -58,6 +49,17 @@ public class RecyclerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(RecyclerActivity.this, AspectSelect.class);
                 startActivity(intent);
+            }
+        });
+
+        btnUpdate = (ImageButton) findViewById(R.id.btnUpdate);
+        btnUpdate.setVisibility(View.VISIBLE);
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecyclerActivity.this, RecyclerActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -75,18 +77,13 @@ public class RecyclerActivity extends AppCompatActivity {
                 if (postList != null) {
                     Log.i("recyclerActivity", postList.get(position).getTriptikID());
 
-                    triptikContainer = (RelativeLayout) findViewById(R.id.llTriptikContainer);
-                    triptikContainer.setVisibility(View.VISIBLE);
+                    Intent intent = new Intent(getApplicationContext(), TriptikViewer.class);
+                    PostValue postValue = postList.get(position);
 
-                    ivTriptikViewer = (ImageView) findViewById(R.id.ivTriptikViewer);
-                    Animation fadeInAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_anim);
-                    ivTriptikViewer.startAnimation(fadeInAnimation);
-                    String photo_url_str = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/"+ postList.get(position).getUserID() +"/gallery/" + postList.get(position).getTriptikID() + "/" + postList.get(position).getTriptikID() + "_panel_4.webp";
-                    Picasso.with(getApplicationContext()).load(photo_url_str).into(ivTriptikViewer);
+                    intent.putExtra(EXTRA_USER_ID, postValue.getUserID());
+                    intent.putExtra(EXTRA_TRIPTIK_ID, postValue.getTriptikID());
 
-                    //Intent intent = new Intent(Intent.ACTION_VIEW);
-                    //intent.setData(Uri.parse(postList.get(position).getTriptikID()));
-                    //startActivity(intent);
+                    startActivity(intent);
                 }
             }
         }));
