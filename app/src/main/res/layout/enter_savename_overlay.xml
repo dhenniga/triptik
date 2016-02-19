@@ -12,7 +12,7 @@
         android:background="#dd000000"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
 
         <LinearLayout
