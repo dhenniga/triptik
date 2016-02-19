@@ -12,7 +12,7 @@
         android:background="#dd000000"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
 
         <LinearLayout
@@ -79,7 +79,9 @@
                 android:gravity="center"
                 android:hint="Triptik Name"
                 android:inputType="textCapSentences"
-                android:maxLength="50"
+                android:maxLength="90"
+                android:lines="2"
+                android:lineSpacingExtra="1dp"
                 android:singleLine="true"
                 android:textColor="@color/main"
                 android:textSize="13sp" />
