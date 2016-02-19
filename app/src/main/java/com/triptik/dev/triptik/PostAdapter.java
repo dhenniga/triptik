@@ -2,9 +2,13 @@ package com.triptik.dev.triptik;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,12 +26,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private List<PostValue> postList;
     private LayoutInflater inflater;
 
+
+
     public PostAdapter(Context context, List<PostValue> postList) {
         this.postList = postList;
         this.inflater = LayoutInflater.from(context);
         this.mContext = context;
 
     }
+
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -46,17 +54,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         String photo_url_str = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentPost.getUserID() + "/gallery/" + currentPost.getTriptikID()+ "/" + currentPost.getTriptikID() + "_panel_1.webp";
         String profile_image = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentPost.getUserID() + "/pic.webp";
 
+        WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
 
-        int containerWidth = holder.ivTriptikPreview.getWidth();
+        int containerWidth = holder.ivTriptikPreview.getHeight();
         int containerHeight = holder.ivTriptikPreview.getHeight();
 
         Picasso.with(mContext)
                 .load(photo_url_str)
-                .resize(800,800)
+                .resize(820, 500)
                 .centerCrop()
                 .into(holder.ivTriptikPreview);
 
-        Picasso.with(mContext).load(profile_image).resize(110,110).into(holder.ivProfileImage);
+        Picasso.with(mContext).load(profile_image).resize(130,130).centerCrop().into(holder.ivProfileImage);
 
     }
 

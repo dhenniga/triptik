@@ -37,11 +37,10 @@
             <ImageView
                 android:id="@+id/fragment_background_image"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="1dp"
-                android:background="@color/main"
-                android:scaleType="fitXY"
                 android:gravity="center"
+                android:scaleType="centerCrop"
                 />
 
             <RelativeLayout
