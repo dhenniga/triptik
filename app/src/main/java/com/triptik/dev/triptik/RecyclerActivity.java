@@ -11,8 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import com.triptik.dev.triptik.listener.RecyclerClickListener;
 import com.triptik.dev.triptik.listener.RecyclerTouchListener;
 import org.json.JSONObject;
@@ -28,15 +26,12 @@ public class RecyclerActivity extends AppCompatActivity {
     AppCompatActivity activity = RecyclerActivity.this;
     List<PostValue> postList;
     ImageButton btnNewTriptik, btnUpdate;
-    ImageView ivTriptikViewer;
-    RelativeLayout triptikContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler);
         getSupportActionBar().hide();
-
         initViews();
 
         new JSONAsync().execute();
@@ -63,6 +58,7 @@ public class RecyclerActivity extends AppCompatActivity {
                 finish();
             }
         });
+
 
     }
 
