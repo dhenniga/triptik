@@ -1,6 +1,7 @@
 package com.triptik.dev.triptik;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -17,7 +19,9 @@ import com.squareup.picasso.Picasso;
 public class TriptikViewer extends Activity {
 
     ImageView ivTriptikViewer;
-    ImageButton btnNewTriptik, btnGallery;
+    ImageButton btnNewTriptik, btnGallery, btnDownload;
+    LinearLayout menubar_icon_container;
+    ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,9 +34,18 @@ public class TriptikViewer extends Activity {
         ivTriptikViewer = (ImageView) findViewById(R.id.ivTriptikViewer);
         btnNewTriptik = (ImageButton) findViewById(R.id.btnNewTriptik);
         btnGallery = (ImageButton) findViewById(R.id.btnGallery);
+        btnDownload = (ImageButton) findViewById(R.id.btnDownload);
+        menubar_icon_container = (LinearLayout) findViewById(R.id.menubar_icon_container);
 
         btnNewTriptik.setVisibility(View.VISIBLE);
         btnGallery.setVisibility(View.VISIBLE);
+        btnDownload.setVisibility(View.VISIBLE);
+
+
+        LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        menubar_icon_container.setLayoutParams(rlp);
+
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -40,6 +53,28 @@ public class TriptikViewer extends Activity {
             String triptikId = extras.getString(RecyclerActivity.EXTRA_TRIPTIK_ID);
 
             String photo_url_str = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + userId + "/gallery/" + triptikId + "/" + triptikId + "_panel_4.webp";
+
+
+            Picasso.with(this)
+                    .load(photo_url_str)
+                    .into(ivTriptikViewer, new com.squareup.picasso.Callback() {
+                        @Override
+                        public void onSuccess() {
+                            if (progressDialog != null) {
+                                progressDialog.cancel();
+                            }
+                        }
+
+                        @Override
+                        public void onError() {
+
+                        }
+                    });
+
+
+
+
+
             Picasso.with(getApplicationContext()).load(photo_url_str).into(ivTriptikViewer);
 
         }

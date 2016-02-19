@@ -63,6 +63,8 @@ public class LoginActivity extends Activity implements FragmentCompat.OnRequestP
     private static final int REQUEST_CAMERA_PERMISSION = 1;
     private static final int REQUEST_STORAGE_PERMISSION = 1;
 
+    private Typeface RalewayBold, RalewayMedium, RalewayLight;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,11 +78,11 @@ public class LoginActivity extends Activity implements FragmentCompat.OnRequestP
         inputPassword = (EditText) findViewById(R.id.password);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnLinkToRegister = (Button) findViewById(R.id.btnLinkToRegisterScreen);
-        
 
-        Typeface RalewayBold = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Bold.ttf");
-        Typeface RalewayMedium = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Medium.ttf");
-        Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.ttf");
+        RalewayBold = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Bold.ttf");
+        RalewayMedium = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Medium.ttf");
+        RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.ttf");
+
 
         TextView emailInputFont = (EditText) findViewById(R.id.email);
         emailInputFont.setTypeface(RalewayBold);
@@ -259,7 +261,6 @@ public class LoginActivity extends Activity implements FragmentCompat.OnRequestP
     }
 
     public void ToastView (String toastTextString) {
-        final Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.ttf");
         LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout));
         TextView toastText = (TextView) layout.findViewById(R.id.tvCustomToast);

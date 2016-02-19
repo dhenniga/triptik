@@ -2,19 +2,12 @@ package com.triptik.dev.triptik;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BitmapShader;
-import android.graphics.Paint;
-import android.graphics.RectF;
-import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,8 +15,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.triptik.dev.triptik.helper.SQLiteHandler;
 import com.triptik.dev.triptik.helper.SessionManager;
-
-import java.net.URL;
 import java.util.HashMap;
 
 public class MainActivity extends Activity {

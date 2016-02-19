@@ -2,7 +2,6 @@ package com.triptik.dev.triptik;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -58,23 +56,23 @@ public class PanelsActivity extends Activity implements UploadTriptik.UploadCall
 
     private static String uniqueTriptikID;
 
-    ImageButton ib_1, ib_2, ib_3, btnGallery;
-    ImageView iv_1, iv_2, iv_3;
-    Button btnTriptikSave;
-    ImageButton save, saveok, imageCamera_button_1, imageCamera_button_2, imageCamera_button_3;
-    EditText etTriptikName;
-    File mTempSavedPhoto;
-    TextView t_panel_01_indicator, t_panel_02_indicator, t_panel_03_indicator, menubar_triptik_name, screenshot_header_text;
-    LinearLayout menubar, screenshot_header_container;
-
-
-
+    private ImageButton ib_1, ib_2, ib_3, btnGallery;
+    private ImageView iv_1, iv_2, iv_3;
+    private Button btnTriptikSave;
+    private ImageButton save, saveok, imageCamera_button_1, imageCamera_button_2, imageCamera_button_3;
+    private EditText etTriptikName;
+    private File mTempSavedPhoto;
+    private TextView t_panel_01_indicator, t_panel_02_indicator, t_panel_03_indicator, menubar_triptik_name, screenshot_header_text;
+    private LinearLayout menubar, screenshot_header_container;
 
     private SQLiteHandler db;
     private SessionManager session;
 
     // data structure, hold files to be uploaded...
     private List<File> mToUpload;
+
+    private Typeface RalewayMedium, RalewayLight;
+
 
     private Button.OnClickListener mPanelsClickListener = new Button.OnClickListener() {
         @Override
@@ -140,8 +138,8 @@ public class PanelsActivity extends Activity implements UploadTriptik.UploadCall
         final HashMap<String, String> user = db.getUserDetails();
         final String userID = user.get("userID");
 
-        final Typeface RalewayMedium = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Medium.ttf");
-        final Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.ttf");
+        RalewayMedium = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Medium.ttf");
+        RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.ttf");
 
         TextView saveTriptikHeaderText = (TextView) findViewById(R.id.tvTriptikSaveHeader);
         saveTriptikHeaderText.setTypeface(RalewayLight);
@@ -274,6 +272,7 @@ public class PanelsActivity extends Activity implements UploadTriptik.UploadCall
     }
 
 
+
     /**
      * @param userID
      * @param saveName
@@ -284,6 +283,7 @@ public class PanelsActivity extends Activity implements UploadTriptik.UploadCall
             saveTriptik(fileToUpload, userID, saveName, uniqueTriptikID);
         }
     }
+
 
 
     /**
@@ -301,8 +301,7 @@ public class PanelsActivity extends Activity implements UploadTriptik.UploadCall
         File imageFile = new File(mPath);
         try {
             FileOutputStream outputStream = new FileOutputStream(imageFile);
-            int quality = 93;
-            bitmap.compress(Bitmap.CompressFormat.WEBP, quality, outputStream);
+            bitmap.compress(Bitmap.CompressFormat.WEBP, 85, outputStream);
             outputStream.flush();
             outputStream.close();
         } catch (Throwable e) {
@@ -424,7 +423,7 @@ public class PanelsActivity extends Activity implements UploadTriptik.UploadCall
             if (resultCode == RESULT_OK) {
 
                 BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inPreferredConfig = Bitmap.Config.RGB_565;
+                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
                 options.inSampleSize = 2;
                 Bitmap bitmap = BitmapFactory.decodeFile(mTempSavedPhoto.toString(), options);
 
@@ -527,7 +526,6 @@ public class PanelsActivity extends Activity implements UploadTriptik.UploadCall
     }
 
     public void ToastView(String toastTextString) {
-        final Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.ttf");
         LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout));
         TextView toastText = (TextView) layout.findViewById(R.id.tvCustomToast);

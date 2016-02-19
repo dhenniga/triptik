@@ -57,9 +57,9 @@
 
         <ImageButton
             android:id="@+id/picture"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@mipmap/register_camera_button_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/actual_register_camera_button_icon"
             android:scaleType="fitXY"
             android:background="@null"
             android:elevation="2dp"

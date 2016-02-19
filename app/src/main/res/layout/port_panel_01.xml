@@ -72,7 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="-1dp"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="fitCenter" />
 
                 <TextView
                     android:id="@+id/t_panel_01_indicator"
@@ -87,8 +87,8 @@
 
                 <ImageButton
                     android:id="@+id/imageCamera_button_1"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="bottom|right"
                     android:layout_margin="10dp"
                     android:background="#00000000"
@@ -114,7 +114,7 @@
                     android:layout_height="fill_parent"
                     android:layout_margin="-1dp"
                     android:adjustViewBounds="false"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="fitCenter" />
 
                 <TextView
                     android:id="@+id/t_panel_02_indicator"
@@ -129,8 +129,8 @@
 
                 <ImageButton
                     android:id="@+id/imageCamera_button_2"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="bottom|right"
                     android:layout_margin="10dp"
                     android:background="#00000000"
@@ -157,7 +157,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_margin="-1dp"
-                android:scaleType="centerCrop" />
+                android:scaleType="fitCenter" />
 
             <TextView
                 android:id="@+id/t_panel_03_indicator"
@@ -172,8 +172,8 @@
 
             <ImageButton
                 android:id="@+id/imageCamera_button_3"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
                 android:layout_margin="10dp"
                 android:background="#00000000"

@@ -36,6 +36,7 @@
             android:layout_weight="1.5"/>
 
         <LinearLayout
+            android:id="@+id/menubar_icon_container"
             android:layout_width="117dp"
             android:layout_height="50dp"
             android:orientation="horizontal"
@@ -50,7 +51,6 @@
                 android:layout_height="45dp"
                 android:src="@mipmap/publish_icon"
                 android:background="@null"
-                android:scaleType="fitXY"
                 android:layout_marginLeft="10dp"
                 android:visibility="gone"
                 android:layout_alignParentRight="true"
@@ -63,7 +63,17 @@
                 android:layout_height="45dp"
                 android:src="@mipmap/publish_icon_ok"
                 android:background="@null"
-                android:scaleType="fitXY"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"
+                android:layout_alignParentRight="true"
+                />
+
+            <ImageButton
+                android:id="@+id/btnDownload"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@mipmap/download_icon"
+                android:background="@null"
                 android:layout_marginLeft="10dp"
                 android:visibility="gone"
                 android:layout_alignParentRight="true"
@@ -75,7 +85,6 @@
                 android:layout_height="45dp"
                 android:src="@mipmap/update_icon"
                 android:background="@null"
-                android:scaleType="fitXY"
                 android:layout_marginLeft="10dp"
                 android:visibility="gone"
                 android:layout_alignParentRight="true"
@@ -87,7 +96,6 @@
                 android:layout_height="45dp"
                 android:src="@mipmap/update_icon_ok"
                 android:background="@null"
-                android:scaleType="fitXY"
                 android:layout_marginLeft="10dp"
                 android:visibility="gone"
                 android:layout_alignParentRight="true"
@@ -100,7 +108,6 @@
                 android:layout_height="45dp"
                 android:src="@mipmap/save_icon"
                 android:background="@null"
-                android:scaleType="fitXY"
                 android:layout_marginLeft="10dp"
                 android:visibility="gone"
                 android:layout_alignParentRight="true"
@@ -112,7 +119,6 @@
                 android:layout_height="45dp"
                 android:src="@mipmap/save_icon_ok"
                 android:background="@null"
-                android:scaleType="fitXY"
                 android:layout_marginLeft="10dp"
                 android:visibility="gone"
                 android:layout_alignParentRight="true"
@@ -121,11 +127,10 @@
 
             <ImageButton
                 android:id="@+id/btnGallery"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="34dp"
+                android:layout_height="27dp"
                 android:src="@mipmap/gallery_icon"
                 android:background="@null"
-                android:scaleType="fitXY"
                 android:layout_marginLeft="10dp"
                 android:visibility="gone"
                 android:layout_alignParentRight="true"
@@ -137,7 +142,6 @@
                 android:layout_height="45dp"
                 android:src="@mipmap/new_triptik_icon"
                 android:background="@null"
-                android:scaleType="fitXY"
                 android:layout_marginLeft="10dp"
                 android:visibility="gone"
                 android:layout_alignParentRight="true"
@@ -148,7 +152,6 @@
                 android:layout_height="45dp"
                 android:src="@mipmap/menu_icon"
                 android:background="@null"
-                android:scaleType="fitXY"
                 android:layout_marginLeft="10dp"
                 android:visibility="gone"
                 android:layout_alignParentRight="true"/>
