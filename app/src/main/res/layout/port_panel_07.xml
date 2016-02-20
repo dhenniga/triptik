@@ -7,14 +7,15 @@
     android:orientation="vertical"
     android:splitMotionEvents="true"
     tools:context=".PanelsActivity">
-
+    <include layout="@layout/menubar"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp">
 
-        <include layout="@layout/menubar"/>
+
 
         <LinearLayout
             android:id="@+id/screenshot_header_container"
@@ -66,8 +67,7 @@
                     android:id="@+id/imageView_1"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_margin="-1dp"
-                    android:scaleType="centerCrop"  />
+                    android:layout_margin="-1dp" />
 
                 <TextView
                     android:id="@+id/t_panel_01_indicator"

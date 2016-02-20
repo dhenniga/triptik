@@ -17,9 +17,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 
-/**
- * Created by Krrishnaaaa on Jun 24, 2015
- */
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private final Context mContext;
