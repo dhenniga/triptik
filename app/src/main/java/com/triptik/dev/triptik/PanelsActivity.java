@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -64,6 +66,7 @@ public class PanelsActivity extends Activity implements UploadTriptik.UploadCall
     private File mTempSavedPhoto;
     private TextView t_panel_01_indicator, t_panel_02_indicator, t_panel_03_indicator, menubar_triptik_name, screenshot_header_text;
     private LinearLayout menubar, screenshot_header_container;
+    private RelativeLayout saveTriptikFileName, progressSaving;
 
     private SQLiteHandler db;
     private SessionManager session;
@@ -235,9 +238,12 @@ public class PanelsActivity extends Activity implements UploadTriptik.UploadCall
      */
     private void getTriptikSaveName(final String userID) {
 
-        final RelativeLayout saveTriptikFileName = (RelativeLayout) findViewById(R.id.triptik_save_name_dialog_layout);
+        saveTriptikFileName = (RelativeLayout) findViewById(R.id.triptik_save_name_dialog_layout);
         saveTriptikFileName.setVisibility(View.VISIBLE);
+        Animation _startAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_anim);
+        saveTriptikFileName.startAnimation(_startAnimation);
 
+        //  This sets up the layout for the screenshot capturing.
         screenshot_header_container.setVisibility(View.VISIBLE);
         menubar.setVisibility(View.GONE);
         t_panel_01_indicator.setVisibility(View.GONE);
@@ -261,8 +267,11 @@ public class PanelsActivity extends Activity implements UploadTriptik.UploadCall
                     takeScreenshot(uniqueTriptikID);
 
                     etTriptikName.getText();
-                    RelativeLayout progressSaving = (RelativeLayout) findViewById(R.id.progressloader_container);
+
+                    progressSaving = (RelativeLayout) findViewById(R.id.progressloader_container);
                     progressSaving.setVisibility(View.VISIBLE);
+                    Animation _startAnimation2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in_anim);
+                    progressSaving.startAnimation(_startAnimation2);
                     uploadFiles(userID, triptikName);
                 } else {
                     ToastView("Please enter a Triptik save name to continue...");
