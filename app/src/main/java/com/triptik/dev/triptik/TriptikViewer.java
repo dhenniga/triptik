@@ -57,23 +57,7 @@ public class TriptikViewer extends Activity {
 
             Picasso.with(this)
                     .load(photo_url_str)
-                    .into(ivTriptikViewer, new com.squareup.picasso.Callback() {
-                        @Override
-                        public void onSuccess() {
-                            if (progressDialog != null) {
-                                progressDialog.cancel();
-                            }
-                        }
-
-                        @Override
-                        public void onError() {
-
-                        }
-                    });
-
-
-
-
+                    .into(ivTriptikViewer);
 
             Picasso.with(getApplicationContext()).load(photo_url_str).into(ivTriptikViewer);
 

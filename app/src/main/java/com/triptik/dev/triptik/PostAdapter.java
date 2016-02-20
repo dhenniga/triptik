@@ -53,9 +53,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         Picasso.with(mContext)
                 .load(photo_url_str)
-                .resize(658, 400)
                 .centerCrop()
+                .resize(658, 400)
                 .into(holder.ivTriptikPreview);
+
 
         Picasso.with(mContext).load(profile_image).resize(120,120).centerCrop().into(holder.ivProfileImage);
 

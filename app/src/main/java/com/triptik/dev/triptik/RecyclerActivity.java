@@ -37,6 +37,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
         new JSONAsync().execute();
 
+        // Functions for menubar buttons
         btnNewTriptik = (ImageButton) findViewById(R.id.btnNewTriptik);
         btnNewTriptik.setVisibility(View.VISIBLE);
 
