@@ -19,19 +19,21 @@ import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
-    private final Context mContext;
+
+    private Context mContext;
     private List<PostValue> postList;
     private LayoutInflater inflater;
-
 
 
     public PostAdapter(Context context, List<PostValue> postList) {
         this.postList = postList;
         this.inflater = LayoutInflater.from(context);
         this.mContext = context;
-
     }
 
+    public PostAdapter() {
+
+    }
 
 
     @Override

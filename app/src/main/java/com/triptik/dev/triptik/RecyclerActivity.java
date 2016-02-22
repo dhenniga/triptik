@@ -2,6 +2,7 @@ package com.triptik.dev.triptik;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
 import com.triptik.dev.triptik.listener.RecyclerClickListener;
 import com.triptik.dev.triptik.listener.RecyclerTouchListener;
 import org.json.JSONObject;
@@ -27,6 +30,7 @@ public class RecyclerActivity extends AppCompatActivity {
     AppCompatActivity activity = RecyclerActivity.this;
     List<PostValue> postList;
     ImageButton btnNewTriptik, btnUpdate;
+    private TextView menubar_triptik_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,13 @@ public class RecyclerActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-ExtraLight.ttf");
+
+        PostAdapter postAdapter = new PostAdapter();
+        menubar_triptik_name = (TextView) findViewById(R.id.menubar_triptik_name);
+        menubar_triptik_name.setText("Triptik World Gallery");
+        menubar_triptik_name.setTypeface(RalewayLight);
 
 
     }
