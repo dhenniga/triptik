@@ -31,10 +31,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         this.mContext = context;
     }
 
-    public PostAdapter() {
-
-    }
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -60,7 +56,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 .into(holder.ivTriptikPreview);
 
 
-        Picasso.with(mContext).load(profile_image).resize(120,120).centerCrop().into(holder.ivProfileImage);
+        Picasso.with(mContext).load(profile_image).resize(300,300).centerCrop().into(holder.ivProfileImage);
 
     }
 
