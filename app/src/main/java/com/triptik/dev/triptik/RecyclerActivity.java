@@ -67,7 +67,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
         Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-ExtraLight.ttf");
 
-        PostAdapter postAdapter = new PostAdapter();
+//        PostAdapter postAdapter = new PostAdapter();
         menubar_triptik_name = (TextView) findViewById(R.id.menubar_triptik_name);
         menubar_triptik_name.setText("Triptik World Gallery");
         menubar_triptik_name.setTypeface(RalewayLight);
