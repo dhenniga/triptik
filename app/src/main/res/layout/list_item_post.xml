@@ -25,7 +25,7 @@ android:layout_marginBottom="2.5dp"
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:background="#f8f8f8"
+            android:background="#0099ff"
             android:orientation="vertical"
             >
 
@@ -117,10 +117,10 @@ android:layout_marginBottom="2.5dp"
 
                 <ImageButton
                     android:id="@+id/fragment_comment_button"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginTop="13dp"
-                    android:layout_marginRight="13dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="8dp"
                     android:background="#00000000"
                     android:layout_alignParentRight="true"
                     android:src="@mipmap/chat_icon"
@@ -130,16 +130,52 @@ android:layout_marginBottom="2.5dp"
 
                 <ImageButton
                     android:id="@+id/fragment_like_button"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
                     android:layout_marginTop="13dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="5dp"
                     android:background="#00000000"
                     android:layout_toLeftOf="@+id/fragment_comment_button"
                     android:src="@mipmap/like_icon"
                     android:scaleType="fitCenter"
                     android:padding="5dp"
                     />
+
+                <AbsoluteLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/fragment_like_button"
+                    android:layout_marginRight="-24dp"
+                    android:layout_marginTop="-27dp"
+                    android:layout_toLeftOf="@+id/fragment_like_button">
+
+                    <TextView
+                        android:id="@+id/like_number_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fff"
+                        android:textSize="9sp"
+                        android:text="45"/>
+
+                </AbsoluteLayout>
+
+                <AbsoluteLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/fragment_comment_button"
+                    android:layout_marginRight="-25dp"
+                    android:layout_marginTop="-27dp"
+                    android:layout_toLeftOf="@+id/fragment_comment_button">
+
+                    <TextView
+                        android:id="@+id/comment_number_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#fff"
+                        android:textSize="9sp"
+                        android:text="45"/>
+
+                </AbsoluteLayout>
 
             </RelativeLayout>
 
