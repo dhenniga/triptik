@@ -3,6 +3,7 @@ package com.triptik.dev.triptik;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -45,6 +46,7 @@ public class TriptikViewer extends Activity {
     private LinearLayout menubar_icon_container;
     private ProgressDialog progressDialog;
     private RecyclerView rvCommentRecycler;
+    private Button btnSendComment;
     private ToggleButton tbtnAddComment;
 
     private TextView tvCommentUser, tvCommentDateTime, tvCommentText;
@@ -81,6 +83,9 @@ public class TriptikViewer extends Activity {
 
         tbtnAddComment = (ToggleButton) findViewById(R.id.tbtnAddComment);
         tbtnAddComment.setTypeface(RalewayLight);
+
+        btnSendComment = (Button) findViewById(R.id.btnSendComment);
+
 
 
         rvCommentRecycler = (RecyclerView) findViewById(R.id.rvCommentRecycler);
@@ -156,6 +161,7 @@ public class TriptikViewer extends Activity {
                 else {
 
                     tbtnAddComment.setText("Add comment");
+                    parent.removeAllViews();
 
                 }
 
@@ -163,6 +169,14 @@ public class TriptikViewer extends Activity {
         });
 
 
+//        btnSendComment.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                btnSendComment.setBackgroundColor(Color.parseColor("#ff6600"));
+//
+//            }
+//        });
 
     }
 
