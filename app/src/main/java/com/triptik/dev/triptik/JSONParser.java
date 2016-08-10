@@ -1,5 +1,7 @@
 package com.triptik.dev.triptik;
 
+import com.triptik.dev.triptik.gallery.GalleryValue;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,36 +11,40 @@ import java.util.List;
 
 public class JSONParser {
 
-    public List<PostValue> parse(JSONObject jsonObject) {
-        List<PostValue> postList = new ArrayList<>();
-        PostValue postValue;
+    public List<GalleryValue> parse(JSONObject jsonObject) {
+        List<GalleryValue> postList = new ArrayList<>();
+        GalleryValue galleryValue;
         try {
             JSONArray postsArray = jsonObject.getJSONArray("posts");
 
             for (int i = 0; i < postsArray.length(); i++) {
+
                 JSONObject posts = postsArray.getJSONObject(i);
                 JSONObject post = posts.getJSONObject("post");
 
-                postValue = new PostValue();
+                galleryValue = new GalleryValue();
 
-                String triptikTitle = post.getString("triptikTitle");
-                String triptikID = post.getString("triptikID");
-                String creationDate = post.getString("creation_date");
-                String creationTime = post.getString("creation_time");
-                String userID = post.getString("userID");
-                String username = post.getString("username");
+                    String triptikTitle = post.getString("triptikTitle");
+                    String triptikID = post.getString("triptikID");
+                    String creationDate = post.getString("creation_date");
+                    String creationTime = post.getString("creation_time");
+                    String userID = post.getString("userID");
+                    String username = post.getString("username");
 
-                postValue.setTriptikTitle(triptikTitle);
-                postValue.setTriptikID(triptikID);
-                postValue.setCreationDate(creationDate);
-                postValue.setCreationTime(creationTime);
-                postValue.setUserID(userID);
-                postValue.setUserName(username);
-                postList.add(postValue);
+                    galleryValue.setTriptikTitle(triptikTitle);
+                    galleryValue.setTriptikID(triptikID);
+                    galleryValue.setCreationDate(creationDate);
+                    galleryValue.setCreationTime(creationTime);
+                    galleryValue.setUserID(userID);
+                    galleryValue.setUserName(username);
+                    postList.add(galleryValue);
+
             }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         return postList;
     }
 

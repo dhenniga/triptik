@@ -1,37 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/llTriptikContainer"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <include layout="@layout/menubar"/>
+    <include layout="@layout/menubar" />
 
-    <ImageView
-        android:id="@+id/ivTriptikViewer"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#f8f8f8"
+        android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:padding="0dp"/>
+        android:elevation="-1dp">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="42dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/black"
-        android:gravity="center"
-        >
-
-        <TextView
-            android:id="@+id/tvTriptikBaseLine"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Triptik v.08    |    David Hennigan"
-            android:textColor="@color/main"
-            android:textSize="10dp"
-            android:gravity="center"/>
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/ivTriptikViewer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#e0363a"
+                android:padding="0dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/main"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <ImageButton
+                    android:id="@+id/fragment_like_button"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_toLeftOf="@+id/fragment_comment_button"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@mipmap/like_icon" />
+
+                <ImageButton
+                    android:id="@+id/fragment_comment_button"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentRight="true"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@mipmap/chat_icon" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvCommentRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="vertical"
+                android:background="#aa000000">
+
+                <ToggleButton
+                    android:id="@+id/tbtnAddComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textOn="Cancel Comment"
+                    android:textOff="Add Comment"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:padding="0dp"
+                    android:layout_margin="0dp"
+                    android:background="#00000000"
+                    android:textSize="16sp"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rlCommentsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlTriptikBaseline"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:layout_alignParentBottom="true"
+                android:background="#000000"
+                android:elevation="4dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tvTriptikBaseLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Triptik v.09 (alpha)    |    David Hennigan"
+                    android:textColor="@color/main"
+                    android:textSize="10dp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

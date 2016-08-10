@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/main"
+    android:layout_gravity="bottom">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter your comment"
+            android:textColor="#88ffffff"
+            android:textSize="12sp"
+            android:padding="5dp"
+            android:layout_weight="2"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_weight="0"
+            android:gravity="right"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Responding to "
+                android:textColor="#88ffffff"
+                android:textSize="12sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reply Name"
+                android:textColor="#bbffffff"
+                android:textSize="12sp"
+                android:textStyle="bold|italic" />
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:capitalize="sentences"
+        android:layout_height="match_parent"
+        android:background="#f3f3f3"
+        android:hint="Enter text"
+        android:textColor="#99000000"
+        android:textColorHint="#99000000"
+        android:gravity="top|left"
+        android:padding="10dp"
+        android:textSize="14sp"
+        android:maxLines="15"
+        android:minLines="10"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Post"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:textAllCaps="true"
+        android:background="#4444"/>
+
+</LinearLayout>

@@ -1,32 +1,29 @@
-package com.triptik.dev.triptik;
+package com.triptik.dev.triptik.gallery;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
+import com.triptik.dev.triptik.R;
+
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
+public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
 
 
     private Context mContext;
-    private List<PostValue> postList;
+    private List<GalleryValue> galleryList;
     private LayoutInflater inflater;
 
 
-    public PostAdapter(Context context, List<PostValue> postList) {
-        this.postList = postList;
+    public GalleryAdapter(Context context, List<GalleryValue> galleryList) {
+        this.galleryList = galleryList;
         this.inflater = LayoutInflater.from(context);
         this.mContext = context;
     }
@@ -40,10 +37,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        PostValue currentPost = postList.get(position);
+        GalleryValue currentPost = galleryList.get(position);
         holder.tvTitle.setText(currentPost.getTriptikTitle());
-        holder.tvCreationDate.setText(currentPost.getCreationDate());
-        holder.tvCreationTime.setText(currentPost.getCreationTime());
+        holder.tvCreationDate.setText(currentPost.getCreationDate().substring(2,10));
+        holder.tvCreationTime.setText(currentPost.getCreationTime().substring(0,5));
         holder.tvUserName.setText(currentPost.getUserName());
 
         String photo_url_str = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentPost.getUserID() + "/gallery/" + currentPost.getTriptikID()+ "/" + currentPost.getTriptikID() + "_panel_1.webp";
@@ -62,7 +59,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return postList == null ? 0 : postList.size();
+        return galleryList == null ? 0 : galleryList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

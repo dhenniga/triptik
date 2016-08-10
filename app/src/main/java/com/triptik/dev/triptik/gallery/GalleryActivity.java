@@ -1,4 +1,4 @@
-package com.triptik.dev.triptik;
+package com.triptik.dev.triptik.gallery;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -6,30 +6,36 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.OvershootInterpolator;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.triptik.dev.triptik.AspectSelect;
+import com.triptik.dev.triptik.JSONHelper;
+import com.triptik.dev.triptik.JSONParser;
+import com.triptik.dev.triptik.R;
+import com.triptik.dev.triptik.TriptikViewer;
 import com.triptik.dev.triptik.listener.RecyclerClickListener;
 import com.triptik.dev.triptik.listener.RecyclerTouchListener;
 import org.json.JSONObject;
 import java.util.List;
 
 
-public class RecyclerActivity extends AppCompatActivity {
+public class GalleryActivity extends AppCompatActivity {
 
     public static final String EXTRA_USER_ID = "EXTRA_USER_ID";
     public static final String EXTRA_TRIPTIK_ID = "EXTRA_TRIPTIK_ID";
 
     RecyclerView recyclerView;
-    AppCompatActivity activity = RecyclerActivity.this;
-    List<PostValue> postList;
+    AppCompatActivity activity = GalleryActivity.this;
+
+    List<GalleryValue> postList;
+
     ImageButton btnNewTriptik, btnUpdate;
+
     private TextView menubar_triptik_name;
 
     @Override
@@ -48,7 +54,7 @@ public class RecyclerActivity extends AppCompatActivity {
         btnNewTriptik.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RecyclerActivity.this, AspectSelect.class);
+                Intent intent = new Intent(GalleryActivity.this, AspectSelect.class);
                 startActivity(intent);
             }
         });
@@ -59,7 +65,7 @@ public class RecyclerActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RecyclerActivity.this, RecyclerActivity.class);
+                Intent intent = new Intent(GalleryActivity.this, GalleryActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -67,7 +73,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
         Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-ExtraLight.ttf");
 
-//        PostAdapter postAdapter = new PostAdapter();
+//        GalleryAdapter postAdapter = new GalleryAdapter();
         menubar_triptik_name = (TextView) findViewById(R.id.menubar_triptik_name);
         menubar_triptik_name.setText("Triptik World Gallery");
         menubar_triptik_name.setTypeface(RalewayLight);
@@ -86,10 +92,10 @@ public class RecyclerActivity extends AppCompatActivity {
                     Log.i("recyclerActivity", postList.get(position).getTriptikID());
 
                     Intent intent = new Intent(getApplicationContext(), TriptikViewer.class);
-                    PostValue postValue = postList.get(position);
+                    GalleryValue galleryValue = postList.get(position);
 
-                    intent.putExtra(EXTRA_USER_ID, postValue.getUserID());
-                    intent.putExtra(EXTRA_TRIPTIK_ID, postValue.getTriptikID());
+                    intent.putExtra(EXTRA_USER_ID, galleryValue.getUserID());
+                    intent.putExtra(EXTRA_TRIPTIK_ID, galleryValue.getTriptikID());
 
                     startActivity(intent);
                 }
@@ -100,23 +106,24 @@ public class RecyclerActivity extends AppCompatActivity {
 
     class JSONAsync extends AsyncTask<Void, Void, Void> {
         ProgressDialog pd;
+        private String URL_MAIN = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/populateHomeTriptikRecycler.php";
 
         @Override
         protected void onPreExecute() {
-            pd = ProgressDialog.show(RecyclerActivity.this, null, "Loading Triptik Gallery ...", true, false);
+            pd = ProgressDialog.show(GalleryActivity.this, null, "Loading Triptik Gallery ...", true, false);
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            JSONObject jsonObject = new JSONHelper().getJSONFromUrl();
+            JSONObject jsonObject = new JSONHelper().getJSONFromUrl(URL_MAIN);
             postList = new JSONParser().parse(jsonObject);
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            PostAdapter postAdapter = new PostAdapter(activity, postList);
-            recyclerView.setAdapter(postAdapter);
+            GalleryAdapter galleryAdapter = new GalleryAdapter(activity, postList);
+            recyclerView.setAdapter(galleryAdapter);
             pd.dismiss();
         }
     }

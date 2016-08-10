@@ -1,8 +1,8 @@
-package com.triptik.dev.triptik;
+package com.triptik.dev.triptik.gallery;
 
 import java.lang.String;
 
-public class PostValue {
+public class GalleryValue {
 
     private String username, triptikTitle, triptikID, creation_date, creation_time, userID;
 

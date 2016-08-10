@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.triptik.dev.triptik.app.AppConfig;
+import com.triptik.dev.triptik.gallery.GalleryActivity;
 import com.triptik.dev.triptik.helper.SQLiteHandler;
 import com.triptik.dev.triptik.helper.SessionManager;
 
@@ -221,7 +222,7 @@ public class PanelsActivity extends Activity implements UploadTriptik.UploadCall
         btnGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PanelsActivity.this, RecyclerActivity.class);
+                Intent intent = new Intent(PanelsActivity.this, GalleryActivity.class);
                 startActivity(intent);
                 finish();
             }

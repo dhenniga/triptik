@@ -11,19 +11,18 @@ import java.lang.Exception;import java.lang.String;import java.lang.StringBuilde
 import java.net.URLConnection;
 
 public class JSONHelper {
-    private static final String URL_MAIN = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/populateHomeTriptikRecycler.php";
     private static final String TAG = JSONHelper.class.getSimpleName();
     private JSONObject mJsonObject = null;
     private String json = "";
 
-    public JSONObject getJSONFromUrl() {
+    public JSONObject getJSONFromUrl(String URL_MAIN) {
         try {
             URL url = new URL(URL_MAIN);
             URLConnection urlConnection = url.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                    urlConnection.getInputStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             StringBuilder builder = new StringBuilder();
             String line;
+
             while ((line = in.readLine()) != null) {
                 builder.append(line).append("\n");
             }
