@@ -35,6 +35,16 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String KEY_EMAIL = "email";
     private static final String KEY_CREATED_AT = "created_at";
 
+
+    // Comment Table name
+    private static final String TABLE_COMMENT = "comment";
+
+    // Comments
+    private static final String KEY_COMMENT_TEXT = "commentText";
+    private static final String KEY_TRIPTIK_ID = "triptikID";
+    private static final String KEY_USER_ID = "userID";
+
+
     public SQLiteHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -79,6 +89,26 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         Log.d(TAG, "New user inserted into sqlite: " + id);
     }
+
+    /**
+     * Storing a comment in database
+     * */
+    public void addComment(String commentText, String triptikID, String userID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_COMMENT_TEXT, commentText); // commentText
+        values.put(KEY_TRIPTIK_ID, triptikID); // triptikID
+        values.put(KEY_USER_ID, userID); // userID
+
+        // Inserting Row
+        long id = db.insert(TABLE_COMMENT, null, values);
+        db.close(); // Closing database connection
+
+        Log.d(TAG, "New comment inserted into sqlite: " + id);
+    }
+
+
 
     /**
      * Getting user data from database

@@ -9,4 +9,10 @@ public class AppConfig {
 
     //Server Upload Triptik images and add entry into database
     public static String URL_NEW_TRIPTIK = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/triptikSave.php";
+
+    //Server Get comments for the open Triptik
+    public static String URL_GET_COMMENTS = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/getCommentsForTriptik.php";
+
+    //Server Upload Comments
+    public static String URL_COMMENTS = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/upload_comment.php";
 }

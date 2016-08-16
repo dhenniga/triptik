@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/menubar" />
+    <include layout="@layout/menubar"/>
 
     <ScrollView
+        android:id="@+id/svComments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -64,6 +65,7 @@
                 />
 
             <LinearLayout
+                android:id="@+id/llCommentButtonContainer"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:orientation="vertical"

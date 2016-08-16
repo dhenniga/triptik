@@ -1,7 +1,17 @@
 package com.triptik.dev.triptik;
 
 import android.graphics.Bitmap;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.triptik.dev.triptik.app.AppConfig;
 
 import net.gotev.uploadservice.UploadService;
 
@@ -13,12 +23,46 @@ import java.io.FileInputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.OkHttpClient;
 
-public class Upload {
+public class Upload extends AppCompatActivity {
+//
+//
+//    static RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+//
+//    public static int uploadComment(final String commentText, final String userID, final String triptikID) {
+//
+//        int serverResponseCode = 0;
+//
+//
+//
+//                StringRequest request = new StringRequest(Request.Method.POST, AppConfig.URL_COMMENTS, new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//
+//                        System.out.println(response.toString());
+//
+//                    }
+//                }) {
+//
+//                    @Override
+//                    protected Map<String, String> getParams() throws AuthFailureError {
+//                        Map<String,String> parameters  = new HashMap<>();
+//                        parameters.put("commentText",commentText);
+//                        parameters.put("triptikID",triptikID);
+//                        parameters.put("userID", userID);
+//                        return parameters;
+//                    }
+//                };
+//                requestQueue.add(request);
+//            }
+
 
     public static int uploadFile(String uploadThis, String uploadWith, String uploadTo, String uploadWho, UploadCallback callback) {
+
         int serverResponseCode = 0;
 
         HttpURLConnection conn = null;
