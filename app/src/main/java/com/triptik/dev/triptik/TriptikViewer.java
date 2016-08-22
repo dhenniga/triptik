@@ -1,11 +1,8 @@
 package com.triptik.dev.triptik;
 
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,8 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -32,27 +27,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 import com.triptik.dev.triptik.app.AppConfig;
-import com.triptik.dev.triptik.app.AppController;
 import com.triptik.dev.triptik.comment.CommentAdapter;
 import com.triptik.dev.triptik.comment.CommentValue;
 import com.triptik.dev.triptik.comment.JSONCommentParser;
-import com.triptik.dev.triptik.helper.SQLiteHandler;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,25 +62,14 @@ public class TriptikViewer extends Activity {
     private LinearLayout menubar_icon_container;
     private ProgressDialog progressDialog;
     private RecyclerView rvCommentRecycler;
-    private Button btnSendComment;
     private ScrollView svComments;
     private ToggleButton tbtnAddComment;
-    private ObjectAnimator objectAnimator;
-    private SQLiteHandler db;
-//    private EditText etCommentText;
 
-    private TextView tvCommentUser, tvCommentDateTime, tvCommentText;
+    private TextView tvCommentUser, tvCommentDateTime, tvCommentText, tvTriptikID;
 
     private List<CommentValue> commentList;
     private Activity activity = TriptikViewer.this;
-    private Animation animFadein;
     private RelativeLayout rlTriptikBaseline;
-
-    private LinearLayout llCommentButtonContainer;
-
-    RequestQueue requestQueue;
-
-    private View view;
 
     public static final String EXTRA_USER_ID = "EXTRA_USER_ID";
     public static final String EXTRA_TRIPTIK_ID = "EXTRA_TRIPTIK_ID";
@@ -113,12 +98,8 @@ public class TriptikViewer extends Activity {
 
         rlTriptikBaseline = (RelativeLayout) findViewById(R.id.rlTriptikBaseline);
 
-        requestQueue = Volley.newRequestQueue(getApplicationContext());
-
         tbtnAddComment = (ToggleButton) findViewById(R.id.tbtnAddComment);
         tbtnAddComment.setTypeface(RalewayLight);
-
-        llCommentButtonContainer = (LinearLayout) findViewById(R.id.llCommentButtonContainer);
 
         svComments = (ScrollView) findViewById(R.id.svComments);
 
@@ -126,6 +107,7 @@ public class TriptikViewer extends Activity {
         ivCommentThumbnail = (ImageView) findViewById(R.id.ivCommentThumbnail);
 
         tvCommentUser = (TextView) findViewById(R.id.tvCommentUser);
+        tvTriptikID = (TextView) findViewById(R.id.tvTriptikID);
 
         tvCommentDateTime = (TextView) findViewById(R.id.tvCommentDateTime);
         tvCommentText = (TextView) findViewById(R.id.tvCommentText);
@@ -142,8 +124,6 @@ public class TriptikViewer extends Activity {
 
         initViews();
 
-        new JSONAsync().execute();
-
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String userId = extras.getString(TriptikViewer.EXTRA_USER_ID);
@@ -153,10 +133,15 @@ public class TriptikViewer extends Activity {
 
             Picasso.with(getApplicationContext())
                     .load(photo_url_str)
-                    .resize((int)dpWidth, (int)dpHeight)
+                    .resize((int) dpWidth, (int) dpHeight)
                     .into(ivTriptikViewer);
 
         }
+
+        try {
+        tvTriptikID.setText(extras.getString(TriptikViewer.EXTRA_TRIPTIK_ID));
+        } catch (Exception e) {}
+
 
 
         TextView tvTriptikBaseLine = (TextView) findViewById(R.id.tvTriptikBaseLine);
@@ -203,16 +188,20 @@ public class TriptikViewer extends Activity {
 
                             if (!commentText.matches("")) {
 
-
                                 Bundle extras = getIntent().getExtras();
                                 final String userID = extras.getString(TriptikViewer.EXTRA_USER_ID);
                                 final String triptikID = extras.getString(TriptikViewer.EXTRA_TRIPTIK_ID);
 
                                 uploadComment(triptikID, userID, commentText);
-                                Log.d("uploadComment","Event occured");
+                                Log.d("uploadComment", "Event occured");
                                 ToastView("Comment Uploaded");
 
                                 etCommentText.setText("");
+                                focusOnView();
+                                parent.removeAllViews();
+
+                                initViews();
+
 
                             } else {
 
@@ -221,103 +210,47 @@ public class TriptikViewer extends Activity {
                             }
                         }
                     });
-                }
-
-                else {
+                } else {
 
                     tbtnAddComment.setText("Add comment");
-                    focusOnView();
                     parent.removeAllViews();
 
                 }
 
             }
         });
+
+        new JSONAsync().execute();
+
     }
 
 
+    /**
+     * Upload a comment to the database
+     *
+     * @param triptikID
+     * @param userID
+     * @param commentText
+     */
+    private void uploadComment(final String triptikID, final String userID, final String commentText) {
 
-    private void uploadComment (final String triptikID, final String userID, final String commentText) {
-
-        // Tag used to cancel the request
-        String tag_string_req = "upload_comment";
-
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_COMMENTS, new Response.Listener<String>() {
+        StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.URL_POST_COMMENTS, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, "Comment Response: " + response.toString());
-
-                try {
-                    JSONObject jObj = new JSONObject(response);
-                    boolean error = jObj.getBoolean("error");
-                    if (!error) {
-                        try {
-
-                                new Thread(new Runnable() {
-                                    public void run() {
-
-                                        StringRequest request = new StringRequest(Request.Method.POST, AppConfig.URL_COMMENTS, new Response.Listener<String>() {
-                                            @Override
-                                            public void onResponse(String response) {
-
-                                                System.out.println(response.toString());
-                                            }
-                                        }, new Response.ErrorListener() {
-                                            @Override
-                                            public void onErrorResponse(VolleyError error) {
-
-                                            }
-                                        }) {
-
-                                            @Override
-                                            protected Map<String, String> getParams() throws AuthFailureError {
-                                                Map<String,String> parameters  = new HashMap<String, String>();
-                                                parameters.put("commentText",commentText);
-                                                parameters.put("triptikID",triptikID);
-                                                parameters.put("userID",userID);
-                                                return parameters;
-                                            }
-                                        };
-
-                                        requestQueue.add(request);
-                                    }
-                                }).start();
-
-                        } catch (Exception e) {
-                            Log.e("AndroidUploadService", e.getMessage(), e);
-
-                        }
-
-
-//                        JSONObject comment = jObj.getJSONObject("comment");
-//                        String commentText = comment.getString("commentText");
-//                        String triptikID = comment.getString("triptikID");
-//                        String userUD = comment.getString("userID");
-
-                    } else {
-
-                        String errorMsg = jObj.getString("error_msg");
-                        Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+                Log.d("Response", response);
+            }
+        }
+                ,new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response", error.toString());
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "Comment Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        }) {
+        ) {
 
             @Override
             protected Map<String, String> getParams() {
-                // Posting params to register url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("commentText", commentText);
                 params.put("userID", userID);
@@ -327,33 +260,16 @@ public class TriptikViewer extends Activity {
 
         };
 
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(postRequest);
+
     }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     *
+     */
     private void initViews() {
         rvCommentRecycler = (RecyclerView) findViewById(R.id.rvCommentRecycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
@@ -361,8 +277,13 @@ public class TriptikViewer extends Activity {
     }
 
 
-    private final void focusOnView(){
+    /**
+     *
+     */
+    private final void focusOnView() {
+
         svComments.post(new Runnable() {
+
             @Override
             public void run() {
 
@@ -370,10 +291,10 @@ public class TriptikViewer extends Activity {
 
                     svComments.smoothScrollTo(0, (rvCommentRecycler.getBottom()));
 
-
                 } else {
 
                     svComments.smoothScrollTo(0, (rlTriptikBaseline.getTop()));
+
                 }
             }
         });
@@ -381,30 +302,40 @@ public class TriptikViewer extends Activity {
 
 
 
+    /**
+     *
+     */
     class JSONAsync extends AsyncTask<Void, Void, Void> {
         ProgressDialog pd;
 
         @Override
         protected void onPreExecute() {
+            super.onPreExecute();
             pd = ProgressDialog.show(TriptikViewer.this, null, "Loading Comments...", true, false);
         }
 
         @Override
         protected Void doInBackground(Void... params) {
+
             JSONObject jsonObject = new JSONHelper().getJSONFromUrl(AppConfig.URL_GET_COMMENTS);
             commentList = new JSONCommentParser().parse(jsonObject);
             return null;
+
         }
 
         @Override
         protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
             CommentAdapter commentAdapter = new CommentAdapter(getApplicationContext(), commentList);
             rvCommentRecycler.setAdapter(commentAdapter);
             pd.dismiss();
         }
     }
 
-    public void ToastView (String toastTextString) {
+    /**
+     * @param toastTextString
+     */
+    public void ToastView(String toastTextString) {
         final Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.ttf");
         LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_layout));

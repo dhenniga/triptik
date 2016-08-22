@@ -50,7 +50,6 @@ public class GalleryActivity extends AppCompatActivity {
         // Functions for menubar buttons
         btnNewTriptik = (ImageButton) findViewById(R.id.btnNewTriptik);
         btnNewTriptik.setVisibility(View.VISIBLE);
-
         btnNewTriptik.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,7 +60,6 @@ public class GalleryActivity extends AppCompatActivity {
 
         btnUpdate = (ImageButton) findViewById(R.id.btnUpdate);
         btnUpdate.setVisibility(View.VISIBLE);
-
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +71,6 @@ public class GalleryActivity extends AppCompatActivity {
 
         Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-ExtraLight.ttf");
 
-//        GalleryAdapter postAdapter = new GalleryAdapter();
         menubar_triptik_name = (TextView) findViewById(R.id.menubar_triptik_name);
         menubar_triptik_name.setText("Triptik World Gallery");
         menubar_triptik_name.setTypeface(RalewayLight);

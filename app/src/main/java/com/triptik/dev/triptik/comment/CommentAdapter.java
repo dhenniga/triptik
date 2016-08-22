@@ -43,6 +43,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     }
 
+    public void updateData(List<CommentValue> items) {
+        commentList.clear();
+        commentList.addAll(items);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return commentList == null ? 0 : commentList.size();

@@ -14,5 +14,5 @@ public class AppConfig {
     public static String URL_GET_COMMENTS = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/getCommentsForTriptik.php";
 
     //Server Upload Comments
-    public static String URL_COMMENTS = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/upload_comment.php";
+    public static String URL_POST_COMMENTS = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/upload_comment.php";
 }
