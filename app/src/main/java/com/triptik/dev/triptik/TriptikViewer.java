@@ -40,6 +40,8 @@ import com.triptik.dev.triptik.comment.CommentAdapter;
 import com.triptik.dev.triptik.comment.CommentValue;
 import com.triptik.dev.triptik.comment.JSONCommentParser;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,6 +51,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -220,7 +223,8 @@ public class TriptikViewer extends Activity {
             }
         });
 
-        new JSONAsync().execute();
+        String triptikID = extras.getString(TriptikViewer.EXTRA_TRIPTIK_ID);
+        new JSONAsync().execute(triptikID);
 
     }
 
@@ -305,7 +309,7 @@ public class TriptikViewer extends Activity {
     /**
      *
      */
-    class JSONAsync extends AsyncTask<Void, Void, Void> {
+    class JSONAsync extends AsyncTask<String, Void, Void> {
         ProgressDialog pd;
 
         @Override
@@ -315,17 +319,34 @@ public class TriptikViewer extends Activity {
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Void doInBackground(String... args) {
 
-            JSONObject jsonObject = new JSONHelper().getJSONFromUrl(AppConfig.URL_GET_COMMENTS);
-            commentList = new JSONCommentParser().parse(jsonObject);
+            Bundle extras = getIntent().getExtras();
+            final String triptikID = extras.getString(TriptikViewer.EXTRA_TRIPTIK_ID);
+
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("triptikID", triptikID));
+
+            ServiceHandler serviceClient = new ServiceHandler();
+            String json = serviceClient.makeServiceCall(AppConfig.URL_GET_COMMENTS, ServiceHandler.POST, params);
+
+            if (json.length() > 4) {
+
+                JSONObject jsonObject = new JSONHelper().getJSONFromString(json);
+                Log.d("SERVER Request: ", "> " + json);
+                commentList = new JSONCommentParser().parse(jsonObject);
+
+            } else {
+
+                Log.d("SERVER Request: ", "> " + json);
+            }
+
             return null;
 
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
             CommentAdapter commentAdapter = new CommentAdapter(getApplicationContext(), commentList);
             rvCommentRecycler.setAdapter(commentAdapter);
             pd.dismiss();

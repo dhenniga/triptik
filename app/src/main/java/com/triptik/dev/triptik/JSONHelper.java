@@ -15,6 +15,22 @@ public class JSONHelper {
     private JSONObject mJsonObject = null;
     private String json = "";
 
+    public JSONObject getJSONFromString(String JSON) {
+
+        String incoming = new String(JSON);
+
+
+        try {
+            // Convert the JSON String from InputStream to a JSONObject
+            mJsonObject = new JSONObject(incoming);
+        } catch (JSONException e) {
+            Log.e(TAG, "Exception: " + e.getMessage());
+        }
+        return mJsonObject;
+    }
+
+
+
     public JSONObject getJSONFromUrl(String URL_MAIN) {
         try {
             URL url = new URL(URL_MAIN);
