@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.triptik.dev.triptik.R;
+import com.triptik.dev.triptik.comment.CommentAdapter;
 
 import java.lang.Override;
 import java.lang.String;
@@ -42,6 +43,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         holder.tvCreationDate.setText(currentPost.getCreationDate().substring(2,10));
         holder.tvCreationTime.setText(currentPost.getCreationTime().substring(0,5));
         holder.tvUserName.setText(currentPost.getUserName());
+        holder.tvCommentTotal.setText(((String.valueOf(position + 1))));
 
         String photo_url_str = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentPost.getUserID() + "/gallery/" + currentPost.getTriptikID()+ "/" + currentPost.getTriptikID() + "_panel_1.webp";
         String profile_image = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentPost.getUserID() + "/pic.webp";
@@ -64,7 +66,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvTitle, tvCreationDate, tvCreationTime, tvUserName;
+        TextView tvTitle, tvCreationDate, tvCreationTime, tvUserName, tvCommentTotal;
         ImageView ivTriptikPreview, ivProfileImage;
 
         public ViewHolder(View itemView) {
@@ -75,6 +77,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
             tvUserName = (TextView) itemView.findViewById(R.id.triptik_username_creator);
             ivTriptikPreview = (ImageView) itemView.findViewById(R.id.fragment_background_image);
             ivProfileImage = (ImageView) itemView.findViewById(R.id.profile_image);
+            tvCommentTotal = (TextView) itemView.findViewById(R.id.tvCommentTotal);
         }
     }
 }

@@ -31,7 +31,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
@@ -39,18 +38,13 @@ import com.triptik.dev.triptik.app.AppConfig;
 import com.triptik.dev.triptik.comment.CommentAdapter;
 import com.triptik.dev.triptik.comment.CommentValue;
 import com.triptik.dev.triptik.comment.JSONCommentParser;
+import com.triptik.dev.triptik.helper.SQLiteHandler;
+import com.triptik.dev.triptik.helper.SessionManager;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -67,14 +61,17 @@ public class TriptikViewer extends Activity {
     private RecyclerView rvCommentRecycler;
     private ScrollView svComments;
     private ToggleButton tbtnAddComment;
+    private SQLiteHandler db;
+    private SessionManager session;
 
-    private TextView tvCommentUser, tvCommentDateTime, tvCommentText, tvTriptikID;
+    private TextView tvCommentUser, tvCommentDateTime, tvCommentText;
 
     private List<CommentValue> commentList;
     private Activity activity = TriptikViewer.this;
     private RelativeLayout rlTriptikBaseline;
 
     public static final String EXTRA_USER_ID = "EXTRA_USER_ID";
+    public static String EXTRA_USER_LOGGED_IN = "EXTRA_USER_LOGGED_IN";
     public static final String EXTRA_TRIPTIK_ID = "EXTRA_TRIPTIK_ID";
 
 
@@ -85,7 +82,6 @@ public class TriptikViewer extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.triptik_viewer);
-
 
         DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
         float dpHeight = displayMetrics.heightPixels;
@@ -110,7 +106,6 @@ public class TriptikViewer extends Activity {
         ivCommentThumbnail = (ImageView) findViewById(R.id.ivCommentThumbnail);
 
         tvCommentUser = (TextView) findViewById(R.id.tvCommentUser);
-        tvTriptikID = (TextView) findViewById(R.id.tvTriptikID);
 
         tvCommentDateTime = (TextView) findViewById(R.id.tvCommentDateTime);
         tvCommentText = (TextView) findViewById(R.id.tvCommentText);
@@ -141,12 +136,6 @@ public class TriptikViewer extends Activity {
 
         }
 
-        try {
-        tvTriptikID.setText(extras.getString(TriptikViewer.EXTRA_TRIPTIK_ID));
-        } catch (Exception e) {}
-
-
-
         TextView tvTriptikBaseLine = (TextView) findViewById(R.id.tvTriptikBaseLine);
         tvTriptikBaseLine.setTypeface(RalewayLight);
 
@@ -159,12 +148,11 @@ public class TriptikViewer extends Activity {
             }
         });
 
+
         btnGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 finish();
-
             }
         });
 
@@ -192,10 +180,14 @@ public class TriptikViewer extends Activity {
                             if (!commentText.matches("")) {
 
                                 Bundle extras = getIntent().getExtras();
-                                final String userID = extras.getString(TriptikViewer.EXTRA_USER_ID);
                                 final String triptikID = extras.getString(TriptikViewer.EXTRA_TRIPTIK_ID);
 
-                                uploadComment(triptikID, userID, commentText);
+                                db = new SQLiteHandler(getApplicationContext());
+                                session = new SessionManager(getApplicationContext());
+                                HashMap<String, String> user = db.getUserDetails();
+                                EXTRA_USER_LOGGED_IN = user.get("userID");
+
+                                uploadComment(triptikID, EXTRA_USER_LOGGED_IN, commentText);
                                 Log.d("uploadComment", "Event occured");
                                 ToastView("Comment Uploaded");
 
@@ -213,6 +205,7 @@ public class TriptikViewer extends Activity {
                             }
                         }
                     });
+
                 } else {
 
                     tbtnAddComment.setText("Add comment");

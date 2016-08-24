@@ -36,6 +36,8 @@ public class GalleryActivity extends AppCompatActivity {
 
     ImageButton btnNewTriptik, btnUpdate;
 
+    TextView tvCommentTotal, tvLikeTotal;
+
     private TextView menubar_triptik_name;
 
     @Override
@@ -75,6 +77,8 @@ public class GalleryActivity extends AppCompatActivity {
         menubar_triptik_name.setText("Triptik World Gallery");
         menubar_triptik_name.setTypeface(RalewayLight);
 
+        tvCommentTotal = (TextView) findViewById(R.id.tvCommentTotal);
+        tvLikeTotal = (TextView) findViewById(R.id.tvLikeTotal);
 
     }
 
