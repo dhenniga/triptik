@@ -64,7 +64,9 @@ public class TriptikViewer extends Activity {
     private SQLiteHandler db;
     private SessionManager session;
 
-    private TextView tvCommentUser, tvCommentDateTime, tvCommentText;
+    private Typeface RalewayLight;
+
+    private TextView tvCommentUser, tvCommentDateTime;
 
     private List<CommentValue> commentList;
     private Activity activity = TriptikViewer.this;
@@ -87,7 +89,7 @@ public class TriptikViewer extends Activity {
         float dpHeight = displayMetrics.heightPixels;
         float dpWidth = displayMetrics.widthPixels;
 
-        Typeface RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.ttf");
+        RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.ttf");
 
         ivTriptikViewer = (ImageView) findViewById(R.id.ivTriptikViewer);
         btnNewTriptik = (ImageButton) findViewById(R.id.btnNewTriptik);
@@ -108,7 +110,6 @@ public class TriptikViewer extends Activity {
         tvCommentUser = (TextView) findViewById(R.id.tvCommentUser);
 
         tvCommentDateTime = (TextView) findViewById(R.id.tvCommentDateTime);
-        tvCommentText = (TextView) findViewById(R.id.tvCommentText);
 
         btnNewTriptik.setVisibility(View.VISIBLE);
         btnGallery.setVisibility(View.VISIBLE);
@@ -197,7 +198,6 @@ public class TriptikViewer extends Activity {
 
                                 initViews();
 
-
                             } else {
 
                                 ToastView("Please enter a comment before posting");
@@ -216,8 +216,7 @@ public class TriptikViewer extends Activity {
             }
         });
 
-        String triptikID = extras.getString(TriptikViewer.EXTRA_TRIPTIK_ID);
-        new JSONAsync().execute(triptikID);
+        new JSONAsync().execute();
 
     }
 
@@ -269,8 +268,13 @@ public class TriptikViewer extends Activity {
      */
     private void initViews() {
         rvCommentRecycler = (RecyclerView) findViewById(R.id.rvCommentRecycler);
+
+        // smooth scrolling fix for the Comment recyclerView
+        rvCommentRecycler.setNestedScrollingEnabled(false);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
         rvCommentRecycler.setLayoutManager(layoutManager);
+
     }
 
 
@@ -342,6 +346,7 @@ public class TriptikViewer extends Activity {
         protected void onPostExecute(Void result) {
             CommentAdapter commentAdapter = new CommentAdapter(getApplicationContext(), commentList);
             rvCommentRecycler.setAdapter(commentAdapter);
+
             pd.dismiss();
         }
     }

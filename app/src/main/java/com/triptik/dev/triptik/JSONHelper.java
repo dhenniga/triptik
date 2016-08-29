@@ -15,7 +15,7 @@ public class JSONHelper {
     private JSONObject mJsonObject = null;
     private String json = "";
 
-    public JSONObject getJSONFromString(String JSON) {
+        public JSONObject getJSONFromString(String JSON) {
 
         String incoming = new String(JSON);
 

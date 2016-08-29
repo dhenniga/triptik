@@ -43,7 +43,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         holder.tvCreationDate.setText(currentPost.getCreationDate().substring(2,10));
         holder.tvCreationTime.setText(currentPost.getCreationTime().substring(0,5));
         holder.tvUserName.setText(currentPost.getUserName());
-        holder.tvCommentTotal.setText(((String.valueOf(position + 1))));
+        holder.tvCommentTotal.setText(currentPost.getCommentTotal());
 
         String photo_url_str = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentPost.getUserID() + "/gallery/" + currentPost.getTriptikID()+ "/" + currentPost.getTriptikID() + "_panel_1.webp";
         String profile_image = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentPost.getUserID() + "/pic.webp";
@@ -53,7 +53,6 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
                 .centerCrop()
                 .resize(658, 400)
                 .into(holder.ivTriptikPreview);
-
 
         Picasso.with(mContext).load(profile_image).resize(300,300).centerCrop().into(holder.ivProfileImage);
 

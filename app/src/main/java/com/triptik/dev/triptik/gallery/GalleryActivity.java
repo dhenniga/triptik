@@ -116,6 +116,7 @@ public class GalleryActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
+
             JSONObject jsonObject = new JSONHelper().getJSONFromUrl(URL_MAIN);
             postList = new JSONParser().parse(jsonObject);
             return null;
