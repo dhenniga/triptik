@@ -25,7 +25,7 @@ android:layout_marginBottom="2.5dp"
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:background="#e0363a"
+       
             android:orientation="vertical"
             >
 

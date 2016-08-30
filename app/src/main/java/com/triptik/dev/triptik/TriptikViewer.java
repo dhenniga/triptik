@@ -66,7 +66,7 @@ public class TriptikViewer extends Activity {
 
     private Typeface RalewayLight;
 
-    private TextView tvCommentUser, tvCommentDateTime;
+    private TextView tvCommentUser, tvCommentDateTime, tvCommentTotal;
 
     private List<CommentValue> commentList;
     private Activity activity = TriptikViewer.this;
@@ -75,6 +75,7 @@ public class TriptikViewer extends Activity {
     public static final String EXTRA_USER_ID = "EXTRA_USER_ID";
     public static String EXTRA_USER_LOGGED_IN = "EXTRA_USER_LOGGED_IN";
     public static final String EXTRA_TRIPTIK_ID = "EXTRA_TRIPTIK_ID";
+    public static final String EXTRA_COMMENT_COUNT = "EXTRA_COMMENT_COUNT";
 
 
     @Override
@@ -111,6 +112,8 @@ public class TriptikViewer extends Activity {
 
         tvCommentDateTime = (TextView) findViewById(R.id.tvCommentDateTime);
 
+        tvCommentTotal = (TextView) findViewById(R.id.tvCommentTotal);
+
         btnNewTriptik.setVisibility(View.VISIBLE);
         btnGallery.setVisibility(View.VISIBLE);
         btnDownload.setVisibility(View.VISIBLE);
@@ -127,6 +130,7 @@ public class TriptikViewer extends Activity {
         if (extras != null) {
             String userId = extras.getString(TriptikViewer.EXTRA_USER_ID);
             String triptikId = extras.getString(TriptikViewer.EXTRA_TRIPTIK_ID);
+            String commentTotal = extras.getString(TriptikViewer.EXTRA_COMMENT_COUNT);
 
             String photo_url_str = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + userId + "/gallery/" + triptikId + "/" + triptikId + "_panel_4.webp";
 
@@ -135,10 +139,13 @@ public class TriptikViewer extends Activity {
                     .resize((int) dpWidth, (int) dpHeight)
                     .into(ivTriptikViewer);
 
+            tvCommentTotal.setText(commentTotal);
+
         }
 
         TextView tvTriptikBaseLine = (TextView) findViewById(R.id.tvTriptikBaseLine);
         tvTriptikBaseLine.setTypeface(RalewayLight);
+
 
 
         btnNewTriptik.setOnClickListener(new View.OnClickListener() {

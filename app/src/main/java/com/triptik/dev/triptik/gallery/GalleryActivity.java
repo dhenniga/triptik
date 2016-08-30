@@ -1,5 +1,6 @@
 package com.triptik.dev.triptik.gallery;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -10,6 +11,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -24,13 +27,14 @@ import org.json.JSONObject;
 import java.util.List;
 
 
-public class GalleryActivity extends AppCompatActivity {
+public class GalleryActivity extends Activity {
 
     public static final String EXTRA_USER_ID = "EXTRA_USER_ID";
     public static final String EXTRA_TRIPTIK_ID = "EXTRA_TRIPTIK_ID";
+    public static final String EXTRA_COMMENT_COUNT = "EXTRA_COMMENT_COUNT";
 
     RecyclerView recyclerView;
-    AppCompatActivity activity = GalleryActivity.this;
+//    AppCompatActivity activity = GalleryActivity.this;
 
     List<GalleryValue> postList;
 
@@ -43,8 +47,10 @@ public class GalleryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_recycler);
-        getSupportActionBar().hide();
+
         initViews();
 
         new JSONAsync().execute();
@@ -84,9 +90,9 @@ public class GalleryActivity extends AppCompatActivity {
 
     private void initViews() {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(GalleryActivity.this);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(activity, recyclerView, new RecyclerClickListener() {
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(GalleryActivity.this, recyclerView, new RecyclerClickListener() {
             @Override
             public void onClick(View view, int position) {
                 if (postList != null) {
@@ -97,6 +103,7 @@ public class GalleryActivity extends AppCompatActivity {
 
                     intent.putExtra(EXTRA_USER_ID, galleryValue.getUserID());
                     intent.putExtra(EXTRA_TRIPTIK_ID, galleryValue.getTriptikID());
+                    intent.putExtra(EXTRA_COMMENT_COUNT, galleryValue.getCommentTotal());
 
                     startActivity(intent);
                 }
@@ -124,7 +131,7 @@ public class GalleryActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            GalleryAdapter galleryAdapter = new GalleryAdapter(activity, postList);
+            GalleryAdapter galleryAdapter = new GalleryAdapter(GalleryActivity.this, postList);
             recyclerView.setAdapter(galleryAdapter);
             pd.dismiss();
         }

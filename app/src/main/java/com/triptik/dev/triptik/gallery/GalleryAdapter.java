@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.triptik.dev.triptik.R;
@@ -40,10 +41,21 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         GalleryValue currentPost = galleryList.get(position);
         holder.tvTitle.setText(currentPost.getTriptikTitle());
-        holder.tvCreationDate.setText(currentPost.getCreationDate().substring(2,10));
+        holder.tvCreationDate.setText(currentPost.getCreationDate().substring(2, 10));
         holder.tvCreationTime.setText(currentPost.getCreationTime().substring(0,5));
         holder.tvUserName.setText(currentPost.getUserName());
-        holder.tvCommentTotal.setText(currentPost.getCommentTotal());
+
+        if (currentPost.getCommentTotal().toString() == "0") {
+
+            holder.tvCommentTotal.setVisibility(View.GONE);
+            holder.fragment_comment_button.setAlpha(0.2f);
+
+        } else {
+
+            holder.tvCommentTotal.setText(currentPost.getCommentTotal());
+            holder.tvCommentTotal.setVisibility(View.VISIBLE);
+            holder.fragment_comment_button.setAlpha(1f);
+        }
 
         String photo_url_str = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentPost.getUserID() + "/gallery/" + currentPost.getTriptikID()+ "/" + currentPost.getTriptikID() + "_panel_1.webp";
         String profile_image = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentPost.getUserID() + "/pic.webp";
@@ -67,6 +79,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
 
         TextView tvTitle, tvCreationDate, tvCreationTime, tvUserName, tvCommentTotal;
         ImageView ivTriptikPreview, ivProfileImage;
+        RelativeLayout fragment_comment_button;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -77,6 +90,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
             ivTriptikPreview = (ImageView) itemView.findViewById(R.id.fragment_background_image);
             ivProfileImage = (ImageView) itemView.findViewById(R.id.profile_image);
             tvCommentTotal = (TextView) itemView.findViewById(R.id.tvCommentTotal);
+
+            fragment_comment_button = (RelativeLayout) itemView.findViewById(R.id.fragment_comment_button);
         }
     }
 }
