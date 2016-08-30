@@ -118,6 +118,7 @@ android:layout_marginBottom="2.5dp"
                     />
 
                 <RelativeLayout
+                    android:id="@+id/fragment_likes_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/fragment_comment_button"
@@ -135,7 +136,7 @@ android:layout_marginBottom="2.5dp"
                         />
 
                     <TextView
-                        android:id="@+id/tvLikeTotal"
+                        android:id="@+id/tvLikesTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#fff"

@@ -66,7 +66,7 @@ public class TriptikViewer extends Activity {
 
     private Typeface RalewayLight;
 
-    private TextView tvCommentUser, tvCommentDateTime, tvCommentTotal;
+    private TextView tvCommentUser, tvCommentDateTime, tvCommentTotal, tvLikesTotal;
 
     private List<CommentValue> commentList;
     private Activity activity = TriptikViewer.this;
@@ -76,6 +76,7 @@ public class TriptikViewer extends Activity {
     public static String EXTRA_USER_LOGGED_IN = "EXTRA_USER_LOGGED_IN";
     public static final String EXTRA_TRIPTIK_ID = "EXTRA_TRIPTIK_ID";
     public static final String EXTRA_COMMENT_COUNT = "EXTRA_COMMENT_COUNT";
+    public static final String EXTRA_LIKES_COUNT = "EXTRA_LIKES_COUNT";
 
 
     @Override
@@ -113,6 +114,7 @@ public class TriptikViewer extends Activity {
         tvCommentDateTime = (TextView) findViewById(R.id.tvCommentDateTime);
 
         tvCommentTotal = (TextView) findViewById(R.id.tvCommentTotal);
+        tvLikesTotal = (TextView) findViewById(R.id.tvLikesTotal);
 
         btnNewTriptik.setVisibility(View.VISIBLE);
         btnGallery.setVisibility(View.VISIBLE);
@@ -131,6 +133,7 @@ public class TriptikViewer extends Activity {
             String userId = extras.getString(TriptikViewer.EXTRA_USER_ID);
             String triptikId = extras.getString(TriptikViewer.EXTRA_TRIPTIK_ID);
             String commentTotal = extras.getString(TriptikViewer.EXTRA_COMMENT_COUNT);
+            String likesTotal = extras.getString(TriptikViewer.EXTRA_LIKES_COUNT);
 
             String photo_url_str = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + userId + "/gallery/" + triptikId + "/" + triptikId + "_panel_4.webp";
 
@@ -140,6 +143,7 @@ public class TriptikViewer extends Activity {
                     .into(ivTriptikViewer);
 
             tvCommentTotal.setText(commentTotal);
+            tvLikesTotal.setText(likesTotal);
 
         }
 

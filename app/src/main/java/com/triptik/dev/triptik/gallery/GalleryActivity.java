@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.triptik.dev.triptik.AspectSelect;
@@ -32,16 +33,12 @@ public class GalleryActivity extends Activity {
     public static final String EXTRA_USER_ID = "EXTRA_USER_ID";
     public static final String EXTRA_TRIPTIK_ID = "EXTRA_TRIPTIK_ID";
     public static final String EXTRA_COMMENT_COUNT = "EXTRA_COMMENT_COUNT";
+    public static final String EXTRA_LIKES_COUNT = "EXTRA_LIKES_COUNT";
 
-    RecyclerView recyclerView;
-//    AppCompatActivity activity = GalleryActivity.this;
-
-    List<GalleryValue> postList;
-
-    ImageButton btnNewTriptik, btnUpdate;
-
-    TextView tvCommentTotal, tvLikeTotal;
-
+    private RecyclerView recyclerView;
+    private List<GalleryValue> postList;
+    private ImageButton btnNewTriptik, btnUpdate;
+    private TextView tvCommentTotal, tvLikesTotal;
     private TextView menubar_triptik_name;
 
     @Override
@@ -84,7 +81,7 @@ public class GalleryActivity extends Activity {
         menubar_triptik_name.setTypeface(RalewayLight);
 
         tvCommentTotal = (TextView) findViewById(R.id.tvCommentTotal);
-        tvLikeTotal = (TextView) findViewById(R.id.tvLikeTotal);
+        tvLikesTotal = (TextView) findViewById(R.id.tvLikesTotal);
 
     }
 
@@ -104,6 +101,7 @@ public class GalleryActivity extends Activity {
                     intent.putExtra(EXTRA_USER_ID, galleryValue.getUserID());
                     intent.putExtra(EXTRA_TRIPTIK_ID, galleryValue.getTriptikID());
                     intent.putExtra(EXTRA_COMMENT_COUNT, galleryValue.getCommentTotal());
+                    intent.putExtra(EXTRA_LIKES_COUNT, galleryValue.getLikesTotal());
 
                     startActivity(intent);
                 }

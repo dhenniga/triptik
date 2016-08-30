@@ -31,6 +31,7 @@ public class JSONParser {
                     String userID = post.getString("userID");
                     String username = post.getString("username");
                     String commentTotal = post.getString("commentTotal");
+                    String likesTotal = post.getString("likesTotal");
 
                     galleryValue.setTriptikTitle(triptikTitle);
                     galleryValue.setTriptikID(triptikID);
@@ -39,6 +40,7 @@ public class JSONParser {
                     galleryValue.setUserID(userID);
                     galleryValue.setUserName(username);
                     galleryValue.setCommentTotal(commentTotal);
+                    galleryValue.setLikesTotal(likesTotal);
                     postList.add(galleryValue);
 
             }

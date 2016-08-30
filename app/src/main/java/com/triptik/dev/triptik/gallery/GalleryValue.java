@@ -4,7 +4,7 @@ import java.lang.String;
 
 public class GalleryValue {
 
-    private String username, triptikTitle, triptikID, creation_date, creation_time, userID, commentTotal;
+    private String username, triptikTitle, triptikID, creation_date, creation_time, userID, commentTotal, likesTotal;
 
     public String getUserName() {
         return username;
@@ -60,5 +60,13 @@ public class GalleryValue {
 
     public void setCommentTotal(String commentTotal) {
         this.commentTotal = commentTotal;
+    }
+
+    public String getLikesTotal() {
+        return likesTotal;
+    }
+
+    public void setLikesTotal(String likesTotal) {
+        this.likesTotal = likesTotal;
     }
 }

@@ -57,6 +57,19 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
             holder.fragment_comment_button.setAlpha(1f);
         }
 
+
+        if (currentPost.getLikesTotal().toString() == "0"){
+
+            holder.tvLikesTotal.setVisibility(View.GONE);
+            holder.fragment_likes_button.setAlpha(0.2f);
+        } else {
+
+            holder.tvLikesTotal.setText(currentPost.getLikesTotal());
+            holder.tvLikesTotal.setVisibility(View.VISIBLE);
+            holder.fragment_likes_button.setAlpha(1f);
+        }
+
+
         String photo_url_str = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentPost.getUserID() + "/gallery/" + currentPost.getTriptikID()+ "/" + currentPost.getTriptikID() + "_panel_1.webp";
         String profile_image = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentPost.getUserID() + "/pic.webp";
 
@@ -77,9 +90,9 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvTitle, tvCreationDate, tvCreationTime, tvUserName, tvCommentTotal;
+        TextView tvTitle, tvCreationDate, tvCreationTime, tvUserName, tvCommentTotal, tvLikesTotal;
         ImageView ivTriptikPreview, ivProfileImage;
-        RelativeLayout fragment_comment_button;
+        RelativeLayout fragment_comment_button, fragment_likes_button;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -90,8 +103,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
             ivTriptikPreview = (ImageView) itemView.findViewById(R.id.fragment_background_image);
             ivProfileImage = (ImageView) itemView.findViewById(R.id.profile_image);
             tvCommentTotal = (TextView) itemView.findViewById(R.id.tvCommentTotal);
+            tvLikesTotal = (TextView) itemView.findViewById(R.id.tvLikesTotal);
 
             fragment_comment_button = (RelativeLayout) itemView.findViewById(R.id.fragment_comment_button);
+            fragment_likes_button = (RelativeLayout) itemView.findViewById(R.id.fragment_likes_button);
         }
     }
 }
