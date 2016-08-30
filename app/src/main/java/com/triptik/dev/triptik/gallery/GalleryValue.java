@@ -61,5 +61,4 @@ public class GalleryValue {
     public void setCommentTotal(String commentTotal) {
         this.commentTotal = commentTotal;
     }
-    
 }

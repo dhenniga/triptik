@@ -30,7 +30,7 @@ public class JSONParser {
                     String creationTime = post.getString("creation_time");
                     String userID = post.getString("userID");
                     String username = post.getString("username");
-//                    String commentCount = post.getString("commentCount");
+                    String commentTotal = post.getString("commentTotal");
 
                     galleryValue.setTriptikTitle(triptikTitle);
                     galleryValue.setTriptikID(triptikID);
@@ -38,7 +38,7 @@ public class JSONParser {
                     galleryValue.setCreationTime(creationTime);
                     galleryValue.setUserID(userID);
                     galleryValue.setUserName(username);
-//                    galleryValue.setCommentTotal(commentCount);
+                    galleryValue.setCommentTotal(commentTotal);
                     postList.add(galleryValue);
 
             }
