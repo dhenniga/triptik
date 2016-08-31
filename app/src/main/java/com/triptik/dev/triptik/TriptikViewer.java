@@ -114,7 +114,9 @@ public class TriptikViewer extends Activity {
         tvCommentDateTime = (TextView) findViewById(R.id.tvCommentDateTime);
 
         tvCommentTotal = (TextView) findViewById(R.id.tvCommentTotal);
+        tvCommentTotal.setTypeface(RalewayLight);
         tvLikesTotal = (TextView) findViewById(R.id.tvLikesTotal);
+        tvLikesTotal.setTypeface(RalewayLight);
 
         btnNewTriptik.setVisibility(View.VISIBLE);
         btnGallery.setVisibility(View.VISIBLE);
