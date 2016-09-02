@@ -96,19 +96,25 @@
                 android:layout_height="wrap_content"
                 />
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/llCommentButtonContainer"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:orientation="vertical"
                 android:background="#aa000000">
 
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/add_comment"
+                    android:layout_centerInParent="true"/>
+
                 <ToggleButton
                     android:id="@+id/tbtnAddComment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textOn="Cancel Comment"
-                    android:textOff="Add Comment"
+                    android:textOff=""
+                    android:textOn=""
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:padding="0dp"
@@ -117,7 +123,8 @@
                     android:textSize="16sp"
                     android:gravity="center"/>
 
-            </LinearLayout>
+
+            </RelativeLayout>
 
 
             <RelativeLayout

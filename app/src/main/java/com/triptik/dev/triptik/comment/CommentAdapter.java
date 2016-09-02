@@ -1,6 +1,9 @@
 package com.triptik.dev.triptik.comment;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +34,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         return new ViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         CommentValue currentComment = commentList.get(position);
@@ -39,8 +43,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         holder.tvCommentDateTime.setText(currentComment.getCreation_date() + "  |  " + currentComment.getCreation_time().substring(0,5));
 
         String profile_image = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentComment.getUserID() + "/pic.webp";
-        Picasso.with(mContext).load(profile_image).resize(300,300).centerCrop().into(holder.ivCommentThumbnail);
-
+        Picasso.with(mContext).load(profile_image).resize(150,150).centerCrop().into(holder.ivCommentThumbnail);
     }
 
     public void updateData(List<CommentValue> items) {

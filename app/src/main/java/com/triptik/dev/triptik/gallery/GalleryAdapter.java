@@ -79,7 +79,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
                 .resize(658, 400)
                 .into(holder.ivTriptikPreview);
 
-        Picasso.with(mContext).load(profile_image).resize(300,300).centerCrop().into(holder.ivProfileImage);
+        Picasso.with(mContext).load(profile_image).resize(150,150).centerCrop().into(holder.ivProfileImage);
 
     }
 
