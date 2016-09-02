@@ -33,13 +33,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.daimajia.swipe.SwipeLayout;
 import com.squareup.picasso.Picasso;
 import com.triptik.dev.triptik.app.AppConfig;
 import com.triptik.dev.triptik.comment.CommentAdapter;
 import com.triptik.dev.triptik.comment.CommentValue;
 import com.triptik.dev.triptik.comment.JSONCommentParser;
+import com.triptik.dev.triptik.gallery.GalleryValue;
 import com.triptik.dev.triptik.helper.SQLiteHandler;
 import com.triptik.dev.triptik.helper.SessionManager;
+import com.triptik.dev.triptik.listener.RecyclerClickListener;
+import com.triptik.dev.triptik.listener.RecyclerTouchListener;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -288,7 +292,45 @@ public class TriptikViewer extends Activity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
         rvCommentRecycler.setLayoutManager(layoutManager);
 
+        /**
+         * Substitute for our onScrollListener for RecyclerView
+         */
+        RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                Log.e("ListView", "onScrollStateChanged");
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                // Could hide open views here if you wanted. //
+            }
+        };
+
+
+        rvCommentRecycler.addOnItemTouchListener(new RecyclerTouchListener(TriptikViewer.this, rvCommentRecycler, new RecyclerClickListener() {
+
+
+            @Override
+            public void onClick(View view, int position) {
+                if (commentList != null) {
+                    Log.i("recyclerActivity", commentList.get(position).getTriptikID());
+
+                    Intent intent = new Intent(getApplicationContext(), TriptikViewer.class);
+                    CommentValue commentValue = commentList.get(position);
+
+                    intent.putExtra(EXTRA_USER_ID, commentValue.getUserID());
+                    intent.putExtra(EXTRA_TRIPTIK_ID, commentValue.getTriptikID());
+
+                    startActivity(intent);
+                }
+            }
+        }));
+
     }
+
 
 
     /**

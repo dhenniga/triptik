@@ -36,4 +36,6 @@ dependencies {
     compile 'com.squareup.okio:okio:1.6.0'
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'com.android.support:recyclerview-v7:24.1.1'
+    compile 'com.daimajia.swipelayout:library:1.2.0@aar'
+    compile 'com.android.support:support-v4:20.+'
 }
