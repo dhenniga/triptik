@@ -10,10 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.triptik.dev.triptik.R;
 import java.util.List;
+import com.triptik.dev.triptik.SwipeLayout;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
@@ -27,10 +29,57 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         this.mContext = context;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position % 3;
+    }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_comment, parent, false);
+        final ViewHolder viewHolder = new ViewHolder(view);
+
+        View.OnClickListener onClick = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewHolder.swipeLayout.animateReset();
+            }
+        };
+
+        if (viewHolder.leftView != null) {
+            viewHolder.leftView.setClickable(true);
+            viewHolder.leftView.setOnClickListener(onClick);
+        }
+
+        if (viewHolder.rightView != null) {
+            viewHolder.rightView.setClickable(true);
+            viewHolder.rightView.setOnClickListener(onClick);
+        }
+
+        viewHolder.swipeLayout.setOnSwipeListener(new SwipeLayout.OnSwipeListener() {
+            @Override
+            public void onBeginSwipe(SwipeLayout swipeLayout, boolean moveToRight) {
+            }
+
+            @Override
+            public void onSwipeClampReached(SwipeLayout swipeLayout, boolean moveToRight) {
+                Toast.makeText(swipeLayout.getContext(),
+                        (moveToRight ? "Left" : "Right") + " clamp reached",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+
+            @Override
+            public void onLeftStickyEdge(SwipeLayout swipeLayout, boolean moveToRight) {
+            }
+
+            @Override
+            public void onRightStickyEdge(SwipeLayout swipeLayout, boolean moveToRight) {
+            }
+        });
+
+
         return new ViewHolder(view);
     }
 
@@ -57,17 +106,24 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         return commentList == null ? 0 : commentList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvCommentText, tvCommentUser, tvCommentDateTime;
-        ImageView ivCommentThumbnail;
+        private final SwipeLayout swipeLayout;
+        private final View rightView;
+        private final View leftView;
+
+        private TextView tvCommentText, tvCommentUser, tvCommentDateTime;
+        private ImageView ivCommentThumbnail;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvCommentText = (TextView) itemView.findViewById(R.id.tvCommentText);
             tvCommentUser = (TextView) itemView.findViewById(R.id.tvCommentUser);
+            swipeLayout = (SwipeLayout) itemView.findViewById(R.id.slCommentSwipeContainer);
             tvCommentDateTime = (TextView) itemView.findViewById(R.id.tvCommentDateTime);
             ivCommentThumbnail = (ImageView) itemView.findViewById(R.id.ivCommentThumbnail);
+            rightView = itemView.findViewById(R.id.list_item_right);
+            leftView = itemView.findViewById(R.id.list_item_left);
         }
     }
 }
