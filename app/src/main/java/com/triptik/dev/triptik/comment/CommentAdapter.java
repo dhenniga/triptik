@@ -108,9 +108,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private final SwipeLayout swipeLayout;
-        private final View rightView;
-        private final View leftView;
+        private SwipeLayout swipeLayout;
+        private View rightView;
+        private View leftView;
 
         private TextView tvCommentText, tvCommentUser, tvCommentDateTime;
         private ImageView ivCommentThumbnail;

@@ -19,6 +19,7 @@ package com.triptik.dev.triptik;
         import java.lang.ref.WeakReference;
         import java.util.Map;
         import java.util.WeakHashMap;
+//import com.triptik.dev.triptik.R;
 
 public class SwipeLayout extends ViewGroup {
 

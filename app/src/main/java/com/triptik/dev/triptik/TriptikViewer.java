@@ -178,7 +178,7 @@ public class TriptikViewer extends Activity {
 
                 if (tbtnAddComment.isChecked()) {
 
-                    tbtnAddComment.setText("Cancel comment");
+//                    tbtnAddComment.setText("Cancel comment");
                     v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.item_add_comment, parent, false);
                     parent.addView(v, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -222,7 +222,7 @@ public class TriptikViewer extends Activity {
 
                 } else {
 
-                    tbtnAddComment.setText("Add comment");
+//                    tbtnAddComment.setText("Add comment");
                     parent.removeAllViews();
 
                 }
