@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         View view = inflater.inflate(R.layout.item_comment, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
 
@@ -64,10 +66,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
             @Override
             public void onSwipeClampReached(SwipeLayout swipeLayout, boolean moveToRight) {
-                Toast.makeText(swipeLayout.getContext(),
-                        (moveToRight ? "Left" : "Right") + " clamp reached",
-                        Toast.LENGTH_SHORT)
-                        .show();
+//                Toast.makeText(swipeLayout.getContext(),
+//                        (moveToRight ? "Left" : "Right") + " clamp reached",
+//                        Toast.LENGTH_SHORT)
+//                        .show();
             }
 
             @Override

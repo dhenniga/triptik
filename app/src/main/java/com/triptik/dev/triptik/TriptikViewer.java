@@ -38,11 +38,8 @@ import com.triptik.dev.triptik.app.AppConfig;
 import com.triptik.dev.triptik.comment.CommentAdapter;
 import com.triptik.dev.triptik.comment.CommentValue;
 import com.triptik.dev.triptik.comment.JSONCommentParser;
-import com.triptik.dev.triptik.gallery.GalleryValue;
 import com.triptik.dev.triptik.helper.SQLiteHandler;
 import com.triptik.dev.triptik.helper.SessionManager;
-import com.triptik.dev.triptik.listener.RecyclerClickListener;
-import com.triptik.dev.triptik.listener.RecyclerTouchListener;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
