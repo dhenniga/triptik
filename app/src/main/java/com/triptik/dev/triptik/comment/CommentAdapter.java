@@ -94,7 +94,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         holder.tvCommentDateTime.setText(currentComment.getCreation_date() + "  |  " + currentComment.getCreation_time().substring(0,5));
 
         String profile_image = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentComment.getUserID() + "/pic.webp";
-        Picasso.with(mContext).load(profile_image).resize(150,150).centerCrop().into(holder.ivCommentThumbnail);
+        Picasso.with(mContext).load(profile_image).resize(130,130).centerCrop().into(holder.ivCommentThumbnail);
     }
 
     public void updateData(List<CommentValue> items) {
@@ -120,6 +120,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         public ViewHolder(View itemView) {
             super(itemView);
             tvCommentText = (TextView) itemView.findViewById(R.id.tvCommentText);
+//            tvCommentText.setTypeface(Typeface.createFromAsset(context.getAssets(), "hv.ttf"));
             tvCommentUser = (TextView) itemView.findViewById(R.id.tvCommentUser);
             swipeLayout = (SwipeLayout) itemView.findViewById(R.id.slCommentSwipeContainer);
             tvCommentDateTime = (TextView) itemView.findViewById(R.id.tvCommentDateTime);
@@ -129,3 +130,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         }
     }
 }
+
+
+

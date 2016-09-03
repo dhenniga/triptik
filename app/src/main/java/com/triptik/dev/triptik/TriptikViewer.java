@@ -64,8 +64,6 @@ public class TriptikViewer extends Activity {
     private SQLiteHandler db;
     private SessionManager session;
 
-    private Typeface RalewayLight;
-
     private TextView tvCommentUser, tvCommentDateTime, tvCommentTotal, tvLikesTotal;
 
     private List<CommentValue> commentList;
@@ -91,7 +89,6 @@ public class TriptikViewer extends Activity {
         float dpHeight = displayMetrics.heightPixels;
         float dpWidth = displayMetrics.widthPixels;
 
-        RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.ttf");
 
         ivTriptikViewer = (ImageView) findViewById(R.id.ivTriptikViewer);
         btnNewTriptik = (ImageButton) findViewById(R.id.btnNewTriptik);
@@ -102,7 +99,6 @@ public class TriptikViewer extends Activity {
         rlTriptikBaseline = (RelativeLayout) findViewById(R.id.rlTriptikBaseline);
 
         tbtnAddComment = (ToggleButton) findViewById(R.id.tbtnAddComment);
-        tbtnAddComment.setTypeface(RalewayLight);
 
         svComments = (ScrollView) findViewById(R.id.svComments);
 
@@ -148,9 +144,6 @@ public class TriptikViewer extends Activity {
         }
 
         TextView tvTriptikBaseLine = (TextView) findViewById(R.id.tvTriptikBaseLine);
-        tvTriptikBaseLine.setTypeface(RalewayLight);
-
-
 
         btnNewTriptik.setOnClickListener(new View.OnClickListener() {
             @Override
