@@ -265,6 +265,42 @@ public class TriptikViewer extends Activity {
 
     }
 
+    /**
+     *
+     */
+    public void updateCommentVisibility(final int commentID) {
+
+        StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.URL_UPDATE_COMMENT_VISIBILITY, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("Response", response);
+            }
+        }
+                ,new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error.Response", error.toString());
+            }
+        }
+        ) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("commentID", ((String.valueOf(commentID))));
+                return params;
+            }
+
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(postRequest);
+
+    }
+
+
+
 
 
     /**

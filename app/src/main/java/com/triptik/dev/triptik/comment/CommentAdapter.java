@@ -20,12 +20,16 @@ import com.triptik.dev.triptik.R;
 import java.util.List;
 
 import com.triptik.dev.triptik.SwipeLayout;
+import com.triptik.dev.triptik.TriptikViewer;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
     private Context mContext;
     private List<CommentValue> commentList;
     private LayoutInflater inflater;
+    public int commentID;
+
+    TriptikViewer triptikViewer = new TriptikViewer();
 
     public CommentAdapter(Context context, List<CommentValue> commentList) {
         this.commentList = commentList;
@@ -64,6 +68,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                         viewHolder.itemView.setAlpha(0.2f);
                         viewHolder.swipeLayout.animateReset();
                         viewHolder.swipeLayout.setSwipeEnabled(false);
+                        triptikViewer.updateCommentVisibility(commentID);
                         break;
                     default:
                         break;
@@ -112,12 +117,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         CommentValue currentComment = commentList.get(position);
 
-            holder.tvCommentText.setText(currentComment.getCommentText());
-            holder.tvCommentUser.setText(currentComment.getUsername());
-            holder.tvCommentDateTime.setText(currentComment.getCreation_date() + "  |  " + currentComment.getCreation_time().substring(0, 5));
+        commentID = currentComment.getCommentID();
 
-            String profile_image = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentComment.getUserID() + "/pic.webp";
-            Picasso.with(mContext).load(profile_image).resize(130, 130).centerCrop().into(holder.ivCommentThumbnail);
+        holder.tvCommentText.setText(currentComment.getCommentText());
+        holder.tvCommentUser.setText(commentID + " - " + currentComment.getUsername());
+        holder.tvCommentDateTime.setText(currentComment.getCreation_date() + "  |  " + currentComment.getCreation_time().substring(0, 5));
+
+        String profile_image = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentComment.getUserID() + "/pic.webp";
+        Picasso.with(mContext).load(profile_image).resize(130, 130).centerCrop().into(holder.ivCommentThumbnail);
 
     }
 

@@ -22,7 +22,7 @@ public class JSONCommentParser {
 
                 commentValue = new CommentValue();
 
-                String commentID = comment.getString("commentID");
+                int commentID = comment.getInt("commentID");
                 String commentText = comment.getString("commentText");
                 String triptikID = comment.getString("triptikID");
                 String creation_date = comment.getString("creation_date");

@@ -18,4 +18,7 @@ public class AppConfig {
 
     //Server Upload Comments
     public static String URL_POST_COMMENTS = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/upload_comment.php";
+
+    //Server Update a Comments visibility
+    public static String URL_UPDATE_COMMENT_VISIBILITY = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/update_comment_visibility.php";
 }
