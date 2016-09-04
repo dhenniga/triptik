@@ -6,7 +6,6 @@
     android:id="@+id/slCommentSwipeContainer"
     android:layout_width="match_parent"
     android:background="#f8f8f8"
-    android:paddingBottom="1dp"
     android:layout_height="wrap_content">
 
     <LinearLayout

@@ -61,9 +61,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                         break;
 
                     case R.id.list_item_right:
-                        viewHolder.itemView.setAlpha(0.1f);
-//                        view.setVisibility(View.GONE);
+                        viewHolder.itemView.setAlpha(0.2f);
                         viewHolder.swipeLayout.animateReset();
+                        viewHolder.swipeLayout.setSwipeEnabled(false);
                         break;
                     default:
                         break;
@@ -112,14 +112,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         CommentValue currentComment = commentList.get(position);
 
-        if (currentComment.getIsVisible() != 1) {
-
-            commentList.remove(position);
-
-            Log.d("Comment Visibility","false");
-
-        } else {
-
             holder.tvCommentText.setText(currentComment.getCommentText());
             holder.tvCommentUser.setText(currentComment.getUsername());
             holder.tvCommentDateTime.setText(currentComment.getCreation_date() + "  |  " + currentComment.getCreation_time().substring(0, 5));
@@ -127,9 +119,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             String profile_image = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentComment.getUserID() + "/pic.webp";
             Picasso.with(mContext).load(profile_image).resize(130, 130).centerCrop().into(holder.ivCommentThumbnail);
 
-            Log.d("Comment Visibility","false");
-
-        }
     }
 
     public void updateData(List<CommentValue> items) {
