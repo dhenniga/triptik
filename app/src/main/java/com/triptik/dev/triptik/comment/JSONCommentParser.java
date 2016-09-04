@@ -29,6 +29,8 @@ public class JSONCommentParser {
                 String creation_time = comment.getString("creation_time");
                 String userID = comment.getString("userID");
                 String username = comment.getString("username");
+                int isVisible = comment.getInt("isVisible");
+
 
                 commentValue.setCommentID(commentID);
                 commentValue.setCommentText(commentText);
@@ -37,6 +39,7 @@ public class JSONCommentParser {
                 commentValue.setCreation_time(creation_time);
                 commentValue.setUserID(userID);
                 commentValue.setUsername(username);
+                commentValue.setIsVisible(isVisible);
 
                 commentList.add(commentValue);
 

@@ -3,6 +3,7 @@ package com.triptik.dev.triptik.comment;
 public class CommentValue {
 
     private String commentID, commentText, triptikID, creation_date, creation_time, userID, username;
+    private int isVisible;
 
     public String getCommentID() {
         return commentID;
@@ -59,6 +60,16 @@ public class CommentValue {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public void setIsVisible(int isVisible) {
+        this.isVisible = isVisible;
+    }
+
+    public int getIsVisible() {
+        return isVisible;
+    }
+
+
 }
 
 

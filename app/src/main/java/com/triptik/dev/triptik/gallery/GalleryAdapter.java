@@ -1,6 +1,7 @@
 package com.triptik.dev.triptik.gallery;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,13 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.list_item_post, parent, false);
+        final ViewHolder viewHolder = new ViewHolder(view);
+
+        Typeface RalewayRegular = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Regular.ttf");
+        Typeface RalewayBold = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Bold.ttf");
+        viewHolder.tvTitle.setTypeface(RalewayRegular);
+        viewHolder.tvUserName.setTypeface(RalewayRegular);
+
         return new ViewHolder(view);
     }
 

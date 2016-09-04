@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,9 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.triptik.dev.triptik.R;
+
 import java.util.List;
+
 import com.triptik.dev.triptik.SwipeLayout;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
@@ -37,15 +40,34 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
 
-        View view = inflater.inflate(R.layout.item_comment, parent, false);
+        final View view = inflater.inflate(R.layout.item_comment, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
+
+        Typeface RalewayRegular = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Regular.ttf");
+        Typeface RalewayBold = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Bold.ttf");
+        viewHolder.tvCommentText.setTypeface(RalewayRegular);
+        viewHolder.tvCommentUser.setTypeface(RalewayBold);
+        viewHolder.tvCommentDateTime.setTypeface(RalewayRegular);
 
         View.OnClickListener onClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewHolder.swipeLayout.animateReset();
+                switch (v.getId()) {
+
+                    case R.id.list_item_left:
+                        viewHolder.swipeLayout.animateReset();
+                        break;
+
+                    case R.id.list_item_right:
+                        viewHolder.itemView.setAlpha(0.1f);
+//                        view.setVisibility(View.GONE);
+                        viewHolder.swipeLayout.animateReset();
+                        break;
+                    default:
+                        break;
+                }
             }
         };
 
@@ -89,12 +111,25 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         CommentValue currentComment = commentList.get(position);
-        holder.tvCommentText.setText(currentComment.getCommentText());
-        holder.tvCommentUser.setText(currentComment.getUsername());
-        holder.tvCommentDateTime.setText(currentComment.getCreation_date() + "  |  " + currentComment.getCreation_time().substring(0,5));
 
-        String profile_image = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentComment.getUserID() + "/pic.webp";
-        Picasso.with(mContext).load(profile_image).resize(130,130).centerCrop().into(holder.ivCommentThumbnail);
+        if (currentComment.getIsVisible() != 1) {
+
+            commentList.remove(position);
+
+            Log.d("Comment Visibility","false");
+
+        } else {
+
+            holder.tvCommentText.setText(currentComment.getCommentText());
+            holder.tvCommentUser.setText(currentComment.getUsername());
+            holder.tvCommentDateTime.setText(currentComment.getCreation_date() + "  |  " + currentComment.getCreation_time().substring(0, 5));
+
+            String profile_image = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentComment.getUserID() + "/pic.webp";
+            Picasso.with(mContext).load(profile_image).resize(130, 130).centerCrop().into(holder.ivCommentThumbnail);
+
+            Log.d("Comment Visibility","false");
+
+        }
     }
 
     public void updateData(List<CommentValue> items) {
@@ -120,7 +155,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         public ViewHolder(View itemView) {
             super(itemView);
             tvCommentText = (TextView) itemView.findViewById(R.id.tvCommentText);
-//            tvCommentText.setTypeface(Typeface.createFromAsset(context.getAssets(), "hv.ttf"));
             tvCommentUser = (TextView) itemView.findViewById(R.id.tvCommentUser);
             swipeLayout = (SwipeLayout) itemView.findViewById(R.id.slCommentSwipeContainer);
             tvCommentDateTime = (TextView) itemView.findViewById(R.id.tvCommentDateTime);

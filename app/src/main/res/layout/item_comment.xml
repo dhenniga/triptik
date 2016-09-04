@@ -16,11 +16,11 @@
         android:layout_marginBottom="0.5dp"
         android:layout_marginTop="0.5dp"
         android:background="@color/white"
-        android:paddingBottom="15dp"
+        android:paddingBottom="25dp"
         android:paddingEnd="10dp"
         android:paddingStart="8dp"
         android:orientation="horizontal"
-        android:paddingTop="8dp"
+        android:paddingTop="18dp"
         android:weightSum="2">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -51,7 +51,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:text="Commentors Name"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -61,7 +60,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="23-08  |  23:34"
                     android:textColor="@color/black_overlay"
                     android:textSize="10sp"
                     android:textStyle="normal" />
@@ -79,10 +77,9 @@
                     android:id="@+id/tvCommentText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="This is some filler text to make pad out this comment box with some content.  I wish they would build in Lorem Ipsum into text editors as it's an obvious option, not copyrighted and easily done.  Maybe that's the next app I'll make."
                     android:textColor="#99000000"
                     android:textSize="12sp"
-                    android:textStyle="normal" />
+                    />
 
             </RelativeLayout>
 
