@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -45,7 +46,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
 
     @Override
-    public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, final int viewType) {
 
         final View view = inflater.inflate(R.layout.item_comment, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
@@ -162,6 +163,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
                         case R.id.ibReplyComment:
                             viewHolder.swipeLayout.animateReset();
+
+
                             break;
 
                         case R.id.ibCommentAuthorGallery:
