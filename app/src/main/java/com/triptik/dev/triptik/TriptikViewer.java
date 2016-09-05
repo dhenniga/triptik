@@ -55,7 +55,7 @@ public class TriptikViewer extends Activity {
 
     private static final String TAG = TriptikViewer.class.getSimpleName();
 
-    private ImageView ivTriptikViewer, ivCommentThumbnail;
+    private ImageView ivTriptikViewer, ivCommentThumbnail, ivAddComment, ivCancelAddComment;
     private ImageButton btnNewTriptik, btnGallery, btnDownload;
     private LinearLayout menubar_icon_container;
     private ProgressDialog progressDialog;
@@ -96,6 +96,9 @@ public class TriptikViewer extends Activity {
         btnGallery = (ImageButton) findViewById(R.id.btnGallery);
         btnDownload = (ImageButton) findViewById(R.id.btnDownload);
         menubar_icon_container = (LinearLayout) findViewById(R.id.menubar_icon_container);
+
+        ivAddComment = (ImageView) findViewById(R.id.ivAddComment);
+        ivCancelAddComment = (ImageView) findViewById(R.id.ivCancelAddComment);
 
         rlTriptikBaseline = (RelativeLayout) findViewById(R.id.rlTriptikBaseline);
 
@@ -169,6 +172,9 @@ public class TriptikViewer extends Activity {
 
                 if (tbtnAddComment.isChecked()) {
 
+                    ivAddComment.setVisibility(View.GONE);
+                    ivCancelAddComment.setVisibility(View.VISIBLE);
+
                     v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.item_add_comment, parent, false);
                     parent.addView(v, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -213,6 +219,8 @@ public class TriptikViewer extends Activity {
                 } else {
 
 //                    tbtnAddComment.setText("Add comment");
+                    ivAddComment.setVisibility(View.VISIBLE);
+                    ivCancelAddComment.setVisibility(View.GONE);
                     parent.removeAllViews();
 
                 }
