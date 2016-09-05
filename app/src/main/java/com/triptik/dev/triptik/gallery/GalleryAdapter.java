@@ -37,10 +37,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         View view = inflater.inflate(R.layout.list_item_post, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
 
-//        Typeface RalewayRegular = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Regular.ttf");
-//        Typeface RalewayBold = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Bold.ttf");
-//        viewHolder.tvTitle.setTypeface(RalewayRegular);
-//        viewHolder.tvUserName.setTypeface(RalewayRegular);
+        Typeface RalewayRegular = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Regular.ttf");
+        Typeface RalewayBold = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Bold.ttf");
+        viewHolder.tvTitle.setTypeface(RalewayRegular);
+        viewHolder.tvUserName.setTypeface(RalewayRegular);
 
         return new ViewHolder(view);
     }
@@ -95,6 +95,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     public int getItemCount() {
         return galleryList == null ? 0 : galleryList.size();
     }
+
 
     class ViewHolder extends RecyclerView.ViewHolder {
 

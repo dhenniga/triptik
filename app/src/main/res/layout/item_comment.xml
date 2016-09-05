@@ -6,7 +6,6 @@
     android:id="@+id/slCommentSwipeContainer"
     android:layout_width="match_parent"
     android:layout_marginTop="0.1dp"
-    android:layout_marginBottom="0.1dp"
     android:background="#ffffff"
     android:layout_height="wrap_content">
 
@@ -41,7 +40,8 @@
                 android:layout_height="match_parent"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:paddingTop="0dp">
+                android:paddingTop="0dp"
+                android:gravity="center_vertical">
 
 
                 <TextView
@@ -53,6 +53,30 @@
                     android:text="Commentor Creator"
                     android:textSize="14sp"
                     android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ivReplyArrow"
+                    android:layout_width="8dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_height="7dp"
+                    android:src="@drawable/reply_arrow"
+                    android:scaleType="fitXY"
+                    android:layout_below="@+id/tvCommentUser"
+                    android:visibility="gone"
+                    />
+
+                <TextView
+                    android:id="@+id/tvCommentReplyUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvCommentUser"
+                    android:layout_toRightOf="@+id/ivReplyArrow"
+                    android:textColor="@color/black_overlay"
+                    android:text="Replying to: David Hennigan"
+                    android:textSize="9sp"
+                    android:textStyle="italic"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/tvCommentDateTime"
@@ -89,7 +113,7 @@
 
     <!--LEFT-->
     <RelativeLayout
-        android:id="@+id/list_item_left"
+        android:id="@+id/rlLeftContainer"
         android:layout_width="100dp"
         android:layout_height="match_parent"
         android:background="#333338"
@@ -101,17 +125,31 @@
         app:sticky="100dp"
         app:sticky_sensitivity="0.5">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:src="@mipmap/download_icon"
-            android:layout_centerInParent="true"/>
+        <ImageButton
+            android:id="@+id/ibEditComment"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/edit_comment_icon"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:id="@+id/ibCommentAuthorGallery"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/edit_comment_icon"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 
     <!--RIGHT-->
     <RelativeLayout
-        android:id="@+id/list_item_right"
+        android:id="@+id/rlRightContainer"
         android:layout_width="100dp"
         android:layout_height="match_parent"
         android:background="#333338"
@@ -122,12 +160,28 @@
         app:sticky="100dp"
         app:sticky_sensitivity="0.5">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:src="@mipmap/add_comment"
-            android:layout_centerInParent="true"/>
+        <ImageButton
+            android:id="@+id/ibDeleteComment"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/delete_comment_icon"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:id="@+id/ibReplyComment"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/reply_comment_icon"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:visibility="gone"/>
 
     </RelativeLayout>
+
+
 
 </com.triptik.dev.triptik.SwipeLayout>

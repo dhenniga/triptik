@@ -89,6 +89,7 @@ public class GalleryActivity extends Activity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(GalleryActivity.this);
         recyclerView.setLayoutManager(layoutManager);
+
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(GalleryActivity.this, recyclerView, new RecyclerClickListener() {
             @Override
             public void onClick(View view, int position) {
