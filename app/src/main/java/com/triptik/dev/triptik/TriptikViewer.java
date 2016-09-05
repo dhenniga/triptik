@@ -2,6 +2,7 @@ package com.triptik.dev.triptik;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -168,7 +169,6 @@ public class TriptikViewer extends Activity {
 
                 if (tbtnAddComment.isChecked()) {
 
-//                    tbtnAddComment.setText("Cancel comment");
                     v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.item_add_comment, parent, false);
                     parent.addView(v, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -268,7 +268,7 @@ public class TriptikViewer extends Activity {
     /**
      *
      */
-    public void updateCommentVisibility(final int commentID) {
+    public void updateCommentVisibility(final int commentID, Context context) {
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.URL_UPDATE_COMMENT_VISIBILITY, new Response.Listener<String>() {
 
@@ -294,7 +294,7 @@ public class TriptikViewer extends Activity {
 
         };
 
-        RequestQueue queue = Volley.newRequestQueue(this);
+        RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(postRequest);
 
     }

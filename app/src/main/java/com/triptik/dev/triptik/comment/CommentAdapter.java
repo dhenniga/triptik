@@ -3,6 +3,7 @@ package com.triptik.dev.triptik.comment;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,19 +18,22 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.triptik.dev.triptik.R;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.triptik.dev.triptik.SwipeLayout;
 import com.triptik.dev.triptik.TriptikViewer;
+import com.triptik.dev.triptik.helper.SQLiteHandler;
+import com.triptik.dev.triptik.helper.SessionManager;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
     private Context mContext;
     private List<CommentValue> commentList;
     private LayoutInflater inflater;
-    public int commentID;
-
-    TriptikViewer triptikViewer = new TriptikViewer();
+    int commentID;
+    private SQLiteHandler db;
+    private SessionManager session;
 
     public CommentAdapter(Context context, List<CommentValue> commentList) {
         this.commentList = commentList;
@@ -55,35 +59,53 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         viewHolder.tvCommentUser.setTypeface(RalewayBold);
         viewHolder.tvCommentDateTime.setTypeface(RalewayRegular);
 
-        View.OnClickListener onClick = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
+        db = new SQLiteHandler(mContext);
+        session = new SessionManager(mContext);
+        HashMap<String, String> user = db.getUserDetails();
+        String userID = user.get("userID");
 
-                    case R.id.list_item_left:
-                        viewHolder.swipeLayout.animateReset();
-                        break;
+        viewHolder.swipeLayout.setSwipeEnabled(false);
 
-                    case R.id.list_item_right:
-                        viewHolder.itemView.setAlpha(0.2f);
-                        viewHolder.swipeLayout.animateReset();
-                        viewHolder.swipeLayout.setSwipeEnabled(false);
-                        triptikViewer.updateCommentVisibility(commentID);
-                        break;
-                    default:
-                        break;
+        if (userID == userID) {
+
+            viewHolder.swipeLayout.setSwipeEnabled(true);
+
+
+            View.OnClickListener onClick = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    switch (v.getId()) {
+
+                        case R.id.list_item_left:
+                            viewHolder.swipeLayout.animateReset();
+                            break;
+
+                        case R.id.list_item_right:
+
+                            commentID = commentList.get(viewType).getCommentID();
+
+                            viewHolder.itemView.setAlpha(0.2f);
+                            viewHolder.swipeLayout.animateReset();
+                            viewHolder.swipeLayout.setSwipeEnabled(false);
+                            TriptikViewer triptikViewer = new TriptikViewer();
+                            triptikViewer.updateCommentVisibility(commentID, mContext);
+                            break;
+                        default:
+                            break;
+                    }
                 }
+            };
+
+
+            if (viewHolder.leftView != null) {
+                viewHolder.leftView.setClickable(true);
+                viewHolder.leftView.setOnClickListener(onClick);
             }
-        };
 
-        if (viewHolder.leftView != null) {
-            viewHolder.leftView.setClickable(true);
-            viewHolder.leftView.setOnClickListener(onClick);
-        }
-
-        if (viewHolder.rightView != null) {
-            viewHolder.rightView.setClickable(true);
-            viewHolder.rightView.setOnClickListener(onClick);
+            if (viewHolder.rightView != null) {
+                viewHolder.rightView.setClickable(true);
+                viewHolder.rightView.setOnClickListener(onClick);
+            }
         }
 
         viewHolder.swipeLayout.setOnSwipeListener(new SwipeLayout.OnSwipeListener() {
@@ -117,10 +139,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         CommentValue currentComment = commentList.get(position);
 
-        commentID = currentComment.getCommentID();
+        int commentID2 = commentList.get(position).getCommentID();
 
         holder.tvCommentText.setText(currentComment.getCommentText());
-        holder.tvCommentUser.setText(commentID + " - " + currentComment.getUsername());
+        holder.tvCommentUser.setText(currentComment.getUsername());
         holder.tvCommentDateTime.setText(currentComment.getCreation_date() + "  |  " + currentComment.getCreation_time().substring(0, 5));
 
         String profile_image = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentComment.getUserID() + "/pic.webp";

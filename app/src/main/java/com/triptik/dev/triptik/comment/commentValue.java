@@ -2,14 +2,14 @@ package com.triptik.dev.triptik.comment;
 
 public class CommentValue {
 
-    private String commentID, commentText, triptikID, creation_date, creation_time, userID, username;
-    private int isVisible;
+    private String commentText, triptikID, creation_date, creation_time, userID, username;
+    private int commentID, isVisible;
 
-    public String getCommentID() {
+    public int getCommentID() {
         return commentID;
     }
 
-    public void setCommentID(String commentID) {
+    public void setCommentID(int commentID) {
         this.commentID = commentID;
     }
 

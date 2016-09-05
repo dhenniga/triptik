@@ -416,6 +416,9 @@ public class PanelsActivity extends Activity implements UploadTriptik.UploadCall
         File panel_1_imageFile = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/" + uniqueTriptikID + "_panel_1.webp");
         File panel_2_imageFile = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/" + uniqueTriptikID + "_panel_2.webp");
         File panel_3_imageFile = new File("storage/emulated/0/Android/data/com.triptik.dev.triptik/files/" + uniqueTriptikID + "_panel_3.webp");
+        Log.d("checkPanelStatus", "1 - " + ((String.valueOf(panel_1_imageFile.exists()))));
+        Log.d("checkPanelStatus", "2 - " + ((String.valueOf(panel_2_imageFile.exists()))));
+        Log.d("checkPanelStatus", "3 - " + ((String.valueOf(panel_3_imageFile.exists()))));
         boolean hasAllPanels = panel_1_imageFile.exists() && panel_2_imageFile.exists() && panel_3_imageFile.exists();
         if (hasAllPanels && saveok.getVisibility() != View.VISIBLE) {
             save.setVisibility(View.VISIBLE);
