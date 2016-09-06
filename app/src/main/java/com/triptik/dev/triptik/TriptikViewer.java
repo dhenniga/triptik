@@ -64,6 +64,7 @@ public class TriptikViewer extends Activity {
     private ToggleButton tbtnAddComment;
     private SQLiteHandler db;
     private SessionManager session;
+    private Typeface RalewayLight;
 
     private TextView tvCommentUser, tvCommentDateTime, tvCommentTotal, tvLikesTotal;
 
@@ -89,6 +90,8 @@ public class TriptikViewer extends Activity {
         DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
         float dpHeight = displayMetrics.heightPixels;
         float dpWidth = displayMetrics.widthPixels;
+
+        RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.ttf");
 
 
         ivTriptikViewer = (ImageView) findViewById(R.id.ivTriptikViewer);
@@ -148,6 +151,7 @@ public class TriptikViewer extends Activity {
         }
 
         TextView tvTriptikBaseLine = (TextView) findViewById(R.id.tvTriptikBaseLine);
+        tvTriptikBaseLine.setTypeface(RalewayLight);
 
         btnNewTriptik.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,57 +178,15 @@ public class TriptikViewer extends Activity {
 
                     ivAddComment.setVisibility(View.GONE);
                     ivCancelAddComment.setVisibility(View.VISIBLE);
-
-                    v = LayoutInflater.from(getApplicationContext()).inflate(R.layout.item_add_comment, parent, false);
-                    parent.addView(v, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-                    Button btnSendComment = (Button) v.findViewById(R.id.btnSendComment);
-                    final EditText etCommentText = (EditText) v.findViewById(R.id.etCommentText);
-                    focusOnView();
-
-                    btnSendComment.setOnClickListener(new View.OnClickListener() {
-
-                        public void onClick(View view) {
-
-                            String commentText = etCommentText.getText().toString().trim();
-
-                            if (!commentText.matches("")) {
-
-                                Bundle extras = getIntent().getExtras();
-                                final String triptikID = extras.getString(TriptikViewer.EXTRA_TRIPTIK_ID);
-
-                                db = new SQLiteHandler(getApplicationContext());
-                                session = new SessionManager(getApplicationContext());
-                                HashMap<String, String> user = db.getUserDetails();
-                                EXTRA_USER_LOGGED_IN = user.get("userID");
-
-                                uploadComment(triptikID, EXTRA_USER_LOGGED_IN, commentText);
-                                Log.d("uploadComment", "Event occured");
-                                ToastView("Comment Uploaded");
-
-                                etCommentText.setText("");
-                                focusOnView();
-                                parent.removeAllViews();
-
-                                initViews();
-
-                            } else {
-
-                                ToastView("Please enter a comment before posting");
-
-                            }
-                        }
-                    });
+                    createComment(v, getApplicationContext());
 
                 } else {
 
-//                    tbtnAddComment.setText("Add comment");
                     ivAddComment.setVisibility(View.VISIBLE);
                     ivCancelAddComment.setVisibility(View.GONE);
                     parent.removeAllViews();
 
                 }
-
             }
         });
 
@@ -232,6 +194,53 @@ public class TriptikViewer extends Activity {
 
     }
 
+
+    public void createComment (View v, final Context context)
+    {
+        ViewGroup parent = (ViewGroup) findViewById(R.id.rlCommentsContainer);
+
+        v = LayoutInflater.from(context).inflate(R.layout.item_add_comment, parent, false);
+        parent.addView(v, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        Button btnSendComment = (Button) v.findViewById(R.id.btnSendComment);
+        final EditText etCommentText = (EditText) v.findViewById(R.id.etCommentText);
+        focusOnView();
+
+        btnSendComment.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+                String commentText = etCommentText.getText().toString().trim();
+
+                if (!commentText.matches("")) {
+
+                    Bundle extras = getIntent().getExtras();
+                    final String triptikID = extras.getString(TriptikViewer.EXTRA_TRIPTIK_ID);
+
+                    db = new SQLiteHandler(getApplicationContext());
+                    session = new SessionManager(context);
+                    HashMap<String, String> user = db.getUserDetails();
+                    EXTRA_USER_LOGGED_IN = user.get("userID");
+
+                    uploadComment(triptikID, EXTRA_USER_LOGGED_IN, commentText);
+                    Log.d("uploadComment", "Event occured");
+                    ToastView("Comment Uploaded");
+
+                    etCommentText.setText("");
+                    focusOnView();
+//                    parent.removeAllViews();
+
+                    initViews();
+
+                } else {
+
+                    ToastView("Please enter a comment before posting");
+
+                }
+            }
+        });
+
+    }
 
     /**
      * Upload a comment to the database
@@ -275,6 +284,8 @@ public class TriptikViewer extends Activity {
 
     /**
      *
+     * @param commentID
+     * @param context
      */
     public void updateCommentVisibility(final int commentID, Context context) {
 

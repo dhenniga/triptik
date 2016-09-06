@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.triptik.dev.triptik.R;
@@ -46,7 +48,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, final int viewType) {
+    public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
 
         final View view = inflater.inflate(R.layout.item_comment, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
@@ -80,10 +82,18 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             View.OnClickListener onClick = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    TriptikViewer triptikViewer = new TriptikViewer();
+
                     switch (v.getId()) {
+
+
 
                         case R.id.ibEditComment:
                             viewHolder.swipeLayout.animateReset();
+                            triptikViewer.createComment(v, mContext);
+
+
                             break;
 
                         case R.id.ibDeleteComment:
@@ -93,12 +103,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                             viewHolder.itemView.setAlpha(0.2f);
                             viewHolder.swipeLayout.animateReset();
                             viewHolder.swipeLayout.setSwipeEnabled(false);
-                            TriptikViewer triptikViewer = new TriptikViewer();
                             triptikViewer.updateCommentVisibility(commentID, mContext);
-                            break;
-
-                        case R.id.ibReplyComment:
-                            viewHolder.rlRightContainer.setBackgroundColor(Color.parseColor("#0098ff"));
+                            swapItems(commentList);
                             break;
 
                         default:
@@ -117,30 +123,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 viewHolder.ibDeleteComment.setClickable(true);
                 viewHolder.ibDeleteComment.setOnClickListener(onClick);
             }
-
-
-            viewHolder.swipeLayout.setOnSwipeListener(new SwipeLayout.OnSwipeListener() {
-                @Override
-                public void onBeginSwipe(SwipeLayout swipeLayout, boolean moveToRight) {
-                }
-
-                @Override
-                public void onSwipeClampReached(SwipeLayout swipeLayout, boolean moveToRight) {
-//                Toast.makeText(swipeLayout.getContext(),
-//                        (moveToRight ? "Left" : "Right") + " clamp reached",
-//                        Toast.LENGTH_SHORT)
-//                        .show();
-                }
-
-                @Override
-                public void onLeftStickyEdge(SwipeLayout swipeLayout, boolean moveToRight) {
-                }
-
-                @Override
-                public void onRightStickyEdge(SwipeLayout swipeLayout, boolean moveToRight) {
-                }
-            });
-
 
             return new ViewHolder(view);
 
@@ -163,8 +145,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
                         case R.id.ibReplyComment:
                             viewHolder.swipeLayout.animateReset();
-
-
                             break;
 
                         case R.id.ibCommentAuthorGallery:
@@ -188,29 +168,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 viewHolder.ibCommentAuthorGallery.setOnClickListener(onClick);
             }
 
-
-            viewHolder.swipeLayout.setOnSwipeListener(new SwipeLayout.OnSwipeListener() {
-                @Override
-                public void onBeginSwipe(SwipeLayout swipeLayout, boolean moveToRight) {
-                }
-
-                @Override
-                public void onSwipeClampReached(SwipeLayout swipeLayout, boolean moveToRight) {
-//                Toast.makeText(swipeLayout.getContext(),
-//                        (moveToRight ? "Left" : "Right") + " clamp reached",
-//                        Toast.LENGTH_SHORT)
-//                        .show();
-                }
-
-                @Override
-                public void onLeftStickyEdge(SwipeLayout swipeLayout, boolean moveToRight) {
-                }
-
-                @Override
-                public void onRightStickyEdge(SwipeLayout swipeLayout, boolean moveToRight) {
-                }
-            });
-
             return new ViewHolder(view);
         }
     }
@@ -227,6 +184,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         String profile_image = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentComment.getUserID() + "/pic.webp";
         Picasso.with(mContext).load(profile_image).resize(130, 130).centerCrop().into(holder.ivCommentThumbnail);
 
+    }
+
+    public void swapItems(List<CommentValue> comments){
+        this.commentList = comments;
+        notifyDataSetChanged();
     }
 
     public void updateData(List<CommentValue> items) {
@@ -263,6 +225,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             ibEditComment = (ImageButton) itemView.findViewById(R.id.ibEditComment);
             ibReplyComment = (ImageButton) itemView.findViewById(R.id.ibReplyComment);
             ibCommentAuthorGallery = (ImageButton) itemView.findViewById(R.id.ibCommentAuthorGallery);
+
+            ViewGroup comments = (ViewGroup) itemView.findViewById(R.id.rlCommentsContainer);
+
         }
     }
 }
