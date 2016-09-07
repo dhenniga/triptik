@@ -9,6 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,6 +39,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     private ViewGroup vgComment;
     private SQLiteHandler db;
     private SessionManager session;
+    public String profile_image;
 
     public CommentAdapter(Context context, List<CommentValue> commentList) {
         this.commentList = commentList;
@@ -56,8 +60,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         final ViewHolder viewHolder = new ViewHolder(view);
 
         // Change the fonts
-        Typeface RalewayRegular = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Regular.ttf");
-        Typeface RalewayBold = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Bold.ttf");
+        final Typeface RalewayRegular = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Regular.ttf");
+        final Typeface RalewayBold = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Bold.ttf");
         viewHolder.tvCommentText.setTypeface(RalewayRegular);
         viewHolder.tvCommentUser.setTypeface(RalewayBold);
         viewHolder.tvCommentDateTime.setTypeface(RalewayRegular);
@@ -72,9 +76,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         HashMap<String, String> user = db.getUserDetails();
         String userID = user.get("userID");
         Log.d("Logged in userID", userID);
+        final String current_profile_image = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + userID + "/pic.webp";
 
         //  Get the userID of the user who made the comment
-        String commentUser = commentList.get(viewType).getUserID();
+        final String commentUser = commentList.get(viewType).getUserID();
 
         //  If the logged in user and the person who made the comment are the same person
         //  then enable a specific left, right swipe functions.
@@ -98,15 +103,43 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
                             View comment = inflater.inflate(R.layout.item_reply_comment, null);
 
-                            String something = viewHolder.tvCommentText.getText().toString();
+                            String commentText = viewHolder.tvCommentText.getText().toString();
+                            String commentCreator = viewHolder.tvCommentUser.getText().toString();
+                            String commentDateTime = viewHolder.tvCommentDateTime.getText().toString();
+                            String commentUserThumbnail = viewHolder.ivCommentThumbnail.toString();
 
                             viewHolder.swipeLayout.animateReset();
-                            viewHolder.swipeLayout.animate().rotationXBy(180).setDuration(1000);
+//                            viewHolder.swipeLayout.animate().rotationXBy(180).setDuration(1000);
 
-//                            viewHolder.swipeLayout.removeAllViews();
-//                            viewHolder.swipeLayout.setSwipeEnabled(false);
-//                            viewHolder.swipeLayout.addView(comment);
+                            viewHolder.swipeLayout.removeAllViewsInLayout();
+                            viewHolder.swipeLayout.setSwipeEnabled(false);
+                            viewHolder.swipeLayout.addView(comment);
 
+                            EditText etCommentText = (EditText) viewHolder.swipeLayout.findViewById(R.id.etCommentText);
+                            TextView tvCommentUser = (TextView) viewHolder.swipeLayout.findViewById(R.id.tvCommentUser);
+                            TextView tvCommentDateTime = (TextView) viewHolder.swipeLayout.findViewById(R.id.tvCommentDateTime);
+                            ImageView ivCommentThumbnail = (ImageView) viewHolder.swipeLayout.findViewById(R.id.ivCommentThumbnail);
+                            Button btnSubmitEditComment = (Button) viewHolder.swipeLayout.findViewById(R.id.btnSubmitEditComment);
+                            Button btnCancelEditComment = (Button) viewHolder.swipeLayout.findViewById(R.id.btnCancelEditComment);
+
+
+                            etCommentText.setTypeface(RalewayRegular);
+                            tvCommentUser.setTypeface(RalewayBold);
+                            tvCommentDateTime.setTypeface(RalewayRegular);
+                            btnSubmitEditComment.setTypeface(RalewayRegular);
+                            btnCancelEditComment.setTypeface(RalewayRegular);
+
+                            Picasso.with(mContext).load(current_profile_image).resize(130, 130).centerCrop().into(ivCommentThumbnail);
+//                            viewHolder.tvCommentReplyUser.setTypeface(RalewayRegular);
+
+                            etCommentText.setText(commentText);
+                            tvCommentUser.setText(commentCreator);
+                            tvCommentDateTime.setText(commentDateTime);
+
+                            etCommentText.requestFocus();
+
+                            InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.showSoftInput(etCommentText, InputMethodManager.SHOW_IMPLICIT);
 
                             break;
 
@@ -195,7 +228,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         holder.tvCommentUser.setText(currentComment.getUsername());
         holder.tvCommentDateTime.setText(currentComment.getCreation_date() + "  |  " + currentComment.getCreation_time().substring(0, 5));
 
-        String profile_image = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentComment.getUserID() + "/pic.webp";
+        profile_image = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentComment.getUserID() + "/pic.webp";
         Picasso.with(mContext).load(profile_image).resize(130, 130).centerCrop().into(holder.ivCommentThumbnail);
 
     }

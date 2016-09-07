@@ -1,105 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llCommentContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#f2f2f2"
+    android:orientation="horizontal"
+    android:paddingBottom="15dp"
+    android:paddingEnd="10dp"
+    android:paddingStart="8dp"
+    android:paddingTop="15dp"
+    android:weightSum="2">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivCommentThumbnail"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        app:civ_border_color="#22000000"
+        app:civ_border_width="1dp" />
+
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/llCommentContainer"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingBottom="15dp"
-        android:paddingEnd="10dp"
-        android:paddingStart="8dp"
-        android:orientation="horizontal"
-        android:paddingTop="15dp"
-        android:weightSum="2">
+        android:layout_weight="2"
+        android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/ivCommentThumbnail"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:scaleType="centerCrop"
-            app:civ_border_color="#22000000"
-            app:civ_border_width="1dp" />
 
-        <LinearLayout
-            android:layout_width="0dp"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="0dp">
+
+
+            <TextView
+                android:id="@+id/tvCommentUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Commentor Creator"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/ivReplyArrow"
+                android:layout_width="8dp"
+                android:layout_height="7dp"
+                android:layout_below="@+id/tvCommentUser"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="2dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/reply_arrow"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvCommentReplyUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvCommentUser"
+                android:layout_toRightOf="@+id/ivReplyArrow"
+                android:text="Replying to: David Hennigan"
+                android:textColor="@color/black_overlay"
+                android:textSize="9sp"
+                android:textStyle="italic"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvCommentDateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="2016/01/01  |  12:00"
+                android:textColor="#88000000"
+                android:textSize="10sp"
+                android:textStyle="normal" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:orientation="vertical">
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="7dp">
 
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="0dp"
-                android:gravity="center_vertical">
-
-
-                <TextView
-                    android:id="@+id/tvCommentUser"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:textColor="@color/black"
-                    android:text="Commentor Creator"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/ivReplyArrow"
-                    android:layout_width="8dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_height="7dp"
-                    android:src="@drawable/reply_arrow"
-                    android:scaleType="fitXY"
-                    android:layout_below="@+id/tvCommentUser"
-                    android:visibility="gone"
-                    />
-
-                <TextView
-                    android:id="@+id/tvCommentReplyUser"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvCommentUser"
-                    android:layout_toRightOf="@+id/ivReplyArrow"
-                    android:textColor="@color/black_overlay"
-                    android:text="Replying to: David Hennigan"
-                    android:textSize="9sp"
-                    android:textStyle="italic"
-                    android:visibility="gone"/>
-
-                <TextView
-                    android:id="@+id/tvCommentDateTime"
-                    android:text="2016/01/01  |  12:00"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:textColor="@color/black_overlay"
-                    android:textSize="10sp"
-                    android:textStyle="normal" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
+            <EditText
+                android:id="@+id/etCommentText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="7dp">
+                android:layout_marginBottom="10dp"
+                android:background="@null"
+                android:inputType="textMultiLine"
+                android:text="This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. "
+                android:textColor="#99000000"
+                android:textSize="12sp" />
 
-                <EditText
-                    android:id="@+id/etCommentText"
-                    android:text="This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. "
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#99000000"
-                    android:textSize="12sp"
-                    />
+        </RelativeLayout>
 
-            </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etCommentText"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnSubmitEditComment"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:text="Submit Changes"
+                android:layout_weight="1"
+                android:background="#11000000"
+                android:layout_margin="5dp"
+                android:textColor="@color/main"
+                android:textSize="10sp"
+                />
+
+            <Button
+                android:id="@+id/btnCancelEditComment"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:text="Cancel Changes"
+                android:layout_weight="1"
+                android:background="#11000000"
+                android:layout_margin="5dp"
+                android:textColor="@color/main"
+                android:textSize="10sp"
+                />
 
         </LinearLayout>
+
     </LinearLayout>
+
+</LinearLayout>
