@@ -197,7 +197,7 @@ public class TriptikViewer extends Activity {
 
     public void createComment (View v, final Context context)
     {
-        ViewGroup parent = (ViewGroup) findViewById(R.id.rlCommentsContainer);
+        final ViewGroup parent = (ViewGroup) this.findViewById(R.id.rlCommentsContainer);
 
         v = LayoutInflater.from(context).inflate(R.layout.item_add_comment, parent, false);
         parent.addView(v, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -228,7 +228,7 @@ public class TriptikViewer extends Activity {
 
                     etCommentText.setText("");
                     focusOnView();
-//                    parent.removeAllViews();
+                    parent.removeAllViews();
 
                     initViews();
 

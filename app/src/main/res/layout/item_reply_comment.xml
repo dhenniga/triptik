@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.triptik.dev.triptik.SwipeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/slCommentSwipeContainer"
-    android:layout_width="match_parent"
-    android:layout_marginTop="0.1dp"
-    android:background="#ffffff"
-    android:layout_height="wrap_content">
-
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/llCommentContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +13,7 @@
         android:paddingTop="15dp"
         android:weightSum="2">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivCommentThumbnail"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -97,8 +90,8 @@
                 android:paddingRight="10dp"
                 android:paddingTop="7dp">
 
-                <TextView
-                    android:id="@+id/tvCommentText"
+                <EditText
+                    android:id="@+id/etCommentText"
                     android:text="This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. "
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -110,78 +103,3 @@
 
         </LinearLayout>
     </LinearLayout>
-
-    <!--LEFT-->
-    <RelativeLayout
-        android:id="@+id/rlLeftContainer"
-        android:layout_width="100dp"
-        android:layout_height="match_parent"
-        android:background="#333338"
-        android:orientation="horizontal"
-        app:bring_to_clamp="100dp"
-        android:gravity="center"
-        app:clamp="100dp"
-        app:gravity="left"
-        app:sticky="100dp"
-        app:sticky_sensitivity="0.5">
-
-        <ImageButton
-            android:id="@+id/ibEditComment"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/edit_comment_icon"
-            android:scaleType="fitCenter"
-            android:background="@null"
-            android:layout_centerInParent="true"
-            android:visibility="gone"/>
-
-        <ImageButton
-            android:id="@+id/ibCommentAuthorGallery"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/author_comment_gallery_icon"
-            android:scaleType="fitCenter"
-            android:background="@null"
-            android:layout_centerInParent="true"
-            android:visibility="gone"/>
-
-    </RelativeLayout>
-
-    <!--RIGHT-->
-    <RelativeLayout
-        android:id="@+id/rlRightContainer"
-        android:layout_width="100dp"
-        android:layout_height="match_parent"
-        android:background="#333338"
-        android:orientation="horizontal"
-        app:bring_to_clamp="100dp"
-        app:clamp="100dp"
-        app:gravity="right"
-        app:sticky="100dp"
-        app:sticky_sensitivity="0.5">
-
-        <ImageButton
-            android:id="@+id/ibDeleteComment"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/delete_comment_icon"
-            android:layout_centerInParent="true"
-            android:scaleType="fitCenter"
-            android:background="@null"
-            android:visibility="gone"/>
-
-        <ImageButton
-            android:id="@+id/ibReplyComment"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/reply_comment_icon"
-            android:layout_centerInParent="true"
-            android:scaleType="fitCenter"
-            android:background="@null"
-            android:visibility="gone"/>
-
-    </RelativeLayout>
-
-
-
-</com.triptik.dev.triptik.SwipeLayout>

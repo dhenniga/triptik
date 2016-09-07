@@ -1,5 +1,6 @@
 package com.triptik.dev.triptik.comment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -32,6 +33,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     private List<CommentValue> commentList;
     private LayoutInflater inflater;
     int commentID;
+    private ViewGroup vgComment;
     private SQLiteHandler db;
     private SessionManager session;
 
@@ -53,6 +55,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         final View view = inflater.inflate(R.layout.item_comment, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
 
+        // Change the fonts
         Typeface RalewayRegular = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Regular.ttf");
         Typeface RalewayBold = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Bold.ttf");
         viewHolder.tvCommentText.setTypeface(RalewayRegular);
@@ -60,17 +63,21 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         viewHolder.tvCommentDateTime.setTypeface(RalewayRegular);
         viewHolder.tvCommentReplyUser.setTypeface(RalewayRegular);
 
+        //  Disable swiping (initial state)
+        viewHolder.swipeLayout.setSwipeEnabled(false);
+
+        // Get the logged in userID and set it to a userID string
         db = new SQLiteHandler(mContext);
         session = new SessionManager(mContext);
         HashMap<String, String> user = db.getUserDetails();
         String userID = user.get("userID");
         Log.d("Logged in userID", userID);
 
-        viewHolder.swipeLayout.setSwipeEnabled(false);
-
+        //  Get the userID of the user who made the comment
         String commentUser = commentList.get(viewType).getUserID();
-        Log.d("Comment User", commentUser);
 
+        //  If the logged in user and the person who made the comment are the same person
+        //  then enable a specific left, right swipe functions.
         if (commentUser.equals(userID)) {
 
             viewHolder.ibDeleteComment.setVisibility(View.VISIBLE);
@@ -87,11 +94,18 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
                     switch (v.getId()) {
 
-
-
                         case R.id.ibEditComment:
+
+                            View comment = inflater.inflate(R.layout.item_reply_comment, null);
+
+                            String something = viewHolder.tvCommentText.getText().toString();
+
                             viewHolder.swipeLayout.animateReset();
-                            triptikViewer.createComment(v, mContext);
+                            viewHolder.swipeLayout.animate().rotationXBy(180).setDuration(1000);
+
+//                            viewHolder.swipeLayout.removeAllViews();
+//                            viewHolder.swipeLayout.setSwipeEnabled(false);
+//                            viewHolder.swipeLayout.addView(comment);
 
 
                             break;
@@ -104,7 +118,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                             viewHolder.swipeLayout.animateReset();
                             viewHolder.swipeLayout.setSwipeEnabled(false);
                             triptikViewer.updateCommentVisibility(commentID, mContext);
-                            swapItems(commentList);
+//                            swapItems(commentList);
                             break;
 
                         default:
@@ -186,16 +200,16 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     }
 
-    public void swapItems(List<CommentValue> comments){
-        this.commentList = comments;
-        notifyDataSetChanged();
-    }
+//    public void swapItems(List<CommentValue> comments){
+//        this.commentList = comments;
+//        notifyDataSetChanged();
+//    }
 
-    public void updateData(List<CommentValue> items) {
-        commentList.clear();
-        commentList.addAll(items);
-        notifyDataSetChanged();
-    }
+//    public void updateData(List<CommentValue> items) {
+//        commentList.clear();
+//        commentList.addAll(items);
+//        notifyDataSetChanged();
+//    }
 
     @Override
     public int getItemCount() {
@@ -226,10 +240,23 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             ibReplyComment = (ImageButton) itemView.findViewById(R.id.ibReplyComment);
             ibCommentAuthorGallery = (ImageButton) itemView.findViewById(R.id.ibCommentAuthorGallery);
 
-            ViewGroup comments = (ViewGroup) itemView.findViewById(R.id.rlCommentsContainer);
+//            ViewGroup comments = (ViewGroup) itemView.findViewById(R.id.rlCommentsContainer);
 
         }
     }
+
+  
+//    public View getView(int position, View convertView, ViewGroup parent) {
+//
+//        if(convertView == null){
+//            LayoutInflater lInflater = (LayoutInflater)mContext.getSystemService(
+//                    Activity.LAYOUT_INFLATER_SERVICE);
+//
+//            convertView = lInflater.inflate(R.layout.item_comment, null);
+//        }
+//
+//        return convertView;
+//    }
 }
 
 
