@@ -98,7 +98,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             viewHolder.swipeLayout.setSwipeEnabled(true);
 
 
-
             View.OnClickListener onClick = new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
@@ -159,18 +158,20 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                     triptikViewer.updateCommentVisibility(commentID, mContext);
                                     Log.d("CommentID Visibility", ((String.valueOf(commentID))));
                                     Log.d("Comment Author", viewHolder.tvCommentUser.getText().toString());
-                                    Log.d("Comment Content" , viewHolder.tvCommentText.getText().toString());
+                                    Log.d("Comment Content", viewHolder.tvCommentText.getText().toString());
                                 }
                             }, 500);
 
-                            fadeout.setAnimationListener(new Animation.AnimationListener(){
+                            fadeout.setAnimationListener(new Animation.AnimationListener() {
                                 @Override
                                 public void onAnimationStart(Animation arg0) {
 
                                 }
+
                                 @Override
                                 public void onAnimationRepeat(Animation arg0) {
                                 }
+
                                 @Override
                                 public void onAnimationEnd(Animation arg0) {
                                     viewHolder.swipeLayout.removeAllViews();
@@ -295,23 +296,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             ibReplyComment = (ImageButton) itemView.findViewById(R.id.ibReplyComment);
             ibCommentAuthorGallery = (ImageButton) itemView.findViewById(R.id.ibCommentAuthorGallery);
 
-//            ViewGroup comments = (ViewGroup) itemView.findViewById(R.id.rlCommentsContainer);
-
         }
     }
-
-  
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//
-//        if(convertView == null){
-//            LayoutInflater lInflater = (LayoutInflater)mContext.getSystemService(
-//                    Activity.LAYOUT_INFLATER_SERVICE);
-//
-//            convertView = lInflater.inflate(R.layout.item_comment, null);
-//        }
-//
-//        return convertView;
-//    }
 }
 
 
