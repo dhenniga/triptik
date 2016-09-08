@@ -45,6 +45,15 @@
 
 
                 <TextView
+                    android:id="@+id/tvCommentID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:visibility="gone"
+                    android:textSize="4sp"
+                />
+
+                <TextView
                     android:id="@+id/tvCommentUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,12 +99,25 @@
 
             </RelativeLayout>
 
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="7dp">
+
+                <TextView
+                    android:id="@+id/tvCommentUserID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#66000000"
+                    android:visibility="visible"
+                    android:textSize="6sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:text="102"
+                    />
 
                 <TextView
                     android:id="@+id/tvCommentText"
