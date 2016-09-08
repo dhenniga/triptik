@@ -62,7 +62,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         final View view = inflater.inflate(R.layout.item_comment, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
 
-
         // Change the fonts
         final Typeface RalewayRegular = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Regular.ttf");
         final Typeface RalewayBold = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Bold.ttf");
@@ -70,6 +69,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         viewHolder.tvCommentUser.setTypeface(RalewayBold);
         viewHolder.tvCommentDateTime.setTypeface(RalewayRegular);
         viewHolder.tvCommentReplyUser.setTypeface(RalewayRegular);
+
+        Log.d("Comment Count", ((String.valueOf(getItemCount()))));
 
         //  Disable swiping (initial state)
         viewHolder.swipeLayout.setSwipeEnabled(false);
@@ -84,7 +85,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
 //          Get the userID of the user who made the comment
         String commentUserID = commentList.get(viewType).getUserID();
-
         Log.d("commentUserID", commentUserID);
 
 
@@ -109,7 +109,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
                             View comment = inflater.inflate(R.layout.item_reply_comment, null);
 
-                            String commentUserID = viewHolder.tvCommentUserID.getText().toString();
+//                            String commentUserID = viewHolder.tvCommentUserID.getText().toString();
                             String commentText = viewHolder.tvCommentText.getText().toString();
                             String commentCreator = viewHolder.tvCommentUser.getText().toString();
                             String commentDateTime = viewHolder.tvCommentDateTime.getText().toString();
@@ -251,8 +251,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         CommentValue currentComment = commentList.get(position);
 
-//        commentUserID = currentComment.getUserID();
-
         holder.tvCommentID.setText(((String.valueOf(currentComment.getCommentID()))));
         holder.tvCommentUserID.setText(currentComment.getUserID());
         holder.tvCommentText.setText(currentComment.getCommentText());
@@ -269,7 +267,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public int getItemCount() {
         return commentList == null ? 0 : commentList.size();
     }
-
 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
