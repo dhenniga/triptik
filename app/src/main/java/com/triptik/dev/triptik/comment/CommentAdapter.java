@@ -9,6 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,6 +62,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         final View view = inflater.inflate(R.layout.item_comment, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
+        viewHolder.setIsRecyclable(false);
 
         // Change the fonts
         final Typeface RalewayRegular = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Regular.ttf");
@@ -93,9 +98,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
             View.OnClickListener onClick = new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(final View v) {
 
-                    TriptikViewer triptikViewer = new TriptikViewer();
+                    final TriptikViewer triptikViewer = new TriptikViewer();
+                    notifyItemChanged(viewType);
 
                     switch (v.getId()) {
 
@@ -106,9 +112,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                             String commentText = viewHolder.tvCommentText.getText().toString();
                             String commentCreator = viewHolder.tvCommentUser.getText().toString();
                             String commentDateTime = viewHolder.tvCommentDateTime.getText().toString();
-                            String commentUserThumbnail = viewHolder.ivCommentThumbnail.toString();
 
-                            viewHolder.swipeLayout.animateReset();
+//                            viewHolder.swipeLayout.animateReset();
 //                            viewHolder.swipeLayout.animate().rotationXBy(180).setDuration(1000);
 
                             viewHolder.swipeLayout.removeAllViewsInLayout();
@@ -122,15 +127,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                             Button btnSubmitEditComment = (Button) viewHolder.swipeLayout.findViewById(R.id.btnSubmitEditComment);
                             Button btnCancelEditComment = (Button) viewHolder.swipeLayout.findViewById(R.id.btnCancelEditComment);
 
-
                             etCommentText.setTypeface(RalewayRegular);
                             tvCommentUser.setTypeface(RalewayBold);
                             tvCommentDateTime.setTypeface(RalewayRegular);
-                            btnSubmitEditComment.setTypeface(RalewayRegular);
-                            btnCancelEditComment.setTypeface(RalewayRegular);
+                            btnSubmitEditComment.setTypeface(RalewayBold);
+                            btnCancelEditComment.setTypeface(RalewayBold);
 
                             Picasso.with(mContext).load(current_profile_image).resize(130, 130).centerCrop().into(ivCommentThumbnail);
-//                            viewHolder.tvCommentReplyUser.setTypeface(RalewayRegular);
 
                             etCommentText.setText(commentText);
                             tvCommentUser.setText(commentCreator);
@@ -141,16 +144,53 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                             InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
                             imm.showSoftInput(etCommentText, InputMethodManager.SHOW_IMPLICIT);
 
+
+
                             break;
 
                         case R.id.ibDeleteComment:
 
                             commentID = commentList.get(viewType).getCommentID();
 
-                            viewHolder.itemView.setAlpha(0.2f);
-                            viewHolder.swipeLayout.animateReset();
-                            viewHolder.swipeLayout.setSwipeEnabled(false);
-                            triptikViewer.updateCommentVisibility(commentID, mContext);
+//                            viewHolder.itemView.setAlpha(0.2f);
+//                            viewHolder.swipeLayout.animateReset();
+//                            viewHolder.swipeLayout.setSwipeEnabled(false);
+//                            notifyItemRemoved(viewType);
+
+                            Animation fadeout = new AlphaAnimation(1, 0);
+                            fadeout.setDuration(500);
+                            viewHolder.swipeLayout.startAnimation(fadeout);
+                            viewHolder.swipeLayout.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    triptikViewer.updateCommentVisibility(commentID, mContext);
+                                    Log.d("CommentID Visibility", ((String.valueOf(commentID))));
+                                    Log.d("Comment Author", viewHolder.tvCommentUser.getText().toString());
+                                    Log.d("Comment Content" , viewHolder.tvCommentText.getText().toString());
+                                }
+                            }, 500);
+
+                            fadeout.setAnimationListener(new Animation.AnimationListener(){
+                                @Override
+                                public void onAnimationStart(Animation arg0) {
+
+                                }
+                                @Override
+                                public void onAnimationRepeat(Animation arg0) {
+                                }
+                                @Override
+                                public void onAnimationEnd(Animation arg0) {
+                                    viewHolder.swipeLayout.removeAllViews();
+                                    notifyItemChanged(viewType);
+                                }
+                            });
+
+
+
+
+//                            viewHolder.swipeLayout.animate().translationY(viewHolder.swipeLayout.getHeight()).setDuration(1000);
+//                            viewHolder.swipeLayout.removeAllViews();
+//                            triptikViewer.updateCommentVisibility(commentID, mContext);
 //                            swapItems(commentList);
                             break;
 
@@ -248,6 +288,18 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public int getItemCount() {
         return commentList == null ? 0 : commentList.size();
     }
+
+    public void remove(int position) {
+        commentList.remove(position);
+        notifyItemRemoved(position);
+    }
+
+//    public void add(String text, int position) {
+//        commentList.add(position, text);
+//        notifyItemInserted(position);
+//    }
+
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 

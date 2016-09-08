@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#f8f8f8"
+    >
+
+<LinearLayout
     android:id="@+id/llCommentContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#f2f2f2"
     android:orientation="horizontal"
     android:paddingBottom="15dp"
     android:paddingEnd="10dp"
@@ -102,39 +108,40 @@
 
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/etCommentText"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <Button
-                android:id="@+id/btnSubmitEditComment"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:text="Submit Changes"
-                android:layout_weight="1"
-                android:background="#11000000"
-                android:layout_margin="5dp"
-                android:textColor="@color/main"
-                android:textSize="10sp"
-                />
-
-            <Button
-                android:id="@+id/btnCancelEditComment"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:text="Cancel Changes"
-                android:layout_weight="1"
-                android:background="#11000000"
-                android:layout_margin="5dp"
-                android:textColor="@color/main"
-                android:textSize="10sp"
-                />
-
-        </LinearLayout>
-
     </LinearLayout>
 
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etCommentText"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btnCancelEditComment"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:text="Cancel Changes"
+            android:layout_weight="1"
+            android:background="#11000000"
+            android:layout_margin="0dp"
+            android:textColor="@color/main"
+            android:textSize="10sp"
+            />
+
+        <Button
+            android:id="@+id/btnSubmitEditComment"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:text="Submit Changes"
+            android:layout_weight="1"
+            android:background="#11000000"
+            android:layout_margin="0dp"
+            android:textColor="#008800"
+            android:textSize="10sp"
+            />
+
+    </LinearLayout>
 </LinearLayout>

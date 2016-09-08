@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -50,6 +51,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class TriptikViewer extends Activity {
 
@@ -110,6 +115,8 @@ public class TriptikViewer extends Activity {
         svComments = (ScrollView) findViewById(R.id.svComments);
 
         rvCommentRecycler = (RecyclerView) findViewById(R.id.rvCommentRecycler);
+        rvCommentRecycler.setItemAnimator(new SlideInLeftAnimator());
+
         ivCommentThumbnail = (ImageView) findViewById(R.id.ivCommentThumbnail);
 
         tvCommentUser = (TextView) findViewById(R.id.tvCommentUser);
