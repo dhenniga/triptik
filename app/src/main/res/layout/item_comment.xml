@@ -112,7 +112,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#66000000"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:textSize="6sp"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"

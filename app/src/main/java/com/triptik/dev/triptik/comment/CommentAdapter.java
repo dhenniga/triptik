@@ -174,7 +174,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                                 @Override
                                 public void onAnimationEnd(Animation arg0) {
                                     viewHolder.swipeLayout.removeAllViews();
-//                                    notifyItemChanged(viewType);
+                                    notifyItemChanged(viewType);
                                 }
                             });
 
@@ -253,10 +253,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
 //        commentUserID = currentComment.getUserID();
 
-        holder.tvCommentID.setText(currentComment.getUserID());
+        holder.tvCommentID.setText(((String.valueOf(currentComment.getCommentID()))));
         holder.tvCommentUserID.setText(currentComment.getUserID());
         holder.tvCommentText.setText(currentComment.getCommentText());
-        holder.tvCommentUser.setText(currentComment.getCommentID() + "  |  " + currentComment.getUsername());
+        holder.tvCommentUser.setText(currentComment.getUsername());
         holder.tvCommentDateTime.setText(currentComment.getCreation_date() + "  |  " + currentComment.getCreation_time().substring(0, 5));
 
         profile_image = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + currentComment.getUserID() + "/pic.webp";
