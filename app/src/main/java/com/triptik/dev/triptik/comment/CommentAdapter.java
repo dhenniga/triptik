@@ -25,7 +25,7 @@ import com.triptik.dev.triptik.viewer.TriptikViewer;
 import com.triptik.dev.triptik.helper.SQLiteHandler;
 import com.triptik.dev.triptik.helper.SessionManager;
 
-public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> implements View.OnClickListener {
+public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
 
     private Context mContext;
     private List<CommentValue> commentList;
@@ -39,6 +39,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         this.inflater = LayoutInflater.from(context);
         this.mContext = context;
     }
+
+
 
 
     /**
@@ -89,6 +91,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             return NotLoggedInUserComment(viewHolder, view);
 
         }
+
     }
 
 
@@ -335,11 +338,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     }
 
-    @Override
-    public void onClick(View v) {
-        
-
-    }
 
 
     /**
@@ -352,14 +350,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         private TextView tvCommentText, tvCommentUser, tvCommentDateTime, tvCommentReplyUser, tvCommentID, tvCommentUserID;
         private ImageView ivCommentThumbnail;
         private ImageButton ibDeleteComment, ibEditComment, ibReplyComment, ibCommentAuthorGallery;
-//        private Button btnCancelEditComment, btnSubmitEditComment;
+        private Button btnCancelEditComment, btnSubmitEditComment;
 
         public ViewHolder(View itemView) {
 
             super(itemView);
 
-//            btnSubmitEditComment = (Button) itemView.findViewById(R.id.btnSubmitEditComment);
-//            btnCancelEditComment = (Button) itemView.findViewById(R.id.btnCancelEditComment);
+            btnSubmitEditComment = (Button) itemView.findViewById(R.id.btnSubmitEditComment);
+            btnCancelEditComment = (Button) itemView.findViewById(R.id.btnCancelEditComment);
             tvCommentID = (TextView) itemView.findViewById(R.id.tvCommentID);
             tvCommentUserID = (TextView) itemView.findViewById(R.id.tvCommentUserID);
             tvCommentText = (TextView) itemView.findViewById(R.id.tvCommentText);
