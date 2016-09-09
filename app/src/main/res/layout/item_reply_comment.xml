@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#eeeeee"
+    android:background="#f8f8f8"
     >
 
 <LinearLayout
@@ -119,6 +119,7 @@
         android:orientation="horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
+        android:paddingTop="10dp"
         android:paddingBottom="20dp"
         android:weightSum="2">
 
@@ -126,11 +127,11 @@
             android:id="@+id/btnCancelEditComment"
             android:layout_width="0dp"
             android:layout_height="30dp"
-            android:text="Cancel Changes"
+            android:text="Cancel"
             android:stateListAnimator="@null"
             android:layout_weight="1"
-            android:background="@drawable/rounded_button"
-            android:textColor="@color/main"
+            android:background="@drawable/rounded_button_selector"
+            android:textColor="@color/white"
             android:textSize="10sp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -141,11 +142,11 @@
             android:id="@+id/btnSubmitEditComment"
             android:layout_width="0dp"
             android:layout_height="30dp"
-            android:text="Submit Changes"
+            android:text="Update"
             android:layout_weight="1"
             android:stateListAnimator="@null"
-            android:background="@drawable/rounded_button"
-            android:textColor="@color/main"
+            android:background="@drawable/rounded_button_selector"
+            android:textColor="@color/white"
             android:textSize="10sp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"

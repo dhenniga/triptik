@@ -63,7 +63,7 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".TriptikViewer"
+            android:name=".viewer.TriptikViewer"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
 

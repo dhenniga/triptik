@@ -1,4 +1,4 @@
-package com.triptik.dev.triptik;
+package com.triptik.dev.triptik.viewer;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -36,6 +35,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
+import com.triptik.dev.triptik.AspectSelect;
+import com.triptik.dev.triptik.JSONHelper;
+import com.triptik.dev.triptik.R;
+import com.triptik.dev.triptik.ServiceHandler;
 import com.triptik.dev.triptik.app.AppConfig;
 import com.triptik.dev.triptik.comment.CommentAdapter;
 import com.triptik.dev.triptik.comment.CommentValue;
@@ -52,9 +55,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jp.wasabeef.recyclerview.animators.FadeInLeftAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class TriptikViewer extends Activity {
 
@@ -70,6 +71,7 @@ public class TriptikViewer extends Activity {
     private SQLiteHandler db;
     private SessionManager session;
     private Typeface RalewayLight;
+    private Button btnSubmitEditComment, btnCancelEditComment;
 
     private TextView tvCommentUser, tvCommentDateTime, tvCommentTotal, tvLikesTotal;
 
@@ -97,7 +99,6 @@ public class TriptikViewer extends Activity {
         float dpWidth = displayMetrics.widthPixels;
 
         RalewayLight = Typeface.createFromAsset(getAssets(), "fonts/Raleway-Light.ttf");
-
 
         ivTriptikViewer = (ImageView) findViewById(R.id.ivTriptikViewer);
         btnNewTriptik = (ImageButton) findViewById(R.id.btnNewTriptik);
