@@ -33,13 +33,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     private SQLiteHandler db;
     private SessionManager session;
     public String profile_image;
+    public View commentView;
 
     public CommentAdapter(Context context, List<CommentValue> commentList) {
         this.commentList = commentList;
         this.inflater = LayoutInflater.from(context);
         this.mContext = context;
     }
-
 
 
 
@@ -52,8 +52,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
 
-        final View view = inflater.inflate(R.layout.item_comment, parent, false);
-        final ViewHolder viewHolder = new ViewHolder(view);
+        commentView = inflater.inflate(R.layout.item_comment, parent, false);
+        ViewHolder viewHolder = new ViewHolder(commentView);
 
         // Change the fonts
         final Typeface RalewayRegular = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Regular.ttf");
@@ -84,11 +84,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         //  then enable a specific left, right swipe functions.
         if (commentUserID.equals(userID)) {
 
-            return LoggedInUserComment(viewHolder, view, parent, viewType, current_profile_image);
+            return LoggedInUserComment(viewHolder, commentView, parent, viewType, current_profile_image);
 
         } else {
 
-            return NotLoggedInUserComment(viewHolder, view);
+            return NotLoggedInUserComment(viewHolder, commentView);
 
         }
 
@@ -120,7 +120,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
      * @param current_profile_image
      * @return
      */
-    private ViewHolder LoggedInUserComment (final ViewHolder viewHolder, View view, final ViewGroup parent, final int viewType, final String current_profile_image)  {
+    private ViewHolder LoggedInUserComment (final ViewHolder viewHolder, final View view, final ViewGroup parent, final int viewType, final String current_profile_image)  {
 
         viewHolder.ibDeleteComment.setVisibility(View.VISIBLE);
         viewHolder.ibEditComment.setVisibility(View.VISIBLE);
@@ -135,89 +135,62 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
                     case R.id.ibEditComment:
 
-                        Log.d("Button Press", "Edit");
-
-                        final View editCommentLayout = inflater.inflate(R.layout.item_reply_comment, parent, false);
+                        EditButtonFunction(viewHolder, parent, current_profile_image);
 
 
-                        final Typeface RalewayRegular = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Regular.ttf");
-                        final Typeface RalewayBold = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Bold.ttf");
-
-                        String commentText = viewHolder.tvCommentText.getText().toString();
-                        String commentCreator = viewHolder.tvCommentUser.getText().toString();
-                        String commentDateTime = viewHolder.tvCommentDateTime.getText().toString();
-
-                        viewHolder.swipeLayout.removeAllViewsInLayout();
-                        viewHolder.swipeLayout.setSwipeEnabled(false);
-                        viewHolder.swipeLayout.addView(editCommentLayout);
-
-
-                        //  Get everything created
-                        EditText etCommentText = (EditText) editCommentLayout.findViewById(R.id.etCommentText);
-                        TextView tvCommentUser = (TextView) editCommentLayout.findViewById(R.id.tvCommentUser);
-                        TextView tvCommentDateTime = (TextView) editCommentLayout.findViewById(R.id.tvCommentDateTime);
-                        ImageView ivCommentThumbnail = (ImageView) editCommentLayout.findViewById(R.id.ivCommentThumbnail);
-                        Button btnSubmitEditComment = (Button) editCommentLayout.findViewById(R.id.btnSubmitEditComment);
-                        Button btnCancelEditComment = (Button) editCommentLayout.findViewById(R.id.btnCancelEditComment);
-
-
-                        //  Setup the fonts
-                        etCommentText.setTypeface(RalewayRegular);
-                        tvCommentUser.setTypeface(RalewayBold);
-                        tvCommentDateTime.setTypeface(RalewayRegular);
-                        btnSubmitEditComment.setTypeface(RalewayBold);
-                        btnCancelEditComment.setTypeface(RalewayBold);
-
-                        //  Set the thumbnail to the current logged in users profile picture
-                        Picasso.with(mContext).load(current_profile_image).resize(130, 130).centerCrop().into(ivCommentThumbnail);
-
-
-                        //  Set all the TextView's to the correct text
-                        etCommentText.setText(commentText);
-                        tvCommentUser.setText(commentCreator);
-                        tvCommentDateTime.setText(commentDateTime);
-
-
-                        //  Set the focus to the editText box
-                        etCommentText.requestFocus();
-
-                        //  Show the keyboard
-                        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.showSoftInput(etCommentText, InputMethodManager.SHOW_IMPLICIT);
-
-
-                        btnSubmitEditComment.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                Log.d("Button Press", "Update");
-
-                            }
-                        });
-
-                        btnCancelEditComment.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                Log.d("Button Press", "Cancel");
-
-                                String tvCommentUserString = viewHolder.tvCommentUser.getText().toString();
-                                Log.d("CommentUser", tvCommentUserString);
-
-                                viewHolder.swipeLayout.removeAllViewsInLayout();
-
-                                View originalComment = inflater.inflate(R.layout.item_comment, parent, false);
-                                viewHolder.swipeLayout.addView(originalComment);
-
-                                TextView tvCommentUser = (TextView) originalComment.findViewById(R.id.tvCommentUser);
-
-                                tvCommentUser.setText(tvCommentUserString);
-
-
-
-
-                            }
-                        });
+//                        btnSubmitEditComment.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//
+//                                Log.d("Button Press", "Update");
+//
+//                            }
+//                        });
+//
+//                        btnCancelEditComment.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//
+//                                Log.d("Button Press", "Cancel");
+//
+//                                String tvCommentUserString = viewHolder.tvCommentUser.getText().toString();
+//                                String tvCommentTextString = viewHolder.tvCommentText.getText().toString();
+//                                String tvCommentDateTimeString = viewHolder.tvCommentDateTime.getText().toString();
+//                                Log.d("CommentUser", tvCommentUserString);
+//                                Log.d("CommentDateTime", tvCommentDateTimeString);
+//                                Log.d("CommentText", tvCommentTextString);
+//
+//                                View originalComment = inflater.inflate(R.layout.item_comment, parent, false);
+//                                viewHolder.swipeLayout.removeAllViewsInLayout();
+//                                viewHolder.swipeLayout.addView(originalComment);
+//                                notifyItemChanged(viewType);
+//
+//                                TextView tvCommentUser = (TextView) originalComment.findViewById(R.id.tvCommentUser);
+//                                TextView tvCommentDateTime = (TextView) originalComment.findViewById(R.id.tvCommentDateTime);
+//                                TextView tvCommentText = (TextView) originalComment.findViewById(R.id.tvCommentText);
+//                                ImageView ivCommentThumbnail = (ImageView) originalComment.findViewById(R.id.ivCommentThumbnail);
+//                                ImageButton ibDeleteComment = (ImageButton) originalComment.findViewById(R.id.ibDeleteComment);
+//                                ImageButton ibEditComment = (ImageButton) originalComment.findViewById(R.id.ibEditComment);
+//
+//                                tvCommentUser.setText(tvCommentUserString);
+//                                tvCommentDateTime.setText(tvCommentDateTimeString);
+//                                tvCommentText.setText(tvCommentTextString);
+//
+//                                tvCommentText.setTypeface(RalewayRegular);
+//                                tvCommentUser.setTypeface(RalewayBold);
+//                                tvCommentDateTime.setTypeface(RalewayRegular);
+//
+//                                //  Set the thumbnail to the current logged in users profile picture
+//                                Picasso.with(mContext).load(current_profile_image).resize(130, 130).centerCrop().into(ivCommentThumbnail);
+//
+//                                if (ibEditComment != null) {
+//                                    ibEditComment.setVisibility(View.VISIBLE);
+//                                    EditButtonFunction(viewHolder, parent, current_profile_image);
+//                                    ibEditComment.setOnClickListener(this);
+//                                }
+//
+//                            }
+//                        });
 
 
                         break;
@@ -284,6 +257,66 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     /**
      *
+     * @param viewHolder
+     * @param parent
+     * @param current_profile_image
+     */
+    public void EditButtonFunction (ViewHolder viewHolder, ViewGroup parent, String current_profile_image) {
+
+        Log.d("Button Press", "Edit");
+
+        final View editCommentLayout = inflater.inflate(R.layout.item_reply_comment, parent, false);
+
+        final Typeface RalewayRegular = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Regular.ttf");
+        final Typeface RalewayBold = Typeface.createFromAsset(mContext.getAssets(), "fonts/Raleway-Bold.ttf");
+
+        String commentText = viewHolder.tvCommentText.getText().toString();
+        String commentCreator = viewHolder.tvCommentUser.getText().toString();
+        String commentDateTime = viewHolder.tvCommentDateTime.getText().toString();
+
+        viewHolder.swipeLayout.removeAllViewsInLayout();
+        viewHolder.swipeLayout.setSwipeEnabled(false);
+        viewHolder.swipeLayout.addView(editCommentLayout);
+
+
+        //  Get everything created
+        EditText etCommentText = (EditText) editCommentLayout.findViewById(R.id.etCommentText);
+        TextView tvCommentUser = (TextView) editCommentLayout.findViewById(R.id.tvCommentUser);
+        TextView tvCommentDateTime = (TextView) editCommentLayout.findViewById(R.id.tvCommentDateTime);
+        final ImageView ivCommentThumbnail = (ImageView) editCommentLayout.findViewById(R.id.ivCommentThumbnail);
+        Button btnSubmitEditComment = (Button) editCommentLayout.findViewById(R.id.btnSubmitEditComment);
+        Button btnCancelEditComment = (Button) editCommentLayout.findViewById(R.id.btnCancelEditComment);
+
+
+        //  Setup the fonts
+        etCommentText.setTypeface(RalewayRegular);
+        tvCommentUser.setTypeface(RalewayBold);
+        tvCommentDateTime.setTypeface(RalewayRegular);
+        btnSubmitEditComment.setTypeface(RalewayBold);
+        btnCancelEditComment.setTypeface(RalewayBold);
+
+        //  Set the thumbnail to the current logged in users profile picture
+        Picasso.with(mContext).load(current_profile_image).resize(130, 130).centerCrop().into(ivCommentThumbnail);
+
+
+        //  Set all the TextView's to the correct text
+        etCommentText.setText(commentText);
+        tvCommentUser.setText(commentCreator);
+        tvCommentDateTime.setText(commentDateTime);
+
+
+        //  Set the focus to the editText box
+        etCommentText.requestFocus();
+
+        //  Show the keyboard
+        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(etCommentText, InputMethodManager.SHOW_IMPLICIT);
+    }
+
+
+
+    /**
+     *
      * Set this viewHolder with a comment relating to the person who created the comment.  This changes the
      * swipe menus to relate to this user (gallery and reply).
      *
@@ -344,7 +377,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
      * @param position
      */
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         CommentValue currentComment = commentList.get(position);
 
@@ -384,14 +417,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         private TextView tvCommentText, tvCommentUser, tvCommentDateTime, tvCommentReplyUser, tvCommentID, tvCommentUserID;
         private ImageView ivCommentThumbnail;
         private ImageButton ibDeleteComment, ibEditComment, ibReplyComment, ibCommentAuthorGallery;
-//        private Button btnCancelEditComment, btnSubmitEditComment;
+        private Button btnCancelEditComment, btnSubmitEditComment;
 
         public ViewHolder(View itemView) {
 
             super(itemView);
 
-//            btnSubmitEditComment = (Button) itemView.findViewById(R.id.btnSubmitEditComment);
-//            btnCancelEditComment = (Button) itemView.findViewById(R.id.btnCancelEditComment);
+            btnSubmitEditComment = (Button) itemView.findViewById(R.id.btnSubmitEditComment);
+            btnCancelEditComment = (Button) itemView.findViewById(R.id.btnCancelEditComment);
             tvCommentID = (TextView) itemView.findViewById(R.id.tvCommentID);
             tvCommentUserID = (TextView) itemView.findViewById(R.id.tvCommentUserID);
             tvCommentText = (TextView) itemView.findViewById(R.id.tvCommentText);

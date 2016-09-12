@@ -290,6 +290,8 @@ public class TriptikViewer extends Activity {
 
     }
 
+
+
     /**
      *
      * @param commentID
@@ -325,8 +327,6 @@ public class TriptikViewer extends Activity {
         queue.add(postRequest);
 
     }
-
-
 
 
 
@@ -418,6 +418,8 @@ public class TriptikViewer extends Activity {
             pd.dismiss();
         }
     }
+
+
 
     /**
      * @param toastTextString
