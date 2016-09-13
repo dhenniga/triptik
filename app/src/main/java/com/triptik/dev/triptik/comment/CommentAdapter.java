@@ -1,6 +1,7 @@
 package com.triptik.dev.triptik.comment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
@@ -16,11 +17,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.squareup.picasso.Picasso;
 import com.triptik.dev.triptik.R;
 import java.util.HashMap;
 import java.util.List;
 import com.triptik.dev.triptik.SwipeLayout;
+import com.triptik.dev.triptik.ToastView;
 import com.triptik.dev.triptik.viewer.TriptikViewer;
 import com.triptik.dev.triptik.helper.SQLiteHandler;
 import com.triptik.dev.triptik.helper.SessionManager;
@@ -34,6 +38,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     private SessionManager session;
     public String profile_image;
     public View commentView;
+    private RecyclerView rvCommentRecycler;
 
     public CommentAdapter(Context context, List<CommentValue> commentList) {
         this.commentList = commentList;
@@ -412,6 +417,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
      */
     static class ViewHolder extends RecyclerView.ViewHolder {
 
+
+
         private SwipeLayout swipeLayout;
         private View rlRightContainer, rlLeftContainer;
         private TextView tvCommentText, tvCommentUser, tvCommentDateTime, tvCommentReplyUser, tvCommentID, tvCommentUserID;
@@ -422,6 +429,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         public ViewHolder(View itemView) {
 
             super(itemView);
+
+//            itemView.setOnClickListener(this);
 
             btnSubmitEditComment = (Button) itemView.findViewById(R.id.btnSubmitEditComment);
             btnCancelEditComment = (Button) itemView.findViewById(R.id.btnCancelEditComment);
@@ -441,6 +450,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             ibCommentAuthorGallery = (ImageButton) itemView.findViewById(R.id.ibCommentAuthorGallery);
 
         }
+
+//
+//        public void onClick(View v) {
+//
+//
+//        }
     }
 }
 
