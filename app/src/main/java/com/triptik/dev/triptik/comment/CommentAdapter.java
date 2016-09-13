@@ -38,7 +38,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     private SessionManager session;
     public String profile_image;
     public View commentView;
-    private RecyclerView rvCommentRecycler;
 
     public CommentAdapter(Context context, List<CommentValue> commentList) {
         this.commentList = commentList;
@@ -108,7 +107,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
      */
     @Override
     public int getItemViewType(int position) {
+
         return position;
+
     }
 
 
@@ -430,8 +431,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
             super(itemView);
 
-//            itemView.setOnClickListener(this);
-
             btnSubmitEditComment = (Button) itemView.findViewById(R.id.btnSubmitEditComment);
             btnCancelEditComment = (Button) itemView.findViewById(R.id.btnCancelEditComment);
             tvCommentID = (TextView) itemView.findViewById(R.id.tvCommentID);
@@ -450,12 +449,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             ibCommentAuthorGallery = (ImageButton) itemView.findViewById(R.id.ibCommentAuthorGallery);
 
         }
-
-//
-//        public void onClick(View v) {
-//
-//
-//        }
     }
 }
 

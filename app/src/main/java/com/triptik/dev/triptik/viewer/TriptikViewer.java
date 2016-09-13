@@ -57,7 +57,7 @@ import java.util.Map;
 
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 
-public class TriptikViewer extends Activity {
+public class TriptikViewer extends Activity implements View.OnClickListener {
 
     private static final String TAG = TriptikViewer.class.getSimpleName();
 
@@ -369,6 +369,15 @@ public class TriptikViewer extends Activity {
         });
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            case R.id.btnCancelEditComment:
+                Log.d("BUTTON","CANCEL");
+                break;
+        }
+    }
 
 
     /**
