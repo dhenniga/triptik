@@ -128,10 +128,70 @@
                     android:textSize="12sp"
                     />
 
+                <EditText
+                    android:id="@+id/etCommentText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="@null"
+                    android:visibility="gone"
+                    android:inputType="textMultiLine"
+                    android:text="This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. "
+                    android:textColor="#99000000"
+                    android:textSize="12sp" />
+
+
+
             </RelativeLayout>
 
+            <LinearLayout
+                android:id="@+id/llCommentButtonContainer"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="-45dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:visibility="gone"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/btnCancelEditComment"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:text="Cancel"
+                    android:stateListAnimator="@null"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_button_selector"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+
+                    />
+
+                <Button
+                    android:id="@+id/btnSubmitEditComment"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:text="Update"
+                    android:layout_weight="1"
+                    android:stateListAnimator="@null"
+                    android:background="@drawable/rounded_button_selector"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    />
+
+            </LinearLayout>
+
         </LinearLayout>
+
     </LinearLayout>
+
 
     <!--LEFT-->
     <RelativeLayout
