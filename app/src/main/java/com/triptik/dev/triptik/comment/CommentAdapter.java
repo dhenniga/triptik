@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.triptik.dev.triptik.R;
@@ -36,6 +38,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     private SessionManager session;
     public String profile_image;
     public View commentView;
+
 
     public CommentAdapter(Context context, List<CommentValue> commentList) {
         this.commentList = commentList;
@@ -70,14 +73,15 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         HashMap<String, String> user = db.getUserDetails();
         String userID = user.get("userID");
         Log.d("Logged in userID", userID);
-        final String current_profile_image = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/users/" + userID + "/pic.webp";
 
-//          Get the userID of the user who made the comment
+
+        // Get the userID of the user who made the comment
         String commentUserID = commentList.get(viewType).getUserID();
         Log.d("commentUserID", commentUserID);
 
         //  If the logged in user and the person who made the comment are the same person
         //  then enable a specific left, right swipe functions.
+
         if (commentUserID.equals(userID)) {
 
             return LoggedInUserComment(viewHolder, commentView);
@@ -236,11 +240,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         /**
          *
          */
-        holder.ibReplyComment.setOnClickListener (new View.OnClickListener() {
+        holder.ibReplyComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Log.d("onClick","Reply Comment");
+                Log.d("onClick", "Reply Comment");
+                holder.swipeLayout.animateReset();
 
             }
         });
@@ -250,11 +255,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         /**
          *
          */
-        holder.ibCommentAuthorGallery.setOnClickListener (new View.OnClickListener() {
+        holder.ibCommentAuthorGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Log.d("onClick","Comment Gallery");
+                Log.d("onClick", "Comment Gallery");
+                holder.swipeLayout.animateReset();
 
             }
         });
@@ -268,9 +274,21 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             @Override
             public void onClick(View v) {
 
-                Log.d("onClick","Edit Comment");
+                Log.d("onClick", "Edit Comment");
 
                 EditButtonFunction(holder);
+
+//                final View parent = holder.swipeLayout.getRootView();
+//
+//                final ScrollView scrollView = (ScrollView) parent.findViewById(R.id.svComments);
+//
+//                scrollView.post(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//                        scrollView.smoothScrollTo(0, holder.llCommentButtonContainer.getBottom());
+//                    }
+//                });
 
             }
         });
@@ -280,44 +298,44 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         /**
          *
          */
-        holder.ibDeleteComment.setOnClickListener (new View.OnClickListener() {
+        holder.ibDeleteComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Log.d("onClick","Delete Comment");
-                    final int commentID = Integer.parseInt(holder.tvCommentID.getText().toString());
+                Log.d("onClick", "Delete Comment");
+                final int commentID = Integer.parseInt(holder.tvCommentID.getText().toString());
 
 
-                    Animation fadeout = new AlphaAnimation(1, 0);
-                    fadeout.setDuration(500);
+                Animation fadeout = new AlphaAnimation(1, 0);
+                fadeout.setDuration(500);
                 holder.swipeLayout.startAnimation(fadeout);
                 holder.swipeLayout.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            TriptikViewer triptikViewer = new TriptikViewer();
-                            triptikViewer.updateCommentVisibility(commentID, mContext);
-                            Log.d("CommentID Visibility", ((String.valueOf(commentID))));
-                            Log.d("Comment Author", holder.tvCommentUser.getText().toString());
-                            Log.d("Comment Content", holder.tvCommentText.getText().toString());
-                        }
-                    }, 500);
+                    @Override
+                    public void run() {
+                        TriptikViewer triptikViewer = new TriptikViewer();
+                        triptikViewer.updateCommentVisibility(commentID, mContext);
+                        Log.d("CommentID Visibility", ((String.valueOf(commentID))));
+                        Log.d("Comment Author", holder.tvCommentUser.getText().toString());
+                        Log.d("Comment Content", holder.tvCommentText.getText().toString());
+                    }
+                }, 500);
 
-                    fadeout.setAnimationListener(new Animation.AnimationListener() {
-                        @Override
-                        public void onAnimationStart(Animation arg0) {
+                fadeout.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation arg0) {
 
-                        }
+                    }
 
-                        @Override
-                        public void onAnimationRepeat(Animation arg0) {
-                        }
+                    @Override
+                    public void onAnimationRepeat(Animation arg0) {
+                    }
 
-                        @Override
-                        public void onAnimationEnd(Animation arg0) {
-                            holder.swipeLayout.removeAllViews();
-                            notifyItemChanged(holder.getAdapterPosition());
-                        }
-                    });
+                    @Override
+                    public void onAnimationEnd(Animation arg0) {
+                        holder.swipeLayout.removeAllViews();
+                        notifyItemChanged(holder.getAdapterPosition());
+                    }
+                });
                 }
             });
     }

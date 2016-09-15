@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.triptik.dev.triptik.SwipeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/slCommentSwipeContainer"
+    android:layout_width="match_parent"
+    android:layout_marginTop="0.1dp"
+    android:background="#ffffff"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/llCommentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="8dp"
+        android:paddingTop="15dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivCommentThumbnail"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:scaleType="centerCrop"
+            app:civ_border_color="#22000000"
+            app:civ_border_width="1dp" />
+
+
+            <RelativeLayout
+                android:id="@+id/rlCommentHeaderContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_toRightOf="@+id/ivCommentThumbnail"
+                android:paddingTop="0dp"
+                android:gravity="center_vertical">
+
+
+                <TextView
+                    android:id="@+id/tvCommentID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:visibility="gone"
+                    android:textSize="4sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tvCommentUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:textColor="@color/black"
+                    android:text="Commentor Creator"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ivReplyArrow"
+                    android:layout_width="8dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_height="7dp"
+                    android:src="@drawable/reply_arrow"
+                    android:scaleType="fitXY"
+                    android:layout_below="@+id/tvCommentUser"
+                    android:visibility="gone"
+                    />
+
+                <TextView
+                    android:id="@+id/tvCommentReplyUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvCommentUser"
+                    android:layout_toRightOf="@+id/ivReplyArrow"
+                    android:textColor="@color/black_overlay"
+                    android:text="Replying to: David Hennigan"
+                    android:textSize="9sp"
+                    android:textStyle="italic"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/tvCommentDateTime"
+                    android:text="2016/01/01  |  12:00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/black_overlay"
+                    android:textSize="10sp"
+                    android:textStyle="normal" />
+
+            </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvCommentText"
+            android:text="This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#99000000"
+            android:visibility="visible"
+            android:layout_toRightOf="@+id/ivCommentThumbnail"
+            android:layout_marginTop="23dp"
+            android:paddingLeft="10dp"
+            android:textSize="12sp"
+            />
+
+        <EditText
+            android:id="@+id/etCommentText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:visibility="gone"
+            android:inputType="textMultiLine"
+            android:text="This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. This is the comment text. "
+            android:textColor="#99000000"
+            android:layout_toRightOf="@+id/ivCommentThumbnail"
+            android:layout_marginTop="23dp"
+            android:paddingLeft="10dp"
+            android:textSize="12sp" />
+
+
+
+                <TextView
+                    android:id="@+id/tvCommentUserID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#66000000"
+                    android:visibility="gone"
+                    android:textSize="6sp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:text="102"
+                    />
+
+
+            <LinearLayout
+                android:id="@+id/llCommentButtonContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="30dp"
+                android:paddingBottom="10dp"
+                android:visibility="gone"
+                android:layout_below="@+id/etCommentText"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/btnCancelEditComment"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:text="Cancel"
+                    android:stateListAnimator="@null"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_button_selector"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+
+                    />
+
+                <Button
+                    android:id="@+id/btnSubmitEditComment"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:text="Update"
+                    android:layout_weight="1"
+                    android:stateListAnimator="@null"
+                    android:background="@drawable/rounded_button_selector"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    />
+
+            </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+
+    <!--LEFT-->
+    <RelativeLayout
+        android:id="@+id/rlLeftContainer"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:background="#333338"
+        android:orientation="horizontal"
+        app:bring_to_clamp="100dp"
+        android:gravity="center"
+        app:clamp="100dp"
+        app:gravity="left"
+        app:sticky="100dp"
+        app:sticky_sensitivity="0.5">
+
+        <ImageButton
+            android:id="@+id/ibEditComment"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/edit_comment_icon"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:id="@+id/ibCommentAuthorGallery"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/author_comment_gallery_icon"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+    <!--RIGHT-->
+    <RelativeLayout
+        android:id="@+id/rlRightContainer"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:background="#333338"
+        android:orientation="horizontal"
+        app:bring_to_clamp="100dp"
+        app:clamp="100dp"
+        app:gravity="right"
+        app:sticky="100dp"
+        app:sticky_sensitivity="0.5">
+
+        <ImageButton
+            android:id="@+id/ibDeleteComment"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/delete_comment_icon"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:id="@+id/ibReplyComment"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/reply_comment_icon"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+
+
+</com.triptik.dev.triptik.SwipeLayout>
