@@ -138,6 +138,20 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         Log.d("Button Press", "Edit");
 
+
+
+        final ScrollView scComments = (ScrollView) viewHolder.swipeLayout.getRootView().findViewById(R.id.svComments);
+        scComments.smoothScrollTo(90, viewHolder.swipeLayout.getBottom() + 1000);
+//
+//        scrollView.post(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                scrollView.smoothScrollTo(0, viewHolder.llCommentButtonContainer.getBottom());
+//            }
+//        });
+
+
         viewHolder.swipeLayout.animateReset();
         viewHolder.swipeLayout.setBackgroundColor(Color.parseColor("#f8f8f8"));
 
@@ -156,8 +170,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         etCommentText.requestFocus();
 
         //  Show the keyboard
-        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(etCommentText, InputMethodManager.SHOW_IMPLICIT);
+//        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.showSoftInput(etCommentText, InputMethodManager.SHOW_IMPLICIT);
 
 
         //  onClick for Cancel button
@@ -277,18 +291,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 Log.d("onClick", "Edit Comment");
 
                 EditButtonFunction(holder);
-
-//                final View parent = holder.swipeLayout.getRootView();
-//
-//                final ScrollView scrollView = (ScrollView) parent.findViewById(R.id.svComments);
-//
-//                scrollView.post(new Runnable() {
-//
-//                    @Override
-//                    public void run() {
-//                        scrollView.smoothScrollTo(0, holder.llCommentButtonContainer.getBottom());
-//                    }
-//                });
 
             }
         });
