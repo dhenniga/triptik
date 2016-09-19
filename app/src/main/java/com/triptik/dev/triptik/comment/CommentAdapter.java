@@ -26,7 +26,7 @@ import java.util.List;
 import com.triptik.dev.triptik.SwipeLayout;
 import com.triptik.dev.triptik.viewer.TriptikViewer;
 import com.triptik.dev.triptik.helper.SQLiteHandler;
-import com.triptik.dev.triptik.helper.SessionManager;
+//import com.triptik.dev.triptik.helper.SessionManager;
 
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
@@ -35,7 +35,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     private List<CommentValue> commentList;
     private LayoutInflater inflater;
     private SQLiteHandler db;
-    private SessionManager session;
+//    private SessionManager session;
     public String profile_image;
     public View commentView;
 
@@ -69,7 +69,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         // Get the logged in userID and set it to a userID string
         db = new SQLiteHandler(mContext);
-        session = new SessionManager(mContext);
+//        session = new SessionManager(mContext);
         HashMap<String, String> user = db.getUserDetails();
         String userID = user.get("userID");
         Log.d("Logged in userID", userID);
@@ -155,7 +155,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         viewHolder.swipeLayout.animateReset();
         viewHolder.swipeLayout.setBackgroundColor(Color.parseColor("#f8f8f8"));
 
-        String commentText = viewHolder.tvCommentText.getText().toString();
+        final String commentText = viewHolder.tvCommentText.getText().toString();
 
         final EditText etCommentText = (EditText) viewHolder.swipeLayout.findViewById(R.id.etCommentText);
         final LinearLayout llCommentButtonContainer = (LinearLayout) viewHolder.swipeLayout.findViewById(R.id.llCommentButtonContainer);
@@ -186,6 +186,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 llCommentButtonContainer.setVisibility(View.GONE);
                 viewHolder.swipeLayout.setBackgroundColor(Color.parseColor("#ffffff"));
                 viewHolder.swipeLayout.setSwipeEnabled(true);
+                notifyItemChanged(viewHolder.getAdapterPosition());
 
             }
         });
@@ -196,7 +197,21 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             @Override
             public void onClick(View v) {
 
+                String updatedCommentText = etCommentText.getText().toString();
+
+                final int commentID = Integer.parseInt(viewHolder.tvCommentID.getText().toString());
+
+                TriptikViewer triptikViewer = new TriptikViewer();
+                triptikViewer.updateCommentText(commentID, updatedCommentText, mContext);
+
                 Log.d("onClick", "Update");
+
+                etCommentText.setVisibility(View.GONE);
+                viewHolder.tvCommentText.setText(updatedCommentText);
+                viewHolder.tvCommentText.setVisibility(View.VISIBLE);
+                llCommentButtonContainer.setVisibility(View.GONE);
+                viewHolder.swipeLayout.setBackgroundColor(Color.parseColor("#ffffff"));
+                viewHolder.swipeLayout.setSwipeEnabled(true);
 
             }
         });
@@ -302,7 +317,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
          */
         holder.ibDeleteComment.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
 
                 Log.d("onClick", "Delete Comment");
                 final int commentID = Integer.parseInt(holder.tvCommentID.getText().toString());
@@ -316,6 +331,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                     public void run() {
                         TriptikViewer triptikViewer = new TriptikViewer();
                         triptikViewer.updateCommentVisibility(commentID, mContext);
+
+                        // Update the commentTotal
+                        int updatedCommentTotal;
+                        updatedCommentTotal = triptikViewer.commentTotalValue;
+                        Log.d("updatedCommentTotal", ((String.valueOf(updatedCommentTotal))));
+//                        triptikViewer.tvCommentTotal.setText(((String.valueOf(updatedCommentTotal))));
+
                         Log.d("CommentID Visibility", ((String.valueOf(commentID))));
                         Log.d("Comment Author", holder.tvCommentUser.getText().toString());
                         Log.d("Comment Content", holder.tvCommentText.getText().toString());

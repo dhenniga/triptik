@@ -487,7 +487,6 @@ public class PanelsActivity extends Activity implements UploadTriptik.UploadCall
             case 1:
                 iv_1.setImageBitmap(bitmap);
                 break;
-
             case 2:
                 iv_2.setImageBitmap(bitmap);
                 break;

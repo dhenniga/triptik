@@ -21,4 +21,7 @@ public class AppConfig {
 
     //Server Update a Comments visibility
     public static String URL_UPDATE_COMMENT_VISIBILITY = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/update_comment_visibility.php";
+
+    //Server Update a Comments Text
+    public static String URL_UPDATE_COMMENT_TEXT = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/update_comment_text.php";
 }

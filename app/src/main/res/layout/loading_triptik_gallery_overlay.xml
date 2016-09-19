@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <RelativeLayout
+        android:id="@+id/gallery_progressloader_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ee000000"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:alpha="0.5"
+            android:src="@mipmap/header_icons_triptik_logo"
+            android:layout_above="@+id/llLoaderContainer"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="100dp"
+            />
+
+
+        <LinearLayout
+            android:id="@+id/llLoaderContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ProgressBar
+                android:id="@+id/progressBar1"
+                style="?android:attr/progressBarStyleLargeInverse"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:indeterminate="false" />
+
+            <TextView
+                android:id="@+id/galleryLoadingProgressMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/progressBar1"
+                android:layout_below="@+id/progressBar1"
+                android:layout_weight="1"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:text="Loading Triptik Gallery..."
+                android:textColor="#ffffff"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#11ffffff"
+                android:layout_marginRight="70dp"
+                android:layout_marginLeft="70dp"/>
+
+            <TextView
+                android:id="@+id/galleryLoadingProgressMessageSubText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="70dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="One moment please..."
+                android:textSize="12sp"
+                android:textColor="#88ffffff"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

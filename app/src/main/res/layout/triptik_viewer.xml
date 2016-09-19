@@ -166,4 +166,6 @@
 
     </ScrollView>
 
+    <include layout="@layout/loading_triptik_gallery_overlay"/>
+
 </RelativeLayout>

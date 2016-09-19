@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.triptik.dev.triptik.AspectSelect;
@@ -36,8 +37,9 @@ public class GalleryActivity extends Activity {
     private RecyclerView recyclerView;
     private List<GalleryValue> postList;
     private ImageButton btnNewTriptik, btnUpdate;
-    private TextView tvCommentTotal, tvLikesTotal;
+    private TextView tvCommentTotal, tvLikesTotal, galleryLoadingProgressMessage, galleryLoadingProgressMessageSubText;
     private TextView menubar_triptik_name;
+    private RelativeLayout gallery_progressloader_container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,8 @@ public class GalleryActivity extends Activity {
         initViews();
 
         new JSONAsync().execute();
+
+
 
         // Functions for menubar buttons
         btnNewTriptik = (ImageButton) findViewById(R.id.btnNewTriptik);
@@ -80,6 +84,14 @@ public class GalleryActivity extends Activity {
 
         tvCommentTotal = (TextView) findViewById(R.id.tvCommentTotal);
         tvLikesTotal = (TextView) findViewById(R.id.tvLikesTotal);
+
+//
+//        galleryLoadingProgressMessageSubText = (TextView) findViewById(R.id.galleryLoadingProgressMessageSubText);
+//        galleryLoadingProgressMessageSubText.setTypeface(RalewayLight);
+//
+//        galleryLoadingProgressMessage = (TextView) findViewById(R.id.galleryLoadingProgressMessage);
+//        galleryLoadingProgressMessage.setTypeface(RalewayLight);
+
 
     }
 

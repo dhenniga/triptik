@@ -44,7 +44,6 @@ import com.triptik.dev.triptik.comment.CommentAdapter;
 import com.triptik.dev.triptik.comment.CommentValue;
 import com.triptik.dev.triptik.comment.JSONCommentParser;
 import com.triptik.dev.triptik.helper.SQLiteHandler;
-import com.triptik.dev.triptik.helper.SessionManager;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -60,21 +59,15 @@ import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 public class TriptikViewer extends Activity  {
 
     private static final String TAG = TriptikViewer.class.getSimpleName();
-
-    private ImageView ivTriptikViewer, ivCommentThumbnail, ivAddComment, ivCancelAddComment;
+    private ImageView ivTriptikViewer, ivAddComment, ivCancelAddComment;
     private ImageButton btnNewTriptik, btnGallery, btnDownload;
     private LinearLayout menubar_icon_container;
-    private ProgressDialog progressDialog;
     private RecyclerView rvCommentRecycler;
     private ScrollView svComments;
     private ToggleButton tbtnAddComment;
     private SQLiteHandler db;
-    private SessionManager session;
     private Typeface RalewayLight;
-    private Button btnSubmitEditComment, btnCancelEditComment;
-
-    private TextView tvCommentUser, tvCommentDateTime, tvCommentTotal, tvLikesTotal;
-
+    public TextView tvCommentTotal, tvLikesTotal;
     private List<CommentValue> commentList;
     private Activity activity = TriptikViewer.this;
     private RelativeLayout rlTriptikBaseline;
@@ -84,6 +77,8 @@ public class TriptikViewer extends Activity  {
     public static final String EXTRA_TRIPTIK_ID = "EXTRA_TRIPTIK_ID";
     public static final String EXTRA_COMMENT_COUNT = "EXTRA_COMMENT_COUNT";
     public static final String EXTRA_LIKES_COUNT = "EXTRA_LIKES_COUNT";
+
+    public int commentTotalValue;
 
 
     @Override
@@ -118,12 +113,6 @@ public class TriptikViewer extends Activity  {
         rvCommentRecycler = (RecyclerView) findViewById(R.id.rvCommentRecycler);
         rvCommentRecycler.setItemAnimator(new SlideInLeftAnimator());
 
-        ivCommentThumbnail = (ImageView) findViewById(R.id.ivCommentThumbnail);
-
-        tvCommentUser = (TextView) findViewById(R.id.tvCommentUser);
-
-        tvCommentDateTime = (TextView) findViewById(R.id.tvCommentDateTime);
-
         tvCommentTotal = (TextView) findViewById(R.id.tvCommentTotal);
         tvLikesTotal = (TextView) findViewById(R.id.tvLikesTotal);
 
@@ -155,6 +144,8 @@ public class TriptikViewer extends Activity  {
 
             tvCommentTotal.setText(commentTotal);
             tvLikesTotal.setText(likesTotal);
+
+            commentTotalValue = Integer.parseInt(tvCommentTotal.getText().toString());
 
         }
 
@@ -226,7 +217,6 @@ public class TriptikViewer extends Activity  {
                     final String triptikID = extras.getString(TriptikViewer.EXTRA_TRIPTIK_ID);
 
                     db = new SQLiteHandler(getApplicationContext());
-                    session = new SessionManager(context);
                     HashMap<String, String> user = db.getUserDetails();
                     EXTRA_USER_LOGGED_IN = user.get("userID");
 
@@ -291,8 +281,52 @@ public class TriptikViewer extends Activity  {
     }
 
 
+    /**
+     * Upload an edit to a comment
+     *
+     * @param commentID
+     * @param commentText
+     * @param context
+     */
+    public void updateCommentText(final int commentID, final String commentText, Context context) {
+
+        StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.URL_UPDATE_COMMENT_TEXT, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d("Response", response);
+            }
+        }
+                ,new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error.Response", error.toString());
+            }
+        }
+        ) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("commentID", ((String.valueOf(commentID))));
+                params.put("commentText", commentText);
+                return params;
+            }
+
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(postRequest);
+
+    }
+
+
+
+
+
 
     /**
+     * Update the visibility of a comment (effectively deleting the comment)
      *
      * @param commentID
      * @param context
@@ -360,7 +394,8 @@ public class TriptikViewer extends Activity  {
 
                     svComments.smoothScrollTo(0, (rvCommentRecycler.getBottom()));
 
-                } else {
+                }
+                else {
 
                     svComments.smoothScrollTo(0, (rlTriptikBaseline.getTop()));
 
