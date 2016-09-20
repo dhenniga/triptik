@@ -39,7 +39,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     public String profile_image;
     public View commentView;
 
-
     public CommentAdapter(Context context, List<CommentValue> commentList) {
         this.commentList = commentList;
         this.inflater = LayoutInflater.from(context);
@@ -329,15 +328,16 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 holder.swipeLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+
                         TriptikViewer triptikViewer = new TriptikViewer();
                         triptikViewer.updateCommentVisibility(commentID, mContext);
-
+                        
                         // Update the commentTotal
-                        int updatedCommentTotal;
-                        updatedCommentTotal = triptikViewer.commentTotalValue;
-                        Log.d("updatedCommentTotal", ((String.valueOf(updatedCommentTotal))));
-//                        triptikViewer.tvCommentTotal.setText(((String.valueOf(updatedCommentTotal))));
+                        TextView tvCommentTotal = (TextView) commentView.getRootView().findViewById(R.id.tvCommentTotal);
+                        int updatedCommentTotal = Integer.parseInt(tvCommentTotal.getText().toString()) - 1;
+                        tvCommentTotal.setText(((String.valueOf(updatedCommentTotal))));
 
+                        Log.d("updatedCommentTotal", ((String.valueOf(updatedCommentTotal))));
                         Log.d("CommentID Visibility", ((String.valueOf(commentID))));
                         Log.d("Comment Author", holder.tvCommentUser.getText().toString());
                         Log.d("Comment Content", holder.tvCommentText.getText().toString());
