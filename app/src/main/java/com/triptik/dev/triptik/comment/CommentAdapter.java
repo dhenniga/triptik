@@ -1,6 +1,8 @@
 package com.triptik.dev.triptik.comment;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
@@ -24,12 +26,15 @@ import com.triptik.dev.triptik.R;
 import java.util.HashMap;
 import java.util.List;
 import com.triptik.dev.triptik.SwipeLayout;
+import com.triptik.dev.triptik.gallery.GalleryValue;
 import com.triptik.dev.triptik.viewer.TriptikViewer;
 import com.triptik.dev.triptik.helper.SQLiteHandler;
 //import com.triptik.dev.triptik.helper.SessionManager;
 
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
+
+    public static final String EXTRA_USER_ID = "EXTRA_USER_ID";
 
     private Context mContext;
     private List<CommentValue> commentList;
@@ -288,7 +293,17 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             public void onClick(View v) {
 
                 Log.d("onClick", "Comment Gallery");
+
+//                Intent intent = new Intent(mContext, TriptikViewer.class);
+//
+//                CommentValue commentValue = commentList.get(position);
+//                intent.putExtra(EXTRA_USER_ID, commentValue.getUserID());
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                v.getContext().startActivity(intent);
+
+
                 holder.swipeLayout.animateReset();
+
 
             }
         });
@@ -331,7 +346,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
                         TriptikViewer triptikViewer = new TriptikViewer();
                         triptikViewer.updateCommentVisibility(commentID, mContext);
-                        
+
                         // Update the commentTotal
                         TextView tvCommentTotal = (TextView) commentView.getRootView().findViewById(R.id.tvCommentTotal);
                         int updatedCommentTotal = Integer.parseInt(tvCommentTotal.getText().toString()) - 1;

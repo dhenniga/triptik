@@ -16,14 +16,23 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.triptik.dev.triptik.AspectSelect;
 import com.triptik.dev.triptik.JSONHelper;
 import com.triptik.dev.triptik.JSONParser;
 import com.triptik.dev.triptik.R;
+import com.triptik.dev.triptik.ServiceHandler;
+import com.triptik.dev.triptik.app.AppConfig;
+import com.triptik.dev.triptik.comment.JSONCommentParser;
 import com.triptik.dev.triptik.viewer.TriptikViewer;
 import com.triptik.dev.triptik.listener.RecyclerClickListener;
 import com.triptik.dev.triptik.listener.RecyclerTouchListener;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -121,22 +130,56 @@ public class GalleryActivity extends Activity {
     }
 
 
-    class JSONAsync extends AsyncTask<Void, Void, Void> {
+    class JSONAsync extends AsyncTask<String, Void, Void> {
         ProgressDialog pd;
-        private String URL_MAIN = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/populateHomeTriptikRecycler.php";
+//        private String URL_MAIN = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/populateHomeTriptikRecycler.php";
 
         @Override
         protected void onPreExecute() {
             pd = ProgressDialog.show(GalleryActivity.this, null, "Loading Triptik Gallery ...", true, false);
         }
 
-        @Override
-        protected Void doInBackground(Void... params) {
 
-            JSONObject jsonObject = new JSONHelper().getJSONFromUrl(URL_MAIN);
-            postList = new JSONParser().parse(jsonObject);
-            return null;
+
+        @Override
+        protected Void doInBackground(String... args) {
+
+            Bundle extras = getIntent().getExtras();
+
+            if (extras != null) {
+
+                final String userID = extras.getString(TriptikViewer.EXTRA_USER_ID);
+
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                params.add(new BasicNameValuePair("userID", userID));
+
+                ServiceHandler serviceClient = new ServiceHandler();
+                String json = serviceClient.makeServiceCall(AppConfig.URL_GET_USERID_GALLERY, ServiceHandler.POST, params);
+
+                if (json.length() > 4) {
+
+                    JSONObject jsonObject = new JSONHelper().getJSONFromString(json);
+                    Log.d("SERVER Request: ", "> " + json);
+                    postList = new JSONParser().parse(jsonObject);
+                    return null;
+
+                } else {
+
+                    Log.d("SERVER Request: ", "> " + json);
+                }
+
+                return null;
+
+
+            } else {
+
+                JSONObject jsonObject = new JSONHelper().getJSONFromUrl(AppConfig.URL_POPULATE_STANDARD_GALLERY);
+                postList = new JSONParser().parse(jsonObject);
+                return null;
+
+            }
         }
+
 
         @Override
         protected void onPostExecute(Void result) {

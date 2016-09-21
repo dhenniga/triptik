@@ -78,7 +78,7 @@ public class TriptikViewer extends Activity  {
     public static final String EXTRA_COMMENT_COUNT = "EXTRA_COMMENT_COUNT";
     public static final String EXTRA_LIKES_COUNT = "EXTRA_LIKES_COUNT";
 
-    public int commentTotalValue;
+    public int commentTotalValue = 0;
 
 
     @Override

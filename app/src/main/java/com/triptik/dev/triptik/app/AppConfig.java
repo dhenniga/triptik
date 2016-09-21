@@ -24,4 +24,11 @@ public class AppConfig {
 
     //Server Update a Comments Text
     public static String URL_UPDATE_COMMENT_TEXT = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/update_comment_text.php";
+
+    //Server Get Triptik Gallery for specific userID
+    public static String URL_GET_USERID_GALLERY = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/populateUserTriptikGallery.php";
+
+    //Server Get Triptik Gallery for specific userID
+    public static String URL_POPULATE_STANDARD_GALLERY = "http://www.fluidmotion.ie/TEST_LAB/triptik_PHP/populateHomeTriptikRecycler.php";
+
 }
